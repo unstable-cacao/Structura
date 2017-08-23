@@ -41,12 +41,37 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	{
 		
 	}
+	
+	/**
+	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 * @return bool True if at least one item from the list exists in the set.
+	 */
+	public function hasAny(...$value): bool 
+	{
+		
+	}
+	
+	/**
+	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 * @return bool True if all items from the list exists in the set.
+	 */
+	public function hasAll(...$value): bool 
+	{
+		
+	}
 
 	/**
 	 * @param string|int|IIdentified|array|Set|\Traversable $value
-	 * @return bool True if the item was added, false if the value is already in the set.
 	 */
-	public function add(...$value): bool
+	public function add(...$value): void
+	{
+		
+	}
+
+	/**
+	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 */
+	public function rem(...$value): void
 	{
 		
 	}
@@ -58,7 +83,31 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	{
 		
 	}
-
+	
+	/**
+	 * @param array|Set|\Traversable ...$set
+	 */
+	public function merge(...$set): void
+	{
+		
+	}
+	
+	/**
+	 * @param array|Set|\Traversable ...$set
+	 */
+	public function intersect(...$set): void
+	{
+		
+	}
+	
+	/**
+	 * @param array|Set|\Traversable ...$set
+	 */
+	public function diff(...$set): void
+	{
+		
+	}
+	
 	/**
 	 * Retrieve an external iterator
 	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
