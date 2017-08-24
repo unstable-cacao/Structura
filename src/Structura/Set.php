@@ -7,27 +7,17 @@ use Structura\Exceptions\InvalidValueException;
 
 class Set implements \IteratorAggregate, \ArrayAccess
 {
-	private const OBJECT = 'object';
-	
-	private const SCALAR = [
-		'integer',
-		'boolean',
-		'double',
-		'string'
-	];
-	
-	
 	private $set = [];
 	
 	
 	private function isIdentified($value): bool 
 	{
-		return (is_object($value) && get_class($value) instanceof IIdentified);
+		return (is_object($value) && $value instanceof IIdentified);
 	}
 	
 	private function isTraversable($value): bool 
 	{
-		return (is_array($value) || (is_object($value) && get_class($value) instanceof \Traversable));
+		return (is_array($value) || (is_object($value) && $value instanceof \Traversable));
 	}
 	
 	
