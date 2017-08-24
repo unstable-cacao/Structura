@@ -4,12 +4,44 @@ namespace Structura;
 
 class Set implements \IteratorAggregate, \ArrayAccess
 {
+	private const OBJECT = 'object';
+	
+	private const SCALAR = [
+		'integer',
+		'boolean',
+		'double',
+		'string'
+	];
+	
+	
+	private $set = [];
+	
+	
+	private function isScalar($value): bool 
+	{
+		return in_array(gettype($value), self::SCALAR);
+	}
+	
+	private function isIdentified($value): bool 
+	{
+		return (gettype($value) == self::OBJECT && get_class($value) instanceof IIdentified);
+	}
+	
+	private function isTraversable($value): bool 
+	{
+		return (is_array($value) || (gettype($value) == self::OBJECT && get_class($value) instanceof IIdentified));
+	}
+	
+	
 	/**
 	 * @param Set|\Traversable|array|null $source
 	 */
 	public function __construct($source = null)
 	{
-		
+		if ($source)
+		{
+			$this->add($source);
+		}
 	}
 
 	public function __clone()
@@ -25,12 +57,12 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	
 	public function isEmpty(): bool
 	{
-		
+		return ($this->set) ? true : false;
 	}
 	
 	public function count(): int
 	{
-		
+		return count($this->set);
 	}
 	
 	/**
@@ -39,7 +71,18 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function has($value): bool 
 	{
-		
+		if ($this->isScalar($value))
+		{
+			return key_exists($value, $this->set);
+		}
+		else if ($this->isIdentified($value))
+		{
+			return key_exists($value->getHashCode(), $this->set);
+		}
+		else
+		{
+			throw new \InvalidValueException();
+		}
 	}
 	
 	/**
@@ -48,7 +91,27 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function hasAny(...$value): bool 
 	{
+		$res = false;
 		
+		foreach ($value as $item) 
+		{
+			if ($this->isTraversable($item))
+			{
+				foreach ($item as $data) 
+				{
+					$res = $this->hasAny($data) || $res;
+				}
+			}
+			else
+			{
+				$res = $this->has($item) || $res;
+			}
+			
+			if ($res)
+				break;
+		}
+		
+		return $res;
 	}
 	
 	/**
@@ -57,7 +120,27 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function hasAll(...$value): bool 
 	{
+		$res = true;
 		
+		foreach ($value as $item)
+		{
+			if ($this->isTraversable($item))
+			{
+				foreach ($item as $data)
+				{
+					$res = $this->hasAll($data) && $res;
+				}
+			}
+			else
+			{
+				$res = $this->has($item) && $res;
+			}
+			
+			if (!$res)
+				break;
+		}
+		
+		return $res;
 	}
 
 	/**
@@ -65,7 +148,28 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function add(...$value): void
 	{
-		
+		foreach ($value as $item)
+		{
+			if ($this->isScalar($item))
+			{
+				$this->set[$item] = $item;
+			}
+			else if ($this->isIdentified($item))
+			{
+				$this->set[$item->getHashCode()] = $item;
+			}
+			else if ($this->isTraversable($item))
+			{
+				foreach ($item as $data)
+				{
+					$this->add($data);
+				}
+			}
+			else 
+			{
+				throw new \InvalidValueException();
+			}
+		}
 	}
 
 	/**
@@ -73,7 +177,28 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function rem(...$value): void
 	{
-		
+		foreach ($value as $item)
+		{
+			if ($this->isScalar($item))
+			{
+				unset($this->set[$item]);
+			}
+			else if ($this->isIdentified($item))
+			{
+				unset($this->set[$item->getHashCode()]);
+			}
+			else if ($this->isTraversable($item))
+			{
+				foreach ($item as $data)
+				{
+					$this->rem($data);
+				}
+			}
+			else
+			{
+				throw new \InvalidValueException();
+			}
+		}
 	}
 
 	/**
@@ -81,7 +206,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function toArray(): array
 	{
-		
+		return array_values($this->set);
 	}
 	
 	/**
@@ -89,7 +214,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function merge(...$set): void
 	{
-		
+		$this->add($set);
 	}
 	
 	/**
@@ -117,7 +242,11 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function getIterator()
 	{
-		// TODO: Implement getIterator() method.
+		return (function() {
+			foreach ($this->set as $key => $value) {
+				yield $key => $value;
+			}
+		})();
 	}
 
 	/**
