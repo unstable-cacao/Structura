@@ -2,6 +2,9 @@
 namespace Structura;
 
 
+use Structura\Exceptions\InvalidValueException;
+
+
 class Set implements \IteratorAggregate, \ArrayAccess
 {
 	private const OBJECT = 'object';
@@ -81,7 +84,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 		}
 		else
 		{
-			throw new \InvalidValueException();
+			throw new InvalidValueException();
 		}
 	}
 	
@@ -167,7 +170,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			}
 			else 
 			{
-				throw new \InvalidValueException();
+				throw new InvalidValueException();
 			}
 		}
 	}
@@ -196,7 +199,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			}
 			else
 			{
-				throw new \InvalidValueException();
+				throw new InvalidValueException();
 			}
 		}
 	}

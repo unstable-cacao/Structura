@@ -1,4 +1,6 @@
 <?php
+namespace Structura\Exceptions;
+
 
 class InvalidValueException extends StructuraException
 {
