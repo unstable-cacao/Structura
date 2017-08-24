@@ -57,7 +57,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	
 	public function isEmpty(): bool
 	{
-		return ($this->set) ? true : false;
+		return ($this->set) ? false : true;
 	}
 	
 	public function count(): int
