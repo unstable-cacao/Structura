@@ -20,19 +20,14 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	private $set = [];
 	
 	
-	private function isScalar($value): bool 
-	{
-		return in_array(gettype($value), self::SCALAR);
-	}
-	
 	private function isIdentified($value): bool 
 	{
-		return (gettype($value) == self::OBJECT && in_array(IIdentified::class, class_implements(get_class($value))));
+		return (is_object($value) && get_class($value) instanceof IIdentified);
 	}
 	
 	private function isTraversable($value): bool 
 	{
-		return (is_array($value) || (gettype($value) == self::OBJECT && in_array(\Traversable::class, class_implements(get_class($value)))));
+		return (is_array($value) || (is_object($value) && get_class($value) instanceof \Traversable));
 	}
 	
 	
@@ -74,7 +69,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function has($value): bool 
 	{
-		if ($this->isScalar($value))
+		if (is_scalar($value))
 		{
 			return key_exists($value, $this->set);
 		}
@@ -111,7 +106,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			}
 			
 			if ($res)
-				break;
+				return true;
 		}
 		
 		return $res;
@@ -140,7 +135,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			}
 			
 			if (!$res)
-				break;
+				return false;
 		}
 		
 		return $res;
@@ -153,7 +148,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	{
 		foreach ($value as $item)
 		{
-			if ($this->isScalar($item))
+			if (is_scalar($item))
 			{
 				$this->set[$item] = $item;
 			}
@@ -182,7 +177,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	{
 		foreach ($value as $item)
 		{
-			if ($this->isScalar($item))
+			if (is_scalar($item))
 			{
 				unset($this->set[$item]);
 			}
