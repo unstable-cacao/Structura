@@ -27,12 +27,12 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	
 	private function isIdentified($value): bool 
 	{
-		return (gettype($value) == self::OBJECT && get_class($value) instanceof IIdentified);
+		return (gettype($value) == self::OBJECT && in_array(IIdentified::class, class_implements(get_class($value))));
 	}
 	
 	private function isTraversable($value): bool 
 	{
-		return (is_array($value) || (gettype($value) == self::OBJECT && get_class($value) instanceof IIdentified));
+		return (is_array($value) || (gettype($value) == self::OBJECT && in_array(\Traversable::class, class_implements(get_class($value)))));
 	}
 	
 	
