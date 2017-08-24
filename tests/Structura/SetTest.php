@@ -136,7 +136,7 @@ class SetTest extends TestCase
 	{
 		$set = new Set();
 		$set->add(1, 2, 3);
-		self::assertEmpty([1, 2, 3], $set->toArray());
+		self::assertEquals([1, 2, 3], $set->toArray());
 	}
 	
 	public function test_toArray_HasObject_ObjectReturned()
@@ -148,7 +148,7 @@ class SetTest extends TestCase
 		
 		$set = new Set();
 		$set->add($object);
-		self::assertEmpty([$object], $set->toArray());
+		self::assertEquals([$object], $set->toArray());
 	}
 	
 	
