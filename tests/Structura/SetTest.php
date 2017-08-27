@@ -94,7 +94,7 @@ class SetTest extends TestCase
 		
 		$set->add($object);
 		
-		$clone = clone $set;
+		$clone = $set->deepClone();
 		
 		foreach ($clone as $value)
 		{
@@ -325,6 +325,8 @@ class SetTest extends TestCase
 	{
 		$set = new Set();
 		unset($set[1]);
+		
+		self::assertFalse($set->has(1));
 	}
 	
 	public function test_offsetUnset_ItemNotExists_OtherItemsNotAffected()

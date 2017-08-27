@@ -10,11 +10,6 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	private $set = [];
 	
 	
-	private function isIdentified($value): bool 
-	{
-		return (is_object($value) && $value instanceof IIdentified);
-	}
-	
 	private function isTraversable($value): bool 
 	{
 		return (is_array($value) || (is_object($value) && $value instanceof \Traversable));
@@ -67,21 +62,30 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			$this->add($source);
 		}
 	}
-
-	public function __clone()
-	{
-		
-	}
 	
 	
 	public function deepClone(): Set
 	{
+		$newSet = [];
 		
+		foreach ($this->set as $item) 
+		{
+			if ($item instanceof IIdentified)
+			{
+				$newSet[] = clone $item;
+			}
+			else
+			{
+				$newSet[] = $item;
+			}
+		}
+		
+		return new Set($newSet);
 	}
 	
 	public function isEmpty(): bool
 	{
-		return (bool)$this->set;
+		return !(bool)$this->set;
 	}
 	
 	public function count(): int
@@ -277,7 +281,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function offsetExists($offset)
 	{
-		// TODO: Implement offsetExists() method.
+		return key_exists($offset, $this->set);
 	}
 
 	/**
@@ -291,7 +295,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function offsetGet($offset)
 	{
-		// TODO: Implement offsetGet() method.
+		return $this->offsetExists($offset);
 	}
 
 	/**
@@ -308,7 +312,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function offsetSet($offset, $value)
 	{
-		// TODO: Implement offsetSet() method.
+		$this->add($offset);
 	}
 
 	/**
@@ -322,6 +326,6 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function offsetUnset($offset)
 	{
-		// TODO: Implement offsetUnset() method.
+		unset($this->set[$this->getKey($offset)]);
 	}
 }
