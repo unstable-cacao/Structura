@@ -20,6 +20,42 @@ class Set implements \IteratorAggregate, \ArrayAccess
 		return (is_array($value) || (is_object($value) && $value instanceof \Traversable));
 	}
 	
+	/**
+	 * @param int|string|bool|float|IIdentified $value
+	 * @return string|int
+	 */
+	private function getKey($value)
+	{
+		if (is_scalar($value))
+			return $value;
+		else if ($value instanceof IIdentified)
+			return $value->getHashCode();
+		else
+			throw new InvalidValueException();
+	}
+	
+	/**
+	 * @param array|Set|\Traversable $traversable
+	 * @return array
+	 */
+	private function traversableToArray($traversable): array 
+	{
+		if (is_array($traversable))
+			return $traversable;
+		
+		if ($traversable instanceof Set)
+			return $traversable->toArray();
+		
+		$result = [];
+		
+		foreach ($traversable as $item)
+		{
+			$result[] = $this->getKey($item);
+		}
+		
+		return $result;
+	}
+	
 	
 	/**
 	 * @param Set|\Traversable|array|null $source
@@ -45,7 +81,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	
 	public function isEmpty(): bool
 	{
-		return ($this->set) ? false : true;
+		return (bool)$this->set;
 	}
 	
 	public function count(): int
@@ -59,18 +95,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function has($value): bool 
 	{
-		if (is_scalar($value))
-		{
-			return key_exists($value, $this->set);
-		}
-		else if ($this->isIdentified($value))
-		{
-			return key_exists($value->getHashCode(), $this->set);
-		}
-		else
-		{
-			throw new InvalidValueException();
-		}
+		return key_exists($this->getKey($value), $this->set);
 	}
 	
 	/**
@@ -138,24 +163,16 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	{
 		foreach ($value as $item)
 		{
-			if (is_scalar($item))
-			{
-				$this->set[$item] = $item;
-			}
-			else if ($this->isIdentified($item))
-			{
-				$this->set[$item->getHashCode()] = $item;
-			}
-			else if ($this->isTraversable($item))
+			if ($this->isTraversable($item))
 			{
 				foreach ($item as $data)
 				{
 					$this->add($data);
 				}
 			}
-			else 
+			else
 			{
-				throw new InvalidValueException();
+				$this->set[$this->getKey($item)] = $item;
 			}
 		}
 	}
@@ -167,15 +184,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	{
 		foreach ($value as $item)
 		{
-			if (is_scalar($item))
-			{
-				unset($this->set[$item]);
-			}
-			else if ($this->isIdentified($item))
-			{
-				unset($this->set[$item->getHashCode()]);
-			}
-			else if ($this->isTraversable($item))
+			if ($this->isTraversable($item))
 			{
 				foreach ($item as $data)
 				{
@@ -184,7 +193,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			}
 			else
 			{
-				throw new InvalidValueException();
+				unset($this->set[$this->getKey($item)]);
 			}
 		}
 	}
@@ -210,7 +219,10 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function intersect(...$set): void
 	{
-		
+		foreach ($set as $traversable) 
+		{
+			$this->set = array_intersect($this->set, $this->traversableToArray($traversable));
+		}
 	}
 	
 	/**
@@ -218,7 +230,10 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function diff(...$set): void
 	{
-		
+		foreach ($set as $traversable)
+		{
+			$this->set = array_diff($this->set, $this->traversableToArray($traversable));
+		}
 	}
 	
 	/**
@@ -226,7 +241,10 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function symmetricDiff(...$set): void
 	{
-		
+		foreach ($set as $traversable)
+		{
+			$this->rem(array_intersect($this->set, $this->traversableToArray($traversable)));
+		}
 	}
 	
 	/**
