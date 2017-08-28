@@ -201,6 +201,11 @@ class Set implements \IteratorAggregate, \ArrayAccess
 			}
 		}
 	}
+	
+	public function clear(): void
+	{
+		$this->set = [];
+	}
 
 	/**
 	 * @return array 
@@ -245,10 +250,15 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function symmetricDiff(...$set): void
 	{
+		$result = $this->set;
+		
 		foreach ($set as $traversable)
 		{
-			$this->rem(array_intersect($this->set, $this->traversableToArray($traversable)));
+			$result = array_merge(array_diff($result, $traversable), array_diff($traversable, $result));
 		}
+		
+		$this->clear();
+		$this->add($result);
 	}
 	
 	/**
@@ -260,11 +270,7 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function getIterator()
 	{
-		return (function() {
-			foreach ($this->set as $key => $value) {
-				yield $key => $value;
-			}
-		})();
+		return new \ArrayIterator($this->set);
 	}
 
 	/**
@@ -312,7 +318,14 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function offsetSet($offset, $value)
 	{
-		$this->add($offset);
+		if ($value)
+		{
+			$this->add($offset);
+		}
+		else
+		{
+			$this->rem($offset);
+		}
 	}
 
 	/**
