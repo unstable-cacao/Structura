@@ -76,7 +76,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$set->add(1);
 		
-		$clone = clone $set;
+		$clone = $set->deepClone();
 		$clone->add(2);
 		
 		self::assertTrue($clone->has(1));
@@ -125,6 +125,18 @@ class SetTest extends TestCase
 		self::assertTrue($set->has(1));
 	}
 	
+	public function test_has_FoundIIdentified_ReturnTrue()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		
+		$set->add($object);
+		self::assertTrue($set->has($object));
+	}
+	
 	
 	public function test_toArray_EmptySet_ReturnEmptyArray()
 	{
@@ -160,13 +172,15 @@ class SetTest extends TestCase
 		{
 			self::fail();
 		}
+		
+		self::assertTrue(true);
 	}
 	
 	public function test_foreach_HasItems_ItemsIterated()
 	{
 		$set = new Set();
 		$set->add(1, 2, 3);
-		self::assertEmpty([1, 2, 3], $set->toArray());
+		self::assertEquals([1, 2, 3], $set->toArray());
 	}
 	
 	public function test_foreach_HasItems_ItemsUsedAsValues()
@@ -343,5 +357,273 @@ class SetTest extends TestCase
 		$set->add(1);
 		unset($set[1]);
 		self::assertFalse($set[1]);
+	}
+	
+	
+	public function test_hasAny_HasAll_ReturnTrue()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		
+		$set->add($object);
+		$set->add(1);
+		
+		self::assertTrue($set->hasAny([$object, 1]));
+	}
+	
+	public function test_hasAny_HasSome_ReturnTrue()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		
+		$set->add($object);
+		$set->add(1);
+		
+		self::assertTrue($set->hasAny([$object, 2]));
+	}
+	
+	public function test_hasAny_HasNone_ReturnFalse()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		$object2 = new class implements IIdentified
+		{
+			public function getHashCode() { return 'b'; }
+		};
+		
+		$set->add($object);
+		$set->add(1);
+		
+		self::assertFalse($set->hasAny([$object2, 2]));
+	}
+	
+	
+	public function test_hasAll_HasAll_ReturnTrue()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		
+		$set->add($object);
+		$set->add(1);
+		
+		self::assertTrue($set->hasAll([$object, 1]));
+	}
+	
+	public function test_hasAll_HasSome_ReturnFalse()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		
+		$set->add($object);
+		$set->add(1);
+		
+		self::assertFalse($set->hasAll([$object, 2]));
+	}
+	
+	public function test_hasAll_HasNone_ReturnFalse()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			public function getHashCode() { return 'a'; }
+		};
+		$object2 = new class implements IIdentified
+		{
+			public function getHashCode() { return 'b'; }
+		};
+		
+		$set->add($object);
+		$set->add(1);
+		
+		self::assertFalse($set->hasAll([$object2, 2]));
+	}
+	
+	
+	/**
+	 * @expectedException \Structura\Exceptions\InvalidValueException
+	 */
+	public function test_add_NotValid_ExceptionThrown()
+	{
+		$set = new Set();
+		$object = new class {};
+		
+		$set->add($object);
+	}
+	
+	public function test_add_Traversable_AddsAll()
+	{
+		$set = new Set();
+		$object = new class implements \IteratorAggregate
+		{
+			public function getIterator()
+			{
+				return new \ArrayIterator([1, 2, 3]);
+			}
+		};
+		
+		$set->add($object);
+		
+		self::assertEquals([1, 2, 3], $set->toArray());
+	}
+	
+	public function test_add_Identified_AddsIdentified()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			/**
+			 * @return string|int
+			 */
+			public function getHashCode()
+			{
+				return 1;
+			}
+		};
+		
+		$set->add($object);
+		
+		self::assertEquals([$object], $set->toArray());
+	}
+	
+	public function test_add_Scalar_AddsScalar()
+	{
+		$set = new Set();
+		$set->add(1);
+		
+		self::assertEquals([1], $set->toArray());
+	}
+	
+	public function test_add_AddAlreadyExisting_SetStaysUniqueValued()
+	{
+		$set = new Set();
+		$set->add([11, 11, 12, 13, 11]);
+		
+		self::assertEquals([11, 12, 13], $set->toArray());
+	}
+	
+	
+	/**
+	 * @expectedException \Structura\Exceptions\InvalidValueException
+	 */
+	public function test_rem_NotValid_ExceptionThrown()
+	{
+		$set = new Set();
+		$object = new class {};
+		
+		$set->rem($object);
+	}
+	
+	public function test_rem_Traversable_RemovesAll()
+	{
+		$set = new Set();
+		$object = new class implements \IteratorAggregate
+		{
+			public function getIterator()
+			{
+				return new \ArrayIterator([1, 2, 3]);
+			}
+		};
+		
+		$set->add([1, 2, 3, 4]);
+		$set->rem($object);
+		
+		self::assertEquals([4], $set->toArray());
+	}
+	
+	public function test_rem_Identified_RemovesIdentified()
+	{
+		$set = new Set();
+		$object = new class implements IIdentified
+		{
+			/**
+			 * @return string|int
+			 */
+			public function getHashCode()
+			{
+				return 1;
+			}
+		};
+		
+		$set->add($object);
+		
+		self::assertEquals([$object], $set->toArray());
+	}
+	
+	public function test_rem_Scalar_RemovesScalar()
+	{
+		$set = new Set();
+		$set->add([1, 2, 3]);
+		
+		$set->rem(1);
+		
+		self::assertEquals([2, 3], $set->toArray());
+	}
+	
+	
+	public function test_clear_ClearsSet()
+	{
+		$set = new Set();
+		$set->add([1, 2, 3]);
+		
+		$set->clear();
+		
+		self::assertTrue($set->isEmpty());
+	}
+	
+	
+	public function test_merge_AddsValue()
+	{
+		$set = new Set();
+		$set->add([1, 2, 3]);
+		
+		$set->merge([2, 3, 4, 5]);
+		
+		self::assertEquals([1, 2, 3, 4, 5], $set->toArray());
+	}
+	
+	
+	public function test_intersect()
+	{
+		$set = new Set();
+		$set->add([1, 2, 3]);
+		
+		$set->intersect([1, 5, 8], [6, 1, 4]);
+		
+		self::assertEquals([1], $set->toArray());
+	}
+	
+	public function test_diff()
+	{
+		$set = new Set();
+		$set->add([1, 2, 3]);
+		
+		$set->diff([2, 3], [3, 5]);
+		
+		self::assertEquals([1], $set->toArray());
+	}
+	
+	public function test_symmetricDiff()
+	{
+		$set = new Set();
+		$set->add([1, 2, 3]);
+		
+		$set->symmetricDiff([2, 3], [5]);
+		
+		self::assertEquals([1, 5], $set->toArray());
 	}
 }

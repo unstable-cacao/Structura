@@ -108,27 +108,24 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function hasAny(...$value): bool 
 	{
-		$res = false;
-		
 		foreach ($value as $item) 
 		{
 			if ($this->isTraversable($item))
 			{
 				foreach ($item as $data) 
 				{
-					$res = $this->hasAny($data) || $res;
+					if ($this->hasAny($data))
+						return true;
 				}
 			}
 			else
 			{
-				$res = $this->has($item) || $res;
+				if ($this->has($item))
+					return true;
 			}
-			
-			if ($res)
-				return true;
 		}
 		
-		return $res;
+		return false;
 	}
 	
 	/**
@@ -137,27 +134,24 @@ class Set implements \IteratorAggregate, \ArrayAccess
 	 */
 	public function hasAll(...$value): bool 
 	{
-		$res = true;
-		
 		foreach ($value as $item)
 		{
 			if ($this->isTraversable($item))
 			{
 				foreach ($item as $data)
 				{
-					$res = $this->hasAll($data) && $res;
+					if (!$this->hasAll($data))
+						return false;
 				}
 			}
 			else
 			{
-				$res = $this->has($item) && $res;
+				if (!$this->has($item))
+					return false;
 			}
-			
-			if (!$res)
-				return false;
 		}
 		
-		return $res;
+		return true;
 	}
 
 	/**
