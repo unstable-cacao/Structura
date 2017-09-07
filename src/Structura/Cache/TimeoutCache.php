@@ -22,7 +22,7 @@ class TimeoutCache implements IMonoCache
         return microtime(true);
     }
     
-    private function isTimeout(): bool 
+    private function isTimedOut(): bool 
     {
         return ($this->now() > $this->timeOfCache + $this->ttl);
     }
@@ -32,22 +32,12 @@ class TimeoutCache implements IMonoCache
 	{
 	    $this->ttl = $ttlSec;
 	    $this->getter = $getter;
-	    
-	    if ($getter)
-        {
-            $this->put($getter());
-        }
 	}
 	
 	
 	public function setGetter(callable $getter): void
 	{
 		$this->getter = $getter;
-        
-        if ($getter)
-        {
-            $this->put($getter());
-        }
 	}
 	
 	public function setTtl(float $sec): void
@@ -66,14 +56,16 @@ class TimeoutCache implements IMonoCache
         {
             return $this->cachedObject;
         }
-        else if ($this->getter)
+        else if (!$this->getter)
         {
-            $getter = $this->getter;
-            return $getter();
+            throw new \Exception("Getter must be provided.");
         }
         else
         {
-            return null;
+            $getter = $this->getter;
+            $this->put($getter());
+            
+            return $this->cachedObject;
         }
 	}
 	
@@ -90,7 +82,7 @@ class TimeoutCache implements IMonoCache
 	
 	public function has(): bool
 	{
-		return ($this->cachedObject && !$this->isTimeout());
+		return ($this->cachedObject && !$this->isTimedOut());
 	}
 	
 	public function clear(): void
