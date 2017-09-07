@@ -11,7 +11,7 @@ class TimeoutCache implements IMonoCache
     private $ttl;
     
     /** @var float|null */
-    private $timeOfCache = null;
+    private $timeoutAt = null;
     
     /** @var mixed|null */
     private $cachedObject = null;
@@ -24,7 +24,7 @@ class TimeoutCache implements IMonoCache
     
     private function isTimedOut(): bool 
     {
-        return ($this->now() > $this->timeOfCache + $this->ttl);
+        return ($this->now() > $this->timeoutAt);
     }
     
     
@@ -71,13 +71,14 @@ class TimeoutCache implements IMonoCache
 	
 	public function put($value, ?float $ttl = null): void
 	{
-		$this->timeOfCache = $this->now();
 		$this->cachedObject = $value;
 		
 		if (!is_null($ttl))
         {
             $this->ttl = $ttl;
         }
+        
+        $this->timeoutAt = $this->now() + $this->ttl;
 	}
 	
 	public function has(): bool
@@ -88,6 +89,6 @@ class TimeoutCache implements IMonoCache
 	public function clear(): void
 	{
 		$this->cachedObject = null;
-		$this->timeOfCache = null;
+		$this->timeoutAt = null;
 	}
 }
