@@ -2,6 +2,9 @@
 namespace Structura\Cache;
 
 
+use Structura\Exceptions\StructuraCallbackNotProvidedException;
+
+
 class TimeoutCache implements IMonoCache
 {
     /** @var callable|null */
@@ -58,7 +61,7 @@ class TimeoutCache implements IMonoCache
         }
         else if (!$this->getter)
         {
-            throw new \Exception("Getter must be provided.");
+            throw new StructuraCallbackNotProvidedException();
         }
         else
         {
@@ -83,7 +86,7 @@ class TimeoutCache implements IMonoCache
 	
 	public function has(): bool
 	{
-		return ($this->cachedObject && !$this->isTimedOut());
+		return (!is_null($this->cachedObject) && !$this->isTimedOut());
 	}
 	
 	public function clear(): void
