@@ -85,6 +85,16 @@ class PrefixMapTest extends TestCase
         self::assertTrue($subject->has(''));
     }
     
+    /**
+     * @expectedException \Structura\Exceptions\StructuraPrefixMapException
+     */
+    public function test_add_SubStringsExists_ExceptionThrown()
+    {
+        $subject = new PrefixMap();
+        $subject->add('ClassName', 1);
+        $subject->add('ClassName\Na', 2);
+    }
+    
     public function test_remove_ItemExists_RemovesItem()
     {
         $subject = new PrefixMap();
@@ -137,15 +147,6 @@ class PrefixMapTest extends TestCase
     {
         $subject = new PrefixMap();
         $subject->add('ClassName', 1);
-    
-        self::assertEquals(1, $subject->find('ClassName\Name'));
-    }
-    
-    public function test_find_SubStringsExists_ReturnFirstSubstringedItem()
-    {
-        $subject = new PrefixMap();
-        $subject->add('ClassName', 1);
-        $subject->add('ClassName\Na', 2);
     
         self::assertEquals(1, $subject->find('ClassName\Name'));
     }

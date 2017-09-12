@@ -3,6 +3,7 @@ namespace Structura\Specialized\Map;
 
 
 use Structura\Exceptions\StructuraException;
+use Structura\Exceptions\StructuraPrefixMapException;
 
 
 class PrefixMap
@@ -68,7 +69,17 @@ class PrefixMap
 	 */
 	public function add(string $prefix, $value)
 	{
-		$this->map[$this->getCoolingPrefix($prefix)][$prefix] = $value;
+	    $coolingPrefix = $this->getCoolingPrefix($prefix);
+	    
+	    if (key_exists($coolingPrefix, $this->map))
+        {
+            $matchedKey = $this->getFirstMatchedKey($prefix, $coolingPrefix);
+    
+            if ($matchedKey)
+                throw  new StructuraPrefixMapException("Key Collusion: the key \"$prefix\" collides with existing key \"$matchedKey\"");
+        }
+	    
+		$this->map[$coolingPrefix][$prefix] = $value;
 	}
 	
 	public function remove(string $prefix): bool
