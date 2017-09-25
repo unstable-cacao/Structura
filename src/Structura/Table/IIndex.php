@@ -4,6 +4,12 @@ namespace Structura\Table;
 
 interface IIndex
 {
+	public function has($value): bool;
+	
+	public function hasAny(array $value): bool;
+	public function hasAll(array $value): bool;
+	
+	
 	public function add(int $index, $value): IIndex;
 	public function addBulk(array $valueByIndex): IIndex;
 
@@ -36,4 +42,6 @@ interface IIndex
 	 * @return int[][] Values matching the same index as value index.
 	 */
 	public function findValues(array $values): array;
+
+	public function clear(): void;
 }
