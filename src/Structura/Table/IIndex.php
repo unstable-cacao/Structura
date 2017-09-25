@@ -6,8 +6,12 @@ interface IIndex
 {
 	public function add(int $index, $value): IIndex;
 	public function addBulk(array $valueByIndex): IIndex;
-	public function remIndex(int $index): IIndex;
-	public function remIndexes(array $index): IIndex;
+
+	/**
+	 * @param mixed[] $valueByIndex
+	 * @return IIndex
+	 */
+	public function remIndexes(array $valueByIndex): IIndex;
 
 	/**
 	 * @param mixed $value
