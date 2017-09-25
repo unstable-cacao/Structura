@@ -7,30 +7,66 @@ use Structura\Table\IIndex;
 
 class SimpleIndex implements IIndex
 {
+	/** @var array */
+	private $map = [];
+	
+	
 	public function has($value): bool
 	{
-		// TODO: Implement has() method.
+		return key_exists($value, $this->map);
 	}
 	
 	public function hasAny(array $value): bool
 	{
-		// TODO: Implement hasAny() method.
+		foreach ($value as $item) 
+		{
+			if ($this->has($item))
+				return true;
+		}
+		
+		return false;
 	}
 	
 	public function hasAll(array $value): bool
 	{
-		// TODO: Implement hasAll() method.
+		foreach ($value as $item)
+		{
+			if (!$this->has($item))
+				return false;
+		}
+		
+		return true;
 	}
+	
 	
 	public function add(int $rowID, $value): IIndex
 	{
-		// TODO: Implement add() method.
+		foreach ($this->map as $valueKey => $rowIDs) 
+		{
+			if (key_exists($rowID, $rowIDs))
+				$this->remRowIDs([$rowID => $valueKey]);
+		}
+		
+		if (!$this->has($value))
+		{
+			$this->map[$value] = [];
+		}
+		
+		$this->map[$value][$rowID] = $rowID;
+		
+		return $this;
 	}
 	
 	public function addBulk(array $valueByRowID): IIndex
 	{
-		// TODO: Implement addBulk() method.
+		foreach ($valueByRowID as $rowID => $value) 
+		{
+			$this->add($rowID, $value);
+		}
+		
+		return $this;
 	}
+	
 	
 	/**
 	 * @param mixed[] $valueByRowID
@@ -38,7 +74,15 @@ class SimpleIndex implements IIndex
 	 */
 	public function remRowIDs(array $valueByRowID): IIndex
 	{
-		// TODO: Implement remRowIDs() method.
+		foreach ($valueByRowID as $rowID => $value) 
+		{
+			unset($this->map[$value][$rowID]);
+			
+			if ($this->has($value) && !$this->map[$value])
+				unset($this->map[$value]);
+		}
+		
+		return $this;
 	}
 	
 	/**
@@ -47,7 +91,10 @@ class SimpleIndex implements IIndex
 	 */
 	public function remValue($value): array
 	{
-		// TODO: Implement remValue() method.
+		$result = $this->findValue($value);
+		unset($this->map[$value]);
+		
+		return $result;
 	}
 	
 	/**
@@ -56,8 +103,16 @@ class SimpleIndex implements IIndex
 	 */
 	public function remValues(array $value): array
 	{
-		// TODO: Implement remValues() method.
+		$result = [];
+		
+		foreach ($value as $valueToRemove) 
+		{
+			$result += $this->remValue($valueToRemove);
+		}
+		
+		return $result;
 	}
+	
 	
 	/**
 	 * @param mixed $value
@@ -65,7 +120,7 @@ class SimpleIndex implements IIndex
 	 */
 	public function findValue($value): array
 	{
-		// TODO: Implement findValue() method.
+		return $this->map[$value] ?? [];
 	}
 	
 	/**
@@ -74,11 +129,19 @@ class SimpleIndex implements IIndex
 	 */
 	public function findValues(array $values): array
 	{
-		// TODO: Implement findValues() method.
+		$result = [];
+		
+		foreach ($values as $i => $value) 
+		{
+			$result[$i] = $this->findValue($value);
+		}
+		
+		return $result;
 	}
+	
 	
 	public function clear(): void
 	{
-		// TODO: Implement clear() method.
+		$this->map = [];
 	}
 }
