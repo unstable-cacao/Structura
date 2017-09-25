@@ -10,24 +10,24 @@ interface IIndex
 	public function hasAll(array $value): bool;
 	
 	
-	public function add(int $index, $value): IIndex;
-	public function addBulk(array $valueByIndex): IIndex;
+	public function add(int $rowID, $value): IIndex;
+	public function addBulk(array $valueByRowID): IIndex;
 
 	/**
-	 * @param mixed[] $valueByIndex
+	 * @param mixed[] $valueByRowID
 	 * @return IIndex
 	 */
-	public function remIndexes(array $valueByIndex): IIndex;
+	public function remRowIDs(array $valueByRowID): IIndex;
 
 	/**
 	 * @param mixed $value
-	 * @return int[] Removed indexes
+	 * @return int[] Removed row IDs
 	 */
 	public function remValue($value): array;
 
 	/**
 	 * @param array $value
-	 * @return int[] Removed indexes
+	 * @return int[] Removed row IDs
 	 */
 	public function remValues(array $value): array;
 
