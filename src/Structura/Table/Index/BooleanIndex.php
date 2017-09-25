@@ -14,19 +14,6 @@ class BooleanIndex implements IIndex
 	private $falseMap = [];
 	
 	
-	private function fixKeys(array $array): array 
-	{
-		$result = [];
-		
-		foreach ($array as $item) 
-		{
-			$result[$item] = $item;
-		}
-		
-		return $result;
-	}
-	
-	
 	public function has($value): bool
 	{
 		$value = (bool)$value;
@@ -99,21 +86,11 @@ class BooleanIndex implements IIndex
 	 */
 	public function remRowIDs(array $valueByRowID): IIndex
 	{
-		$trueIDs = [];
-		$falseIDs = [];
-		
 		foreach ($valueByRowID as $rowID => $value) 
 		{
-			$value = (bool)$value;
-			
-			if ($value)
-				$trueIDs[$rowID] = $rowID;
-			else
-				$falseIDs[$rowID] = $rowID;
+			$this->trueMap = array_diff_key($this->trueMap, [$rowID => $rowID]);
+			$this->falseMap = array_diff_key($this->falseMap, [$rowID => $rowID]);
 		}
-		
-		$this->trueMap = array_diff_key($this->trueMap, $trueIDs);
-		$this->falseMap = array_diff_key($this->falseMap, $falseIDs);
 		
 		return $this;
 	}
@@ -146,17 +123,15 @@ class BooleanIndex implements IIndex
 	 */
 	public function remValues(array $value): array
 	{
-		$result = [];
+		if (!$value)
+			return [];
 		
-		foreach ($value as $item) 
+		$result = $this->remValue($value[0]);
+		
+		if (array_search(!$value[0], $value) !== false)
 		{
-			if (!$this->has($item))
-				continue;
-			
-			$result = array_merge($result, $this->remValue($item));
+			$result += $this->remValue(!$value[0]);
 		}
-		
-		$result = $this->fixKeys($result);
 		
 		return $result;
 	}
@@ -168,12 +143,7 @@ class BooleanIndex implements IIndex
 	 */
 	public function findValue($value): array
 	{
-		$value = (bool)$value;
-		
-		if ($value)
-			return $this->trueMap;
-		else
-			return $this->falseMap;
+		return (bool)$value ? $this->trueMap : $this->falseMap;
 	}
 	
 	/**
