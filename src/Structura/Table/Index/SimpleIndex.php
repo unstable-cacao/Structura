@@ -20,7 +20,7 @@ class SimpleIndex implements IIndex
 	{
 		foreach ($value as $item) 
 		{
-			if ($this->has($item))
+			if (key_exists($item, $this->map))
 				return true;
 		}
 		
@@ -31,7 +31,7 @@ class SimpleIndex implements IIndex
 	{
 		foreach ($value as $item)
 		{
-			if (!$this->has($item))
+			if (!key_exists($item, $this->map))
 				return false;
 		}
 		
@@ -47,7 +47,7 @@ class SimpleIndex implements IIndex
 				$this->remRowIDs([$rowID => $valueKey]);
 		}
 		
-		if (!$this->has($value))
+		if (!key_exists($value, $this->map))
 		{
 			$this->map[$value] = [];
 		}
@@ -78,7 +78,7 @@ class SimpleIndex implements IIndex
 		{
 			unset($this->map[$value][$rowID]);
 			
-			if ($this->has($value) && !$this->map[$value])
+			if (key_exists($value, $this->map) && !$this->map[$value])
 				unset($this->map[$value]);
 		}
 		
@@ -91,7 +91,7 @@ class SimpleIndex implements IIndex
 	 */
 	public function remValue($value): array
 	{
-		$result = $this->findValue($value);
+		$result = $this->map[$value] ?? [];
 		unset($this->map[$value]);
 		
 		return $result;
@@ -133,7 +133,7 @@ class SimpleIndex implements IIndex
 		
 		foreach ($values as $i => $value) 
 		{
-			$result[$i] = $this->findValue($value);
+			$result[$i] = $this->map[$value] ?? [];
 		}
 		
 		return $result;
