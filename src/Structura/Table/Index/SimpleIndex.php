@@ -47,11 +47,6 @@ class SimpleIndex implements IIndex
 				$this->remRowIDs([$rowID => $valueKey]);
 		}
 		
-		if (!key_exists($value, $this->map))
-		{
-			$this->map[$value] = [];
-		}
-		
 		$this->map[$value][$rowID] = $rowID;
 		
 		return $this;
