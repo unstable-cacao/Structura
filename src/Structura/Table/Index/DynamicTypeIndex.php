@@ -39,7 +39,7 @@ class DynamicTypeIndex implements IIndex
 			unset($this->intMap[$value]);
 	}
 	
-	private function boolRemRowIDs(int $rowID, bool $value)
+	private function boolRemRowIDs(int $rowID, int $value)
 	{
 		unset($this->boolMap[$value][$rowID]);
 		
@@ -89,11 +89,11 @@ class DynamicTypeIndex implements IIndex
 			case self::STRING:
 				return key_exists($value, $this->stringMap);
 			case self::BOOL:
-				return key_exists($value, $this->boolMap);
+				return key_exists((int)$value, $this->boolMap);
 			case self::NULL:
 				return $this->nullIndexes ? true : false;
 			default:
-				return array_search($value, $this->objectMap);
+				return array_search($value, $this->objectMap) === false ? false : true;
 		}
 	}
 	
