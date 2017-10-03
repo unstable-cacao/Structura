@@ -645,13 +645,14 @@ class DynamicTypeIndexTest extends TestCase
 			4 => 'test',
 			5 => true,
 			6 => [1, 2],
-			7 => $o
+			7 => $o,
+			8 => null
 		]);
 		
 		$subject->clear();
 		
 		self::assertFalse($subject->hasAny([
-			1, 2.0, 3.3, 'test', true, [1, 2], $o
+			1, 2.0, 3.3, 'test', true, [1, 2], $o, null
 		]));
 	}
 }
