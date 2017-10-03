@@ -1,0 +1,188 @@
+<?php
+namespace Structura;
+
+
+use Structura\Exceptions\StructuraException;
+use Traversable;
+
+
+class Map implements \IteratorAggregate, \ArrayAccess, \Countable
+{
+	private $map = [];
+	
+	
+	private function isValid($key): bool 
+	{
+		if (!is_string($key) && !is_int($key))
+			return false;
+		
+		return true;
+	}
+	
+	
+	/**
+	 * @param string|int $key
+	 * @param mixed $value
+	 */
+	public function add($key, $value)
+	{
+		if (!$this->isValid($key))
+			throw new StructuraException("Key of map must be string or int");
+		
+		$this->map[$key] = $value;
+	}
+	
+	/**
+	 * @param string|int $key
+	 */
+	public function remove($key)
+	{
+		if (!$this->isValid($key))
+			throw new StructuraException("Key of map must be string or int");
+		
+		unset($this->map[$key]);
+	}
+	
+	/**
+	 * @param string|int $key
+	 * @return mixed
+	 */
+	public function get($key)
+	{
+		if (!$this->isValid($key))
+			throw new StructuraException("Key of map must be string or int");
+		
+		if (!$this->has($key))
+			throw new StructuraException("Value with key $key was not found in map");
+		
+		return $this->map[$key];
+	}
+	
+	public function tryGet($key, &$value): bool 
+	{
+		if (!$this->isValid($key))
+			throw new StructuraException("Key of map must be string or int");
+		
+		$value = $this->map[$key] ?? null;
+		
+		return $this->has($key) ? true : false;
+	}
+	
+	/**
+	 * @param string|int $key
+	 * @return bool
+	 */
+	public function has($key): bool 
+	{
+		if (!$this->isValid($key))
+			throw new StructuraException("Key of map must be string or int");
+		
+		return key_exists($key, $this->map);
+	}
+	
+	public function hasAny(array $keys): bool 
+	{
+		foreach ($keys as $key) 
+		{
+			if ($this->has($key))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public function hasAll(array $keys): bool 
+	{
+		foreach ($keys as $key)
+		{
+			if (!$this->has($key))
+				return false;
+		}
+	
+		return true;
+	}
+	
+	public function count(): int 
+	{
+		return count($this->map);
+	}
+	
+	public function clear()
+	{
+		$this->map = [];
+	}
+	
+	/**
+	 * Retrieve an external iterator
+	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+	 * @return Traversable An instance of an object implementing <b>Iterator</b> or
+	 * <b>Traversable</b>
+	 * @since 5.0.0
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator($this->map);
+	}
+	
+	/**
+	 * Whether a offset exists
+	 * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+	 * @param mixed $offset <p>
+	 * An offset to check for.
+	 * </p>
+	 * @return boolean true on success or false on failure.
+	 * </p>
+	 * <p>
+	 * The return value will be casted to boolean if non-boolean was returned.
+	 * @since 5.0.0
+	 */
+	public function offsetExists($offset)
+	{
+		return $this->has($offset);
+	}
+	
+	/**
+	 * Offset to retrieve
+	 * @link http://php.net/manual/en/arrayaccess.offsetget.php
+	 * @param mixed $offset <p>
+	 * The offset to retrieve.
+	 * </p>
+	 * @return mixed Can return all value types.
+	 * @since 5.0.0
+	 */
+	public function offsetGet($offset)
+	{
+		return $this->get($offset);
+	}
+	
+	/**
+	 * Offset to set
+	 * @link http://php.net/manual/en/arrayaccess.offsetset.php
+	 * @param mixed $offset <p>
+	 * The offset to assign the value to.
+	 * </p>
+	 * @param mixed $value <p>
+	 * The value to set.
+	 * </p>
+	 * @return void
+	 * @since 5.0.0
+	 */
+	public function offsetSet($offset, $value)
+	{
+		$this->add($offset, $value);
+	}
+	
+	/**
+	 * Offset to unset
+	 * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+	 * @param mixed $offset <p>
+	 * The offset to unset.
+	 * </p>
+	 * @return void
+	 * @since 5.0.0
+	 */
+	public function offsetUnset($offset)
+	{
+		$this->remove($offset);
+	}
+}
