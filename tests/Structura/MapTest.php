@@ -138,42 +138,69 @@ class MapTest extends TestCase
 	
 	public function test_has_KeyExists_ReturnTrue()
 	{
+		$subject = new Map();
+		$subject->add(1,1);
 		
+		self::assertTrue($subject->has(1));
 	}
 	
 	public function test_has_KeyNotExists_ReturnFalse()
 	{
+		$subject = new Map();
 		
+		self::assertFalse($subject->has(1));
 	}
 	
 	public function test_hasAny_NoneExist_ReturnFalse()
 	{
+		$subject = new Map();
 		
+		self::assertFalse($subject->hasAny([1, 2, 'test']));
 	}
 	
 	public function test_hasAny_SomeExist_ReturnTrue()
 	{
+		$subject = new Map();
+		$subject->add(2, 2);
+		$subject->add('test', 3);
 		
+		self::assertTrue($subject->hasAny([1, 2, 'test']));
 	}
 	
 	public function test_hasAny_AllExist_ReturnTrue()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		$subject->add(2, 2);
+		$subject->add('test', 3);
 		
+		self::assertTrue($subject->hasAny([1, 2, 'test']));
 	}
 	
 	public function test_hasAll_NoneExist_ReturnFalse()
 	{
+		$subject = new Map();
 		
+		self::assertFalse($subject->hasAll([1, 2, 'test']));
 	}
 	
 	public function test_hasAll_SomeExist_ReturnFalse()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		$subject->add('test', 3);
 		
+		self::assertFalse($subject->hasAll([1, 2, 'test']));
 	}
 	
 	public function test_hasAll_AllExist_ReturnTrue()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		$subject->add('test', 3);
+		$subject->add(2, 2);
 		
+		self::assertTrue($subject->hasAll([1, 2, 'test']));
 	}
 	
 	public function test_count_MapEmpty_ReturnZero()
@@ -206,22 +233,37 @@ class MapTest extends TestCase
 	
 	public function test_getIterator_ForeachPossible()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
 		
+		foreach ($subject as $key => $item) 
+		{
+			self::assertEquals(1, $key);
+			self::assertEquals(1, $item);
+		}
 	}
 	
 	public function test_offsetExists_Exists_ReturnTrue()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
 		
+		self::assertTrue(isset($subject[1]));
 	}
 	
 	public function test_offsetExists_NotExists_ReturnFalse()
 	{
+		$subject = new Map();
 		
+		self::assertFalse(isset($subject[1]));
 	}
 	
 	public function test_offsetGet_Exists_GetsFromMap()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
 		
+		self::assertEquals(1, $subject[1]);
 	}
 	
 	/**
@@ -235,16 +277,27 @@ class MapTest extends TestCase
 	
 	public function test_offsetSet_SetsToMap()
 	{
+		$subject = new Map();
+		$subject[1] = 1;
 		
+		self::assertEquals(1, $subject->get(1));
 	}
 	
 	public function test_offsetSet_AlreadyExists_OverwritesOldValue()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		$subject[1] = 2;
 		
+		self::assertEquals(2, $subject->get(1));
 	}
 	
 	public function test_offsetUnset_RemovesFromMap()
 	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		unset($subject[1]);
 		
+		self::assertFalse($subject->has(1));
 	}
 }
