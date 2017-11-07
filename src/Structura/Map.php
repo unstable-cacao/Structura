@@ -10,6 +10,9 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 {
 	private $map = [];
 	
+	/** @var callable */
+	private $transform;
+	
 	
 	private function isValid($key): bool 
 	{
@@ -19,13 +22,26 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 		return true;
 	}
 	
+	private function transformKey($key)
+	{
+		$transform = $this->transform;
+		return $transform ? $transform($key) : $key;
+	}
+	
+	
+	public function setTransform(callable $transform): void
+	{
+		$this->transform = $transform;
+	}
 	
 	/**
-	 * @param string|int $key
+	 * @param mixed $key
 	 * @param mixed $value
 	 */
 	public function add($key, $value)
 	{
+		$key = $this->transformKey($key);
+		
 		if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
 		

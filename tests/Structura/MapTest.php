@@ -33,6 +33,21 @@ class MapTest extends TestCase
 		self::assertEquals(2, $subject->get(1));
 	}
 	
+	public function test_add_TransformExists_TransformCalled()
+	{
+		$subject = new Map();
+		$called = false;
+		$subject->setTransform(function($key) use (&$called) {
+			$called = true;
+			return ++$key;
+		});
+		
+		$subject->add(1, 1);
+		
+		self::assertEquals(1, $subject->get(2));
+		self::assertTrue($called);
+	}
+	
 	/**
 	 * @expectedException \Structura\Exceptions\StructuraException
 	 */
