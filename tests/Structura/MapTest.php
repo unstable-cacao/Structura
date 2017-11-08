@@ -44,7 +44,7 @@ class MapTest extends TestCase
 		
 		$subject->add(1, 1);
 		
-		self::assertEquals(1, $subject->get(2));
+		self::assertEquals(1, $subject->get(1));
 		self::assertTrue($called);
 	}
 	

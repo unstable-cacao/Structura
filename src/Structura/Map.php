@@ -25,7 +25,19 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	private function transformKey($key)
 	{
 		$transform = $this->transform;
-		return $transform ? $transform($key) : $key;
+		return $transform($key);
+	}
+	
+	/**
+	 * @param string|int $key
+	 * @return bool
+	 */
+	private function hasKey($key): bool 
+	{
+		if (!$this->isValid($key))
+			throw new StructuraException("Key of map must be string or int");
+		
+		return key_exists($key, $this->map);
 	}
 	
 	
@@ -34,13 +46,19 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 		$this->transform = $transform;
 	}
 	
+	public function getTransform(): ?callable
+	{
+		return $this->transform;
+	}
+	
 	/**
 	 * @param mixed $key
 	 * @param mixed $value
 	 */
 	public function add($key, $value)
 	{
-		$key = $this->transformKey($key);
+		if ($this->transform)
+			$key = $this->transformKey($key);
 		
 		if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
@@ -49,10 +67,13 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	}
 	
 	/**
-	 * @param string|int $key
+	 * @param mixed $key
 	 */
 	public function remove($key)
 	{
+		if ($this->transform)
+			$key = $this->transformKey($key);
+		
 		if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
 		
@@ -60,15 +81,18 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	}
 	
 	/**
-	 * @param string|int $key
+	 * @param mixed $key
 	 * @return mixed
 	 */
 	public function get($key)
 	{
+		if ($this->transform)
+			$key = $this->transformKey($key);
+		
 		if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
 		
-		if (!$this->has($key))
+		if (!$this->hasKey($key))
 			throw new StructuraException("Value with key $key was not found in map");
 		
 		return $this->map[$key];
@@ -76,12 +100,15 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	
 	public function tryGet($key, &$value): bool 
 	{
+		if ($this->transform)
+			$key = $this->transformKey($key);
+		
 		if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
 		
 		$value = $this->map[$key] ?? null;
 		
-		return $this->has($key) ? true : false;
+		return $this->hasKey($key) ? true : false;
 	}
 	
 	/**
@@ -90,6 +117,9 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	 */
 	public function has($key): bool 
 	{
+		if ($this->transform)
+			$key = $this->transformKey($key);
+		
 		if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
 		
@@ -126,6 +156,21 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	public function clear()
 	{
 		$this->map = [];
+	}
+	
+	public function keys(): array
+	{
+		return array_keys($this->map);
+	}
+	
+	public function values(): array
+	{
+		return array_values($this->map);
+	}
+	
+	public function keysSet(): Set
+	{
+		return new Set($this->keys());
 	}
 	
 	/**
