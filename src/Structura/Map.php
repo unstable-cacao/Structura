@@ -39,6 +39,37 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 		return key_exists($key, $this->map);
 	}
 	
+	/**
+	 * @param iterable $traversable
+	 * @return array
+	 */
+	private function traversableToArray($traversable): array
+	{
+		if (is_array($traversable))
+			return $traversable;
+		
+		if ($traversable instanceof Map)
+			return $traversable->toArray();
+		
+		$result = [];
+		
+		foreach ($traversable as $key => $value)
+		{
+			$result[$key] = $value;
+		}
+		
+		return $result;
+	}
+	
+	
+	public function __construct(?iterable $traversable = null)
+	{
+		if ($traversable)
+		{
+			$this->merge($traversable);
+		}
+	}
+	
 	
 	public function setTransform(callable $transform): void
 	{
@@ -167,6 +198,47 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	public function keysSet(): Set
 	{
 		return new Set($this->keys());
+	}
+	
+	/**
+	 * @param iterable[] ...$map
+	 */
+	public function merge(...$map): void
+	{
+		foreach ($map as $singleItem) 
+		{
+			foreach ($singleItem as $key => $value) 
+			{
+				$this->add($key, $value);
+			}
+		}
+	}
+	
+	/**
+	 * @param iterable[] ...$map
+	 */
+	public function intersect(...$map): void
+	{
+		foreach ($map as $traversable)
+		{
+			$this->map = array_intersect_key($this->map, $this->traversableToArray($traversable));
+		}
+	}
+	
+	/**
+	 * @param iterable[] ...$map
+	 */
+	public function diff(...$map): void
+	{
+		foreach ($map as $traversable)
+		{
+			$this->map = array_diff_key($this->map, $this->traversableToArray($traversable));
+		}
+	}
+	
+	public function toArray(): array
+	{
+		return $this->map;
 	}
 	
 	/**

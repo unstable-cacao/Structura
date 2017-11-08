@@ -7,6 +7,13 @@ use PHPUnit\Framework\TestCase;
 
 class MapTest extends TestCase
 {
+	public function test_construct_SetMap()
+	{
+		$subject = new Map([1 => 1]);
+		
+		self::assertTrue($subject->has(1));
+	}
+	
 	/**
 	 * @expectedException \Structura\Exceptions\StructuraException
 	 */
@@ -39,6 +46,7 @@ class MapTest extends TestCase
 		$called = false;
 		$subject->setTransform(function($key) use (&$called) {
 			$called = true;
+			
 			return ++$key;
 		});
 		
@@ -84,6 +92,7 @@ class MapTest extends TestCase
 		
 		$subject->setTransform(function($key) use (&$called) {
 			$called = true;
+			
 			return $key;
 		});
 		
@@ -143,6 +152,7 @@ class MapTest extends TestCase
 		
 		$subject->setTransform(function($key) use (&$called) {
 			$called = true;
+			
 			return $key;
 		});
 		
@@ -187,7 +197,7 @@ class MapTest extends TestCase
 	public function test_has_KeyExists_ReturnTrue()
 	{
 		$subject = new Map();
-		$subject->add(1,1);
+		$subject->add(1, 1);
 		
 		self::assertTrue($subject->has(1));
 	}
@@ -195,11 +205,12 @@ class MapTest extends TestCase
 	public function test_has_TransformExists_TransformCalled()
 	{
 		$subject = new Map();
-		$subject->add(1,1);
+		$subject->add(1, 1);
 		$called = false;
 		
 		$subject->setTransform(function($key) use (&$called) {
 			$called = true;
+			
 			return $key;
 		});
 		
@@ -300,8 +311,7 @@ class MapTest extends TestCase
 		$subject = new Map();
 		$subject->add(1, 1);
 		
-		foreach ($subject as $key => $item) 
-		{
+		foreach ($subject as $key => $item) {
 			self::assertEquals(1, $key);
 			self::assertEquals(1, $item);
 		}
@@ -404,5 +414,68 @@ class MapTest extends TestCase
 		$subject->add(1, 1);
 		
 		self::assertInstanceOf(Set::class, $subject->keysSet());
+	}
+	
+	public function test_merge_Empty_NothingChanged()
+	{
+		$subject = new Map([1 => 2]);
+		$subject->merge([]);
+		
+		self::assertEquals([1 => 2], $subject->toArray());
+	}
+	
+	public function test_merge_UniqueKeys_Merges()
+	{
+		$subject = new Map([1 => 2]);
+		$subject->merge([2 => 2]);
+		
+		self::assertEquals([1 => 2, 2 => 2], $subject->toArray());
+	}
+	
+	public function test_merge_KeyExists_Overwrites()
+	{
+		$subject = new Map([1 => 2]);
+		$subject->merge([1 => 3]);
+		
+		self::assertEquals([1 => 3], $subject->toArray());
+	}
+	
+	public function test_intersect_Empty_SetEmpty()
+	{
+		$subject = new Map([1 => 2]);
+		$subject->intersect([]);
+		
+		self::assertEquals([], $subject->toArray());
+	}
+	
+	public function test_intersect_IntersectByKey()
+	{
+		$subject = new Map([1 => 1, 2 => 2, 3 => 3]);
+		$subject->intersect([1 => 3, 3 => 5], new Map([3 => 9]), new Set([1, 2, 3, 4]));
+		
+		self::assertEquals([3 => 3], $subject->toArray());
+	}
+	
+	public function test_diff_Empty_NothingChanged()
+	{
+		$subject = new Map([1 => 2]);
+		$subject->diff([]);
+		
+		self::assertEquals([1 => 2], $subject->toArray());
+	}
+	
+	public function test_diff_DiffByKey()
+	{
+		$subject = new Map([1 => 1, 2 => 2, 3 => 3]);
+		$subject->intersect([5], new Map([3 => 9]), new Set([1, 2, 3, 4]));
+		
+		self::assertEquals([], $subject->toArray());
+	}
+	
+	public function test_toArray_ReturnMap()
+	{
+		$subject = new Map([1 => 2]);
+		
+		self::assertEquals([1 => 2], $subject->toArray());
 	}
 }
