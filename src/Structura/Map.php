@@ -3,7 +3,6 @@ namespace Structura;
 
 
 use Structura\Exceptions\StructuraException;
-use Traversable;
 
 
 class Map implements \IteratorAggregate, \ArrayAccess, \Countable
@@ -89,9 +88,6 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 		if ($this->transform)
 			$key = $this->transformKey($key);
 		
-		if (!$this->isValid($key))
-			throw new StructuraException("Key of map must be string or int");
-		
 		if (!$this->hasKey($key))
 			throw new StructuraException("Value with key $key was not found in map");
 		
@@ -176,7 +172,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	/**
 	 * Retrieve an external iterator
 	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
-	 * @return Traversable An instance of an object implementing <b>Iterator</b> or
+	 * @return \Traversable An instance of an object implementing <b>Iterator</b> or
 	 * <b>Traversable</b>
 	 * @since 5.0.0
 	 */
