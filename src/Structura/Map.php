@@ -71,7 +71,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	}
 	
 	
-	public function setTransform(callable $transform): void
+	public function setTransform(?callable $transform = null): void
 	{
 		$this->transform = $transform;
 	}
