@@ -7,6 +7,15 @@ use PHPUnit\Framework\TestCase;
 
 class MapTest extends TestCase
 {
+	public function test_returnSelf()
+	{
+		$subject = new Map();
+		
+		self::assertEquals($subject, $subject->merge([1 => 1]));
+		self::assertEquals($subject, $subject->intersect([1 => 1]));
+		self::assertEquals($subject, $subject->diff([]));
+	}
+	
 	public function test_construct_SetMap()
 	{
 		$subject = new Map([1 => 1]);

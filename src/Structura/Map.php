@@ -212,8 +212,9 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	
 	/**
 	 * @param iterable[] ...$map
+	 * @return Map
 	 */
-	public function merge(...$map): void
+	public function merge(...$map): Map
 	{
 		foreach ($map as $singleItem) 
 		{
@@ -222,28 +223,36 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 				$this->add($key, $value);
 			}
 		}
+		
+		return $this;
 	}
 	
 	/**
 	 * @param iterable[] ...$map
+	 * @return Map
 	 */
-	public function intersect(...$map): void
+	public function intersect(...$map): Map
 	{
 		foreach ($map as $traversable)
 		{
 			$this->map = array_intersect_key($this->map, $this->traversableToArray($traversable));
 		}
+		
+		return $this;
 	}
 	
 	/**
 	 * @param iterable[] ...$map
+	 * @return Map
 	 */
-	public function diff(...$map): void
+	public function diff(...$map): Map
 	{
 		foreach ($map as $traversable)
 		{
 			$this->map = array_diff_key($this->map, $this->traversableToArray($traversable));
 		}
+		
+		return $this;
 	}
 	
 	public function toArray(): array

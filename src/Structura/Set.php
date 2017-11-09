@@ -253,7 +253,8 @@ class Set implements \IteratorAggregate, \ArrayAccess
 		
 		foreach ($set as $traversable)
 		{
-			$result = array_merge(array_diff($result, $traversable), array_diff($traversable, $result));
+			$result = array_merge(array_diff($result, $this->traversableToArray($traversable)), 
+				array_diff($this->traversableToArray($traversable), $result));
 		}
 		
 		$this->clear();
