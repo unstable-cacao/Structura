@@ -500,4 +500,68 @@ class MapTest extends TestCase
 		$subject = new Map([1]);
 		self::assertTrue($subject->hasElements());
 	}
+	
+	
+	public function test_mergeMap_NoParams_EmptyMap()
+	{
+		$map = Map::mergeMap();
+		
+		self::assertEquals([], $map->toArray());
+	}
+	
+	public function test_mergeMap_OneParam_Map()
+	{
+		$map = Map::mergeMap([1 => 1]);
+		
+		self::assertEquals([1 => 1], $map->toArray());
+	}
+	
+	public function test_mergeMap_MergedMap()
+	{
+		$map = Map::mergeMap([1 => 1], new Map([2 => 2]), new Set([3 => 3]));
+		
+		self::assertEquals([1 => 1, 2 => 2, 3 => 3], $map->toArray());
+	}
+	
+	public function test_intersectMap_NoParams_EmptyMap()
+	{
+		$map = Map::intersectMap();
+		
+		self::assertEquals([], $map->toArray());
+	}
+	
+	public function test_intersectMap_OneParam_Map()
+	{
+		$map = Map::intersectMap([2 => 2]);
+		
+		self::assertEquals([2 => 2], $map->toArray());
+	}
+	
+	public function test_intersectMap_IntersectedMap()
+	{
+		$map = Map::intersectMap([1 => 1, 2 => 2], new Map([2 => 2]), new Set([2 => 2]));
+		
+		self::assertEquals([2 => 2], $map->toArray());
+	}
+	
+	public function test_diffMap_NoParams_EmptyMap()
+	{
+		$map = Map::diffMap();
+		
+		self::assertEquals([], $map->toArray());
+	}
+	
+	public function test_diffMap_OneParam_Map()
+	{
+		$map = Map::diffMap([3 => 3]);
+		
+		self::assertEquals([3 => 3], $map->toArray());
+	}
+	
+	public function test_diffMap_DiffMap()
+	{
+		$map = Map::diffMap([1 => 1], new Map([2 => 2]), new Set([3 => 3]));
+		
+		self::assertEquals([1 => 1], $map->toArray());
+	}
 }

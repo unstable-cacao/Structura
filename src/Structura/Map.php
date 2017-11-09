@@ -333,4 +333,50 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 	{
 		$this->remove($offset);
 	}
+	
+	
+	/**
+	 * @param iterable[] ...$map
+	 * @return Map
+	 */
+	public static function mergeMap(...$map): Map
+	{
+		if (!$map)
+			return new Map();
+		
+		$result = new Map(array_shift($map));
+		$result->merge(...$map);
+		
+		return $result;
+	}
+	
+	/**
+	 * @param iterable[] ...$map
+	 * @return Map
+	 */
+	public static function intersectMap(...$map): Map
+	{
+		if (!$map)
+			return new Map();
+		
+		$result = new Map(array_shift($map));
+		$result->intersect(...$map);
+		
+		return $result;
+	}
+	
+	/**
+	 * @param iterable[] ...$map
+	 * @return Map
+	 */
+	public static function diffMap(...$map): Map
+	{
+		if (!$map)
+			return new Map();
+		
+		$result = new Map(array_shift($map));
+		$result->diff(...$map);
+		
+		return $result;
+	}
 }
