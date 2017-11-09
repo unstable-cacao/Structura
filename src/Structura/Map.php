@@ -5,7 +5,7 @@ namespace Structura;
 use Structura\Exceptions\StructuraException;
 
 
-class Map implements \IteratorAggregate, \ArrayAccess, \Countable
+class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 {
 	private $map = [];
 	

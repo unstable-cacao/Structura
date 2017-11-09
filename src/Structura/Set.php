@@ -5,7 +5,7 @@ namespace Structura;
 use Structura\Exceptions\InvalidValueException;
 
 
-class Set implements \IteratorAggregate, \ArrayAccess
+class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 {
 	private $set = [];
 	
