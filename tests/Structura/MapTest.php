@@ -476,9 +476,25 @@ class MapTest extends TestCase
 	public function test_diff_DiffByKey()
 	{
 		$subject = new Map([1 => 1, 2 => 2, 3 => 3]);
-		$subject->intersect([5], new Map([3 => 9]), new Set([1, 2, 3, 4]));
+		$subject->diff([5], new Map([3 => 9]), new Set([1, 2, 3, 4]));
 		
 		self::assertEquals([], $subject->toArray());
+	}
+	
+	public function test_symmetricDiff_Empty_NothingChanged()
+	{
+		$subject = new Map([1 => 2]);
+		$subject->symmetricDiff([]);
+		
+		self::assertEquals([1 => 2], $subject->toArray());
+	}
+	
+	public function test_symmetricDiff_XorByKey()
+	{
+		$subject = new Map([1 => 1, 2 => 2, 8 => 3]);
+		$subject->symmetricDiff([5], new Map([5 => 9]), new Set([1, 2, 3, 4]));
+		
+		self::assertEquals([8 => 3, 5 => 9, 3 => 4], $subject->toArray());
 	}
 	
 	public function test_toArray_ReturnMap()
@@ -539,7 +555,7 @@ class MapTest extends TestCase
 	
 	public function test_intersectMap_IntersectedMap()
 	{
-		$map = Map::intersectMap([1 => 1, 2 => 2], new Map([2 => 2]), new Set([2 => 2]));
+		$map = Map::intersectMap([1 => 1, 2 => 2], new Map([2 => 2]), new Set([1, 2, 3]));
 		
 		self::assertEquals([2 => 2], $map->toArray());
 	}
@@ -563,5 +579,26 @@ class MapTest extends TestCase
 		$map = Map::diffMap([1 => 1], new Map([2 => 2]), new Set([3 => 3]));
 		
 		self::assertEquals([1 => 1], $map->toArray());
+	}
+	
+	public function test_symmetricDiffMap_NoParams_EmptyMap()
+	{
+		$map = Map::symmetricDiffMap();
+		
+		self::assertEquals([], $map->toArray());
+	}
+	
+	public function test_symmetricDiffMapp_OneParam_Map()
+	{
+		$map = Map::symmetricDiffMap([3 => 3]);
+		
+		self::assertEquals([3 => 3], $map->toArray());
+	}
+	
+	public function test_symmetricDiffMap_DiffMap()
+	{
+		$map = Map::symmetricDiffMap([1 => 1], new Map([2 => 2]), new Set([3]));
+		
+		self::assertEquals([1 => 1, 2 => 2, 0 => 3], $map->toArray());
 	}
 }

@@ -48,7 +48,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		if (is_array($traversable))
 			return $traversable;
 		
-		if ($traversable instanceof Map)
+		if ($traversable instanceof ICollection)
 			return $traversable->toArray();
 		
 		$result = [];
@@ -255,6 +255,25 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		return $this;
 	}
 	
+	/**
+	 * @param iterable[] ...$map
+	 * @return Map
+	 */
+	public function symmetricDiff(...$map): Map
+	{
+		$result = $this->map;
+		
+		foreach ($map as $traversable)
+		{
+			$traversableArray = $this->traversableToArray($traversable);
+			$result = array_diff_key($result, $traversableArray) + array_diff_key($traversableArray, $result);
+		}
+		
+		$this->map = $result;
+		
+		return $this;
+	}
+	
 	public function toArray(): array
 	{
 		return $this->map;
@@ -376,6 +395,21 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		
 		$result = new Map(array_shift($map));
 		$result->diff(...$map);
+		
+		return $result;
+	}
+	
+	/**
+	 * @param iterable[] ...$map
+	 * @return Map
+	 */
+	public static function symmetricDiffMap(...$map): Map
+	{
+		if (!$map)
+			return new Map();
+		
+		$result = new Map(array_shift($map));
+		$result->symmetricDiff(...$map);
 		
 		return $result;
 	}
