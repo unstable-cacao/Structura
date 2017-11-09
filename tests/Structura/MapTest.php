@@ -478,4 +478,17 @@ class MapTest extends TestCase
 		
 		self::assertEquals([1 => 2], $subject->toArray());
 	}
+	
+	
+	public function test_hasElements_EmptyMap_ReturnFalse()
+	{
+		$subject = new Map();
+		self::assertFalse($subject->hasElements());
+	}
+	
+	public function test_hasElements_NonEmptySet_ReturnTrue()
+	{
+		$subject = new Map([1]);
+		self::assertTrue($subject->hasElements());
+	}
 }

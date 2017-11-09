@@ -20,6 +20,19 @@ class SetTest extends TestCase
 	}
 	
 	
+	public function test_hasElements_EmptySet_ReturnFalse()
+	{
+		$set = new Set();
+		self::assertFalse($set->hasElements());
+	}
+	
+	public function test_hasElements_NonEmptySet_ReturnTrue()
+	{
+		$set = new Set(1);
+		self::assertTrue($set->hasElements());
+	}
+	
+	
 	public function test_count_EmptySet_ReturnZero()
 	{
 		$set = new Set();

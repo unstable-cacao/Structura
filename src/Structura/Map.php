@@ -180,6 +180,16 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable
 		return count($this->map);
 	}
 	
+	public function isEmpty(): bool
+	{
+		return !(bool)$this->map;
+	}
+	
+	public function hasElements(): bool
+	{
+		return (bool)$this->map;
+	}
+	
 	public function clear()
 	{
 		$this->map = [];

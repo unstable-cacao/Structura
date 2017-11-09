@@ -88,6 +88,11 @@ class Set implements \IteratorAggregate, \ArrayAccess
 		return !(bool)$this->set;
 	}
 	
+	public function hasElements(): bool
+	{
+		return (bool)$this->set;
+	}
+	
 	public function count(): int
 	{
 		return count($this->set);
