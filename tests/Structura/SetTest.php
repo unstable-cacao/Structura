@@ -615,7 +615,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$set->add([1, 2, 3]);
 		
-		$set->intersect([1, 5, 8], [6, 1, 4]);
+		$set->intersect([1, 5, 8], new Map([1 => 1]));
 		
 		self::assertEquals([1], $set->toArray());
 	}
@@ -638,5 +638,21 @@ class SetTest extends TestCase
 		$set->symmetricDiff([2, 3], [5]);
 		
 		self::assertEquals([1, 5], $set->toArray());
+	}
+}
+
+
+class SetTestHelper_Iterable implements \IteratorAggregate
+{
+	/**
+	 * Retrieve an external iterator
+	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+	 * @return \Traversable An instance of an object implementing <b>Iterator</b> or
+	 * <b>Traversable</b>
+	 * @since 5.0.0
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator([1 => 15, 16 => 16]);
 	}
 }
