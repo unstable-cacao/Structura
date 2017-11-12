@@ -10,11 +10,6 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	private $set = [];
 	
 	
-	private function isTraversable($value): bool 
-	{
-		return (is_array($value) || (is_object($value) && $value instanceof \Traversable));
-	}
-	
 	/**
 	 * @param int|string|bool|float|IIdentified $value
 	 * @return string|int
@@ -30,32 +25,29 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 	
 	/**
-	 * @param array|Set|\Traversable $traversable
+	 * @param iterable $traversable
 	 * @return array
 	 */
-	private function traversableToArray($traversable): array 
+	private function iterableToArray($traversable): array
 	{
 		if (is_array($traversable))
 			return $traversable;
 		
-		if ($traversable instanceof Set)
+		if ($traversable instanceof ICollection)
 			return $traversable->toArray();
 		
 		$result = [];
 		
-		foreach ($traversable as $item)
+		foreach ($traversable as $key => $value)
 		{
-			$result[] = $this->getKey($item);
+			$result[$key] = $value;
 		}
 		
 		return $result;
 	}
 	
 	
-	/**
-	 * @param Set|\Traversable|array|null $source
-	 */
-	public function __construct($source = null)
+	public function __construct(?iterable $source = null)
 	{
 		if ($source)
 		{
@@ -108,14 +100,14 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 	
 	/**
-	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 * @param string|int|IIdentified|iterable $value
 	 * @return bool True if at least one item from the list exists in the set.
 	 */
 	public function hasAny(...$value): bool 
 	{
 		foreach ($value as $item) 
 		{
-			if ($this->isTraversable($item))
+			if (is_iterable($item))
 			{
 				foreach ($item as $data) 
 				{
@@ -134,14 +126,14 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 	
 	/**
-	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 * @param string|int|IIdentified|iterable $value
 	 * @return bool True if all items from the list exists in the set.
 	 */
 	public function hasAll(...$value): bool 
 	{
 		foreach ($value as $item)
 		{
-			if ($this->isTraversable($item))
+			if (is_iterable($item))
 			{
 				foreach ($item as $data)
 				{
@@ -160,13 +152,13 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 
 	/**
-	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 * @param string|int|IIdentified|iterable $value
 	 */
 	public function add(...$value): void
 	{
 		foreach ($value as $item)
 		{
-			if ($this->isTraversable($item))
+			if (is_iterable($item))
 			{
 				foreach ($item as $data)
 				{
@@ -181,13 +173,13 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 
 	/**
-	 * @param string|int|IIdentified|array|Set|\Traversable $value
+	 * @param string|int|IIdentified|iterable $value
 	 */
 	public function rem(...$value): void
 	{
 		foreach ($value as $item)
 		{
-			if ($this->isTraversable($item))
+			if (is_iterable($item))
 			{
 				foreach ($item as $data)
 				{
@@ -215,7 +207,7 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 	
 	/**
-	 * @param array|Set|\Traversable ...$set
+	 * @param iterable ...$set
 	 */
 	public function merge(...$set): void
 	{
@@ -223,38 +215,38 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	}
 	
 	/**
-	 * @param array|Set|\Traversable ...$set
+	 * @param iterable ...$set
 	 */
 	public function intersect(...$set): void
 	{
-		foreach ($set as $traversable) 
+		foreach ($set as $iterable) 
 		{
-			$this->set = array_intersect($this->set, $this->traversableToArray($traversable));
+			$this->set = array_intersect($this->set, $this->iterableToArray($iterable));
 		}
 	}
 	
 	/**
-	 * @param array|Set|\Traversable ...$set
+	 * @param iterable ...$set
 	 */
 	public function diff(...$set): void
 	{
-		foreach ($set as $traversable)
+		foreach ($set as $iterable)
 		{
-			$this->set = array_diff($this->set, $this->traversableToArray($traversable));
+			$this->set = array_diff($this->set, $this->iterableToArray($iterable));
 		}
 	}
 	
 	/**
-	 * @param array|Set|\Traversable ...$set
+	 * @param iterable ...$set
 	 */
 	public function symmetricDiff(...$set): void
 	{
 		$result = $this->set;
 		
-		foreach ($set as $traversable)
+		foreach ($set as $iterable)
 		{
-			$result = array_merge(array_diff($result, $this->traversableToArray($traversable)), 
-				array_diff($this->traversableToArray($traversable), $result));
+			$array = $this->iterableToArray($iterable);
+			$result = array_diff($result, $array) + array_diff($array, $result);
 		}
 		
 		$this->clear();

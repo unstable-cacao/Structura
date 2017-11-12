@@ -43,7 +43,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	 * @param iterable $traversable
 	 * @return array
 	 */
-	private function traversableToArray($traversable): array
+	private function iterableToArray($traversable): array
 	{
 		if (is_array($traversable))
 			return $traversable;
@@ -235,7 +235,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	{
 		foreach ($map as $traversable)
 		{
-			$this->map = array_intersect_key($this->map, $this->traversableToArray($traversable));
+			$this->map = array_intersect_key($this->map, $this->iterableToArray($traversable));
 		}
 		
 		return $this;
@@ -249,7 +249,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	{
 		foreach ($map as $traversable)
 		{
-			$this->map = array_diff_key($this->map, $this->traversableToArray($traversable));
+			$this->map = array_diff_key($this->map, $this->iterableToArray($traversable));
 		}
 		
 		return $this;
@@ -265,7 +265,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		
 		foreach ($map as $traversable)
 		{
-			$traversableArray = $this->traversableToArray($traversable);
+			$traversableArray = $this->iterableToArray($traversable);
 			$result = array_diff_key($result, $traversableArray) + array_diff_key($traversableArray, $result);
 		}
 		

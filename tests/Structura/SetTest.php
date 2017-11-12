@@ -15,7 +15,7 @@ class SetTest extends TestCase
 	
 	public function test_isEmpty_NonEmptySet_ReturnFalse()
 	{
-		$set = new Set(1);
+		$set = new Set([1]);
 		self::assertFalse($set->isEmpty());
 	}
 	
@@ -28,7 +28,7 @@ class SetTest extends TestCase
 	
 	public function test_hasElements_NonEmptySet_ReturnTrue()
 	{
-		$set = new Set(1);
+		$set = new Set([1]);
 		self::assertTrue($set->hasElements());
 	}
 	
