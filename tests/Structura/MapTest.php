@@ -3,6 +3,7 @@ namespace Structura;
 
 
 use PHPUnit\Framework\TestCase;
+use Traversable;
 
 
 class MapTest extends TestCase
@@ -14,6 +15,15 @@ class MapTest extends TestCase
 		self::assertEquals($subject, $subject->merge([1 => 1]));
 		self::assertEquals($subject, $subject->intersect([1 => 1]));
 		self::assertEquals($subject, $subject->diff([]));
+	}
+	
+	public function test_getters()
+	{
+		$subject = new Map();
+		$callback = function () {return 1;};
+		$subject->setTransform($callback);
+		
+		self::assertEquals($callback, $subject->getTransform());
 	}
 	
 	public function test_construct_SetMap()
@@ -460,7 +470,7 @@ class MapTest extends TestCase
 	public function test_intersect_IntersectByKey()
 	{
 		$subject = new Map([1 => 1, 2 => 2, 3 => 3]);
-		$subject->intersect([1 => 3, 3 => 5], new Map([3 => 9]), new Set([1, 2, 3, 4]));
+		$subject->intersect([1 => 3, 3 => 5], new Map([3 => 9]), new MapTestHelper_Iterable());
 		
 		self::assertEquals([3 => 3], $subject->toArray());
 	}
@@ -600,5 +610,35 @@ class MapTest extends TestCase
 		$map = Map::symmetricDiffMap([1 => 1], new Map([2 => 2]), new Set([3]));
 		
 		self::assertEquals([1 => 1, 2 => 2, 0 => 3], $map->toArray());
+	}
+	
+	public function test_isEmpty_Empty_ReturnTrue()
+	{
+		$map = new Map();
+		
+		self::assertTrue($map->isEmpty());
+	}
+	
+	public function test_isEmpty_NotEmpty_ReturnFalse()
+	{
+		$map = new Map([1 => 1]);
+		
+		self::assertFalse($map->isEmpty());
+	}
+}
+
+
+class MapTestHelper_Iterable implements \IteratorAggregate
+{
+	/**
+	 * Retrieve an external iterator
+	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+	 * @return Traversable An instance of an object implementing <b>Iterator</b> or
+	 * <b>Traversable</b>
+	 * @since 5.0.0
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator([3 => 15, 16 => 16]);
 	}
 }
