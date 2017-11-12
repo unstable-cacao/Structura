@@ -615,7 +615,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$set->add([1, 2, 3]);
 		
-		$set->intersect([1, 5, 8], new Map([1 => 1]));
+		$set->intersect([1, 5, 8], new Map([1 => 1]), new SetTestHelper_Iterable());
 		
 		self::assertEquals([1], $set->toArray());
 	}
@@ -653,6 +653,6 @@ class SetTestHelper_Iterable implements \IteratorAggregate
 	 */
 	public function getIterator()
 	{
-		return new \ArrayIterator([1 => 15, 16 => 16]);
+		return new \ArrayIterator([1, 6]);
 	}
 }
