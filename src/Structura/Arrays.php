@@ -4,7 +4,7 @@ namespace Structura;
 
 class Arrays
 {
-	public static function asArray($data): array
+	public static function toArray($data): array
 	{
 		$result = [];
 		
@@ -31,9 +31,9 @@ class Arrays
 		return $result;
 	}
 	
-	public static function toArray(&$data): array
+	public static function asArray(&$data): array
 	{
-		$data = self::asArray($data);
+		$data = self::toArray($data);
 		return $data;
 	}
 	

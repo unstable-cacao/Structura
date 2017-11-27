@@ -7,30 +7,30 @@ use PHPUnit\Framework\TestCase;
 
 class ArraysTest extends TestCase
 {
-	public function test_asArray_Array_ReturnTheArray()
+	public function test_toArray_Array_ReturnTheArray()
 	{
-		self::assertEquals([1, 2], Arrays::asArray([1, 2]));
+		self::assertEquals([1, 2], Arrays::toArray([1, 2]));
 	}
 	
-	public function test_asArray_ICollection_ReturnArray()
+	public function test_toArray_ICollection_ReturnArray()
 	{
-		self::assertEquals([1, 2], Arrays::asArray(new Set([1, 2])));
+		self::assertEquals([1, 2], Arrays::toArray(new Set([1, 2])));
 	}
 	
-	public function test_asArray_Iterable_ReturnArray()
+	public function test_toArray_Iterable_ReturnArray()
 	{
-		self::assertEquals([1 => 1, 3 => 3], Arrays::asArray(new ArraysTestHelper_Iterable()));
+		self::assertEquals([1 => 1, 3 => 3], Arrays::toArray(new ArraysTestHelper_Iterable()));
 	}
 	
-	public function test_asArray_String_ReturnArrayWithString()
+	public function test_toArray_String_ReturnArrayWithString()
 	{
-		self::assertEquals(['test'], Arrays::asArray('test'));
+		self::assertEquals(['test'], Arrays::toArray('test'));
 	}
 	
-	public function test_toArray_SetsTheDataToItsArray()
+	public function test_asArray_SetsTheDataToItsArray()
 	{
 		$data = 'test';
-		Arrays::toArray($data);
+		Arrays::asArray($data);
 		
 		self::assertEquals(['test'], $data);
 	}
