@@ -171,6 +171,19 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 			}
 		}
 	}
+	
+	public function addIfMissing($value): bool
+	{
+		if ($this->has($value))
+		{
+			return false;
+		}
+		else
+		{
+			$this->add($value);
+			return true;
+		}
+	}
 
 	/**
 	 * @param string|int|IIdentified|iterable $value

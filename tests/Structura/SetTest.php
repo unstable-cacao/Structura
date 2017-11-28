@@ -529,6 +529,29 @@ class SetTest extends TestCase
 		self::assertEquals([11, 12, 13], $set->toArray());
 	}
 	
+	public function test_addIfMissing_Exists_ReturnFalse()
+	{
+		$set = new Set();
+		$set->add(1);
+		
+		self::assertFalse($set->addIfMissing(1));
+	}
+	
+	public function test_addIfMissing_NotExists_ReturnTrue()
+	{
+		$set = new Set();
+		
+		self::assertTrue($set->addIfMissing(1));
+	}
+	
+	public function test_addIfMissing_NotExists_AddsToSet()
+	{
+		$set = new Set();
+		$set->addIfMissing(1);
+		
+		self::assertTrue($set->has(1));
+	}
+	
 	
 	/**
 	 * @expectedException \Structura\Exceptions\InvalidValueException
