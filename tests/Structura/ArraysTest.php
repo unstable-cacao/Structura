@@ -141,6 +141,22 @@ class ArraysTest extends TestCase
 			]
 		], Arrays::mergeRecursiveAssoc(['a' => 1], ['b' => ['test' => 'hello', 'test2' => ['c' => 3]]]));
 	}
+	
+	public function test_mergeRecursiveAssoc_MainNotAssoc_ReturnMainAsIs()
+	{
+		self::assertEquals([
+			1
+		], Arrays::mergeRecursiveAssoc([1], ['b' => 2]));
+	}
+	
+	public function test_mergeRecursiveAssoc_OneOfInputNotAssoc_MergedOnlyAssoc()
+	{
+		self::assertEquals([
+			'a' => 1,
+			'b' => 2,
+			'c' => [5]
+		], Arrays::mergeRecursiveAssoc(['a' => 1], ['b' => 2, 'c' => [5]], [3]));
+	}
 }
 
 

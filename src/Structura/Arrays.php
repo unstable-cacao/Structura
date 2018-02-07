@@ -89,8 +89,18 @@ class Arrays
 	
 	public static function mergeRecursiveAssoc(array $main, array ...$arrays): array 
 	{
+		if (key_exists(0, $main)) 
+		{
+			return $main;
+		}
+		
 		foreach ($arrays as $array)
 		{
+			if (key_exists(0, $array)) 
+			{
+				continue;
+			}
+			
 			foreach ($array as $key => $value)
 			{
 				if (key_exists($key, $main))
