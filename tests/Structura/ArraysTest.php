@@ -104,6 +104,43 @@ class ArraysTest extends TestCase
 	{
 		self::assertEquals(0, Arrays::lastKey([1 => 'first', 2 => 'second', 0 => 'last']));
 	}
+	
+	public function test_mergeRecursiveAssoc_EmptyArrays_ReturnEmptyArray()
+	{
+		self::assertEquals([], Arrays::mergeRecursiveAssoc([], []));
+	}
+	
+	public function test_mergeRecursiveAssoc_NoIntersection_ReturnMerged()
+	{
+		self::assertEquals([
+			'a' => 1,
+			'b' => 2,
+			'c' => 3, 
+			'd' => 4
+		], Arrays::mergeRecursiveAssoc(['a' => 1], ['b' => 2], ['c' => 3, 'd' => 4]));
+	}
+	
+	public function test_mergeRecursiveAssoc_SameKey_NotOverwrites()
+	{
+		self::assertEquals([
+			'a' => 1,
+			'b' => 2,
+			'c' => 4
+		], Arrays::mergeRecursiveAssoc(['a' => 1, 'b' => 2], ['b' => 3, 'c' => 4]));
+	}
+	
+	public function test_mergeRecursiveAssoc_MultiDimentionalArray_Recursive()
+	{
+		self::assertEquals([
+			'a' => 1,
+			'b' => [
+				'test' 	=> 'hello',
+				'test2' => [
+					'c' => 3
+				]
+			]
+		], Arrays::mergeRecursiveAssoc(['a' => 1], ['b' => ['test' => 'hello', 'test2' => ['c' => 3]]]));
+	}
 }
 
 

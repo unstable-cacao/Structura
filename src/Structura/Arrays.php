@@ -95,7 +95,7 @@ class Arrays
 			{
 				if (key_exists($key, $main))
 				{
-					if (is_array($value) && !key_exists(0, $value))
+					if (is_array($value))
 					{
 						$main[$key] = self::mergeRecursiveAssoc($main[$key], $array[$key]);
 					}
