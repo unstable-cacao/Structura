@@ -86,4 +86,27 @@ class Arrays
 		end($data);
 		return key($data);
 	}
+	
+	public static function mergeRecursiveAssoc(array $main, array ...$arrays): array 
+	{
+		foreach ($arrays as $array)
+		{
+			foreach ($array as $key => $value)
+			{
+				if (key_exists($key, $main))
+				{
+					if (is_array($value) && !key_exists(0, $value))
+					{
+						$main[$key] = self::mergeRecursiveAssoc($main[$key], $array[$key]);
+					}
+				}
+				else
+				{
+					$main[$key] = $value;
+				}
+			}
+		}
+		
+		return $main;
+	}
 }
