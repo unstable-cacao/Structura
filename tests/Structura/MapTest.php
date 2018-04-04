@@ -49,6 +49,27 @@ class MapTest extends TestCase
 		self::assertTrue($subject->has(1));
 	}
 	
+	public function test_add_ValueNull_AddValueToMap()
+	{
+		$subject = new Map();
+		$subject->add(1, null);
+		
+		self::assertNull($subject->get(1));
+	}
+	
+	public function test_add_IIdentified_AddKeyAsValueAndHashAsKey()
+	{
+		$subject = new Map();
+		$object = new class implements IIdentified
+		{
+			public $a = 1;
+			public function getHashCode() { return 'a'; }
+		};
+		$subject->add($object);
+		
+		self::assertEquals($object, $subject->get('a'));
+	}
+	
 	public function test_add_KeyExists_OverwriteOldValue()
 	{
 		$subject = new Map();

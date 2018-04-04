@@ -85,12 +85,17 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 	 * @param mixed $key
 	 * @param mixed $value
 	 */
-	public function add($key, $value)
+	public function add($key, $value = null)
 	{
 		if ($this->transform)
 			$key = $this->transformKey($key);
 		
-		if (!$this->isValid($key))
+		if ($key instanceof IIdentified) 
+		{
+			$value = $key;
+			$key = $value->getHashCode();
+		} 
+		else if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");
 		
 		$this->map[$key] = $value;
