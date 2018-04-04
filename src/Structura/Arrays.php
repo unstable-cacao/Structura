@@ -119,4 +119,23 @@ class Arrays
 		
 		return $main;
 	}
+	
+	public static function toArrayRecursive(iterable $input): array 
+	{
+		$result = [];
+		
+		foreach ($input as $key => $value) 
+		{
+			if (is_iterable($value)) 
+			{
+				$result[$key] = self::toArrayRecursive($value);
+			}
+			else
+			{
+				$result[$key] = $value;
+			}
+		}
+		
+		return $result;
+	}
 }

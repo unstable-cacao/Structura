@@ -157,6 +157,20 @@ class ArraysTest extends TestCase
 			'c' => [5]
 		], Arrays::mergeRecursiveAssoc(['a' => 1], ['b' => 2, 'c' => [5]], [3]));
 	}
+	
+	public function test_toArrayRecursive()
+	{
+		self::assertEquals([
+			[
+				[
+					'a' => 1,
+					'b' => 2
+				],
+				5
+			],
+			"Test"
+		], Arrays::toArrayRecursive(new ArraysTestHelper_IterableForRecursion2()));
+	}
 }
 
 
@@ -172,5 +186,44 @@ class ArraysTestHelper_Iterable implements \IteratorAggregate
 	public function getIterator()
 	{
 		return new \ArrayIterator([1 => 1, 3 => 3]);
+	}
+}
+
+class ArraysTestHelper_IterableForRecursion implements \IteratorAggregate
+{
+	/**
+	 * Retrieve an external iterator
+	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+	 * @return \Traversable An instance of an object implementing <b>Iterator</b> or
+	 * <b>Traversable</b>
+	 * @since 5.0.0
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator([
+			'a' => 1,
+			'b' => 2
+		]);
+	}
+}
+
+class ArraysTestHelper_IterableForRecursion2 implements \IteratorAggregate
+{
+	/**
+	 * Retrieve an external iterator
+	 * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+	 * @return \Traversable An instance of an object implementing <b>Iterator</b> or
+	 * <b>Traversable</b>
+	 * @since 5.0.0
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator([
+			[
+				new ArraysTestHelper_IterableForRecursion(),
+				5
+			],
+			"Test"
+		]);
 	}
 }
