@@ -130,6 +130,17 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		return $this->map[$key];
 	}
 	
+	public function getIfExists($key, $default = null)
+	{
+		if ($this->transform)
+			$key = $this->transformKey($key);
+		
+		if (!$this->hasKey($key))
+			return $default;
+		
+		return $this->map[$key];
+	}
+	
 	public function tryGet($key, &$value): bool 
 	{
 		if ($this->transform)

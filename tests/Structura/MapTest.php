@@ -169,6 +169,30 @@ class MapTest extends TestCase
 	/**
 	 * @expectedException \Structura\Exceptions\StructuraException
 	 */
+	public function test_getIfExists_KeyNotValid_ExceptionThrown()
+	{
+		$subject = new Map();
+		$subject->getIfExists([]);
+	}
+	
+	public function test_getIfExists_KeyNotExists_ReturnDefault()
+	{
+		$subject = new Map();
+		
+		self::assertEquals('test', $subject->getIfExists(1, 'test'));
+	}
+	
+	public function test_getIfExists_KeyExists_ReturnValue()
+	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		
+		self::assertEquals(1, $subject->getIfExists(1));
+	}
+	
+	/**
+	 * @expectedException \Structura\Exceptions\StructuraException
+	 */
 	public function test_tryGet_KeyNotValid_ExceptionThrown()
 	{
 		$subject = new Map();
