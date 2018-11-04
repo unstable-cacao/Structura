@@ -18,7 +18,8 @@
 	},
     "require-dev": {
         "phpunit/phpunit": "^6.2",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+		"oktopost/unit-cover": "^1.0"
     },
 	"autoload": {
 		"psr-0": {
