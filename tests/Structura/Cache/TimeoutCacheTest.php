@@ -35,6 +35,19 @@ class TimeoutCacheTest extends TestCase
     
         self::assertEquals(100, $cache->get());
     }
+	
+	public function test_get_CacheTimedOutUsingSetters_ReturnCallbackResult()
+	{
+		$cache = new TimeoutCache(5);
+		$cache->setTtl(0);
+		$cache->setGetter(function() {
+			return 100;
+		});
+		
+		$cache->put(105);
+		
+		self::assertEquals(100, $cache->get());
+	}
     
     
     public function test_put_SetsObject()

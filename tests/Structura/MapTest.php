@@ -182,6 +182,17 @@ class MapTest extends TestCase
 		self::assertEquals('test', $subject->getIfExists(1, 'test'));
 	}
 	
+	public function test_getIfExists_WithTransform_ReturnValue()
+	{
+		$subject = new Map();
+		$subject->add(1, 1);
+		$subject->setTransform(function() {
+			return 1;
+		});
+		
+		self::assertEquals(1, $subject->getIfExists(2, 'notResult'));
+	}
+	
 	public function test_getIfExists_KeyExists_ReturnValue()
 	{
 		$subject = new Map();

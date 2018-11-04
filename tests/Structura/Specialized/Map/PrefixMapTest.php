@@ -7,6 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class PrefixMapTest extends TestCase
 {
+	/**
+	 * @expectedException \Structura\Exceptions\StructuraException
+	 */
+	public function test_construct_PrefixNotValid_ExceptionThrown()
+	{
+		new PrefixMap(0);
+	}
+	
     public function test_has_PrefixExists_ReturnTrue()
     {
         $subject = new PrefixMap();
@@ -150,6 +158,14 @@ class PrefixMapTest extends TestCase
     
         self::assertEquals(1, $subject->find('ClassName\Name'));
     }
+	
+	public function test_find_ItemExistsWithLongKey_ReturnItem()
+	{
+		$subject = new PrefixMap();
+		$subject->add('ClassName\Name', 1);
+		
+		self::assertEquals(1, $subject->find('ClassName\Name'));
+	}
     
     public function test_find_ItemNotExists_ReturnNull()
     {
