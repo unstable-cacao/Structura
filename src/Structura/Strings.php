@@ -9,7 +9,7 @@ class Strings
 		if (!$start)
 			return true;
 		
-		return strpos($source, $start) === 0;
+		return substr($source, 0, strlen($start)) == $start;
 	}
 	
 	public static function isEndsWith(string $source, string $end): bool

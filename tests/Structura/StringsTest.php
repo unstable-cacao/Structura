@@ -22,6 +22,11 @@ class StringsTest extends TestCase
 		self::assertTrue(Strings::isStartsWith('abcdef', ''));
 	}
 	
+	public function test_isStartsWith_SubjectShorterThanTarget_ReturnFalse()
+	{
+		self::assertFalse(Strings::isStartsWith('abc', 'abcdef'));
+	}
+	
 	public function test_isEndsWith_NotEndsWith_ReturnFalse()
 	{
 		self::assertFalse(Strings::isEndsWith('abcdef', 'dff'));
@@ -30,6 +35,11 @@ class StringsTest extends TestCase
 	public function test_isEndsWith_EndsWith_ReturnTrue()
 	{
 		self::assertTrue(Strings::isEndsWith('abcdef', 'def'));
+	}
+	
+	public function test_isEndsWith_SubjectShorterThanTarget_ReturnFalse()
+	{
+		self::assertFalse(Strings::isEndsWith('def', 'abcdef'));
 	}
 	
 	public function test_isEndsWith_EndParamEmpty_ReturnTrue()
