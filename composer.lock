@@ -4,8 +4,101 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae7b353f65a3a7608c6b740768f62024",
-    "packages": [],
+    "content-hash": "fb77c7edd539dcd571584d53183cd3d0",
+    "packages": [
+        {
+            "name": "oktopost/objection",
+            "version": "1.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Oktopost/Objection.git",
+                "reference": "ed779b56a96e395ae1c16273f73cf5e16a0f79f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Oktopost/Objection/zipball/ed779b56a96e395ae1c16273f73cf5e16a0f79f3",
+                "reference": "ed779b56a96e395ae1c16273f73cf5e16a0f79f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5-stable",
+                "unstable-cacao/traitor": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Objection": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Puchkov",
+                    "email": "alexey@oktopost.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Marina Sherstuk",
+                    "email": "marinashers@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Daniel Podrabinek",
+                    "email": "dpodrabinek@oktopost.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Objects in PHP",
+            "homepage": "https://github.com/Oktopost/Objection",
+            "time": "2017-10-19T05:25:35+00:00"
+        },
+        {
+            "name": "unstable-cacao/traitor",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unstable-cacao/Traitor.git",
+                "reference": "9568cf58c5b53111f304b1e4c3c401925802f542"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unstable-cacao/Traitor/zipball/9568cf58c5b53111f304b1e4c3c401925802f542",
+                "reference": "9568cf58c5b53111f304b1e4c3c401925802f542",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1-stable"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.1",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Traitor": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Puchkov",
+                    "email": "alexey.pkv@gmail.com"
+                },
+                {
+                    "name": "Marina Puchkov",
+                    "email": "marinashers@gmail.com"
+                }
+            ],
+            "time": "2017-11-13T07:22:17+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
