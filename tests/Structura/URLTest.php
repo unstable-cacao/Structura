@@ -390,4 +390,30 @@ class URLTest extends TestCase
 		
 		self::assertEquals('http://www.hello.world.com/hi.php?a=3#abcdef', $subject->url());
 	}
+	
+	public function test_setQueryParams_SetsParams()
+	{
+		$subject = new URL();
+		$subject->setQueryParams(['a' => 3]);
+		
+		self::assertEquals(['a' => 3], $subject->Query);
+	}
+	
+	public function test_addQueryParams_AddsParams()
+	{
+		$subject = new URL();
+		$subject->setQueryParams(['a' => 3]);
+		$subject->addQueryParams(['b' => 4]);
+		
+		self::assertEquals(['a' => 3, 'b' => 4], $subject->Query);
+	}
+	
+	public function test_addQueryParam_AddsParam()
+	{
+		$subject = new URL();
+		$subject->addQueryParam('a', 3);
+		$subject->addQueryParam('b', 4);
+		
+		self::assertEquals(['a' => 3, 'b' => 4], $subject->Query);
+	}
 }
