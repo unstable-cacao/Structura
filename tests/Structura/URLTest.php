@@ -95,7 +95,7 @@ class URLTest extends TestCase
 	}
 	
 	/**
-	 * @expectedException \Objection\Exceptions\LiteObjectException
+	 * @expectedException \Structura\Exceptions\URLException
 	 */
 	public function test_setUrl_PortNotValid_ExceptionThrown()
 	{
@@ -173,7 +173,7 @@ class URLTest extends TestCase
 		$subject = new URL();
 		$subject->setUrl('http://hello.world.com/hi.php?a[]=3&a[]=4#abcdef');
 		
-		self::assertEquals(['a[]' => ['3', '4']], $subject->Query);
+		self::assertEquals(['a' => ['3', '4']], $subject->Query);
 	}
 	
 	public function test_setUrl_QuerySet_QueryPropertySet()

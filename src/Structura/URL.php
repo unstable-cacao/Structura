@@ -2,9 +2,9 @@
 namespace Structura;
 
 
-use Objection\Exceptions\LiteObjectException;
 use Objection\LiteObject;
 use Objection\LiteSetup;
+use Structura\Exceptions\URLException;
 
 
 /**
@@ -25,35 +25,17 @@ class URL extends LiteObject
 	];
 	
 	
-	private function parseQueryString(string $query): array 
-	{
-		$paramPairs = explode('&', $query);
-		$result = [];
-		
-		foreach ($paramPairs as $paramPair)
-		{
-			$parts = explode('=', $paramPair);
-			
-			if (Strings::isEndsWith($parts[0], '[]'))
-				$result[$parts[0]][] = $parts[1] ?? '';
-			else
-				$result[$parts[0]] = $parts[1] ?? '';
-		}
-		
-		return $result;
-	}
-	
-	private function assembleQueryString(): string 
+	private function assembleQueryString(array $query): string 
 	{
 		$params = [];
 		
-		foreach ($this->Query as $key => $value)
+		foreach ($query as $key => $value)
 		{
 			if (is_array($value))
 			{
 				foreach ($value as $item)
 				{
-					$params[] = "$key=$item";
+					$params[] = Strings::endWith($key, '[]') . "=$item";
 				}
 			}
 			else
@@ -65,9 +47,7 @@ class URL extends LiteObject
 	
 	private function shouldUsePort(): bool 
 	{
-		return !($this->Scheme && 
-			isset(self::DEFAULT_PORTS[$this->Scheme]) && 
-			self::DEFAULT_PORTS[$this->Scheme] == $this->Port);
+		return !($this->Scheme && (self::DEFAULT_PORTS[$this->Scheme] ?? -1) == $this->Port);
 	}
 	
 	
@@ -107,7 +87,7 @@ class URL extends LiteObject
 		if ($name == 'Port')
 		{
 			if ($value < 0 || $value > 65535)
-				throw new LiteObjectException('Port is not in valid range');
+				throw new URLException('Port is not in valid range');
 		}
 		
 		parent::__set($name, $value);
@@ -167,7 +147,7 @@ class URL extends LiteObject
 		if ($this->Query)
 		{
 			$result[] = '?';
-			$result[] = $this->assembleQueryString();
+			$result[] = $this->assembleQueryString($this->Query);
 		}
 		
 		if ($this->Fragment)
@@ -181,18 +161,23 @@ class URL extends LiteObject
 	
 	public function setUrl(string $url): void
 	{
-		$this->Scheme 	= parse_url($url, PHP_URL_SCHEME);
-		$this->Host 	= parse_url($url, PHP_URL_HOST);
-		$this->Port 	= parse_url($url, PHP_URL_PORT);
-		$this->User 	= parse_url($url, PHP_URL_USER) ?: null;
-		$this->Pass 	= parse_url($url, PHP_URL_PASS);
-		$this->Path 	= parse_url($url, PHP_URL_PATH);
+		$parsedUrl = parse_url($url);
 		
-		$query = parse_url($url, PHP_URL_QUERY);
+		$this->Scheme 	= $parsedUrl['scheme'] ?? null;
+		$this->Host 	= $parsedUrl['host'] ?? null;
+		$this->Port 	= $parsedUrl['port'] ?? null;
+		$this->User 	= isset($parsedUrl['user']) && $parsedUrl['user'] ? $parsedUrl['user'] : null;
+		$this->Pass 	= $parsedUrl['pass'] ?? null;
+		$this->Path 	= $parsedUrl['path'] ?? null;
+		
+		$query = $parsedUrl['query'] ?? null;
 		
 		if ($query)
-			$this->Query = $this->parseQueryString($query);
+		{
+			parse_str($query, $result);
+			$this->Query = $result;
+		}
 		
-		$this->Fragment = parse_url($url, PHP_URL_FRAGMENT);
+		$this->Fragment = $parsedUrl['fragment'] ?? null;
 	}
 }
