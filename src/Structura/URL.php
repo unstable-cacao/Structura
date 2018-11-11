@@ -8,14 +8,14 @@ use Structura\Exceptions\URLException;
 
 
 /**
- * @property string	$Scheme
- * @property string	$Host
- * @property int	$Port
- * @property string	$User
- * @property string	$Pass
- * @property string	$Path
- * @property array	$Query
- * @property string	$Fragment
+ * @property string			$Scheme
+ * @property string			$Host
+ * @property int			$Port
+ * @property string			$User
+ * @property string			$Pass
+ * @property string			$Path
+ * @property array			$Query
+ * @property string|null	$Fragment
  */
 class URL extends LiteObject
 {
@@ -87,7 +87,7 @@ class URL extends LiteObject
 		if ($name == 'Port')
 		{
 			if ($value < 0 || $value > 65535)
-				throw new URLException('Port is not in valid range');
+				throw new URLException('Port is not in valid range. Got: ' . (int)$value);
 		}
 		
 		parent::__set($name, $value);
