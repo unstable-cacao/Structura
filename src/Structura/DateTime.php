@@ -2,6 +2,7 @@
 namespace Structura;
 
 
+/** @codeCoverageIgnore */
 class DateTime
 {
 	/**
