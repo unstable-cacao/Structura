@@ -31,7 +31,7 @@ class ElementsContainer
 			
 			if ($queried)
 			{
-				if ($queried->compare($element) < 0)
+				if ($queried->shouldOverrideBy($element))
 				{
 					unset($this->queried[$id]);
 					$this->target[$id] = $element::merge($element, $queried);

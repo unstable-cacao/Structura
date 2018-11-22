@@ -305,7 +305,7 @@ class TraversalTestElementHelper implements ITraversElement
 {
 	public $id;
 	public $compareWith;
-	public $compareResult = -1;
+	public $compareResult = true;
 	
 	public static $mergeA;
 	public static $mergeB;
@@ -326,7 +326,7 @@ class TraversalTestElementHelper implements ITraversElement
 		return $this->id;
 	}
 	
-	public function compare(ITraversElement $with): int
+	public function shouldOverrideBy(ITraversElement $with): bool
 	{
 		$this->compareWith = $with;
 		return $this->compareResult;

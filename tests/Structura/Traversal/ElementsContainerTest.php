@@ -31,7 +31,7 @@ class UnitTestElementHelper implements ITraversElement
 		return $this->id;
 	}
 	
-	public function compare(ITraversElement $with): int
+	public function shouldOverrideBy(ITraversElement $with): bool
 	{
 		$this->compareWith = $with;
 		return $this->compareResult;
@@ -100,13 +100,12 @@ class ElementsContainerTest extends TestCase
 			($e2 == UnitTestElementHelper::$mergeA && $e1 == UnitTestElementHelper::$mergeB));
 	}
 	
-	public function test_addElements_QueriedElementOfHigherValueExists_ElementNotOveridden(): void
+	public function test_addElements_QueriedElementOfLowerValueExists_ElementNotOveridden(): void
 	{
 		$e1 = new UnitTestElementHelper('a');
 		$e2 = new UnitTestElementHelper('a');
 		
-		$e1->compareResult = 1;
-		$e2->compareResult = -1;
+		$e1->compareResult = false;
 		
 		$c = new ElementsContainer();
 		$c->addElements([$e1]);
@@ -116,14 +115,13 @@ class ElementsContainerTest extends TestCase
 		self::assertEmpty($c->getTargetElementsForQuery());
 	}
 	
-	public function test_addElements_QueriedElementWithSameValue_ElementMergedIntoTarget(): void
+	public function test_addElements_QueriedElementWithHigherValue_ElementMergedIntoTarget(): void
 	{
 		$e1 = new UnitTestElementHelper('a');
 		$e2 = new UnitTestElementHelper('a');
 		$em = new UnitTestElementHelper('a');
 		
-		$e1->compareResult = -1;
-		$e2->compareResult = 1;
+		$e1->compareResult = true;
 		
 		UnitTestElementHelper::$mergeResult = $em;
 		
