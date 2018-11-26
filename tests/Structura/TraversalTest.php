@@ -4,6 +4,7 @@ namespace Structura;
 
 use PHPUnit\Framework\TestCase;
 
+use Structura\Traversal\AbstractTraversElement;
 use Structura\Traversal\ITraverser;
 use Structura\Traversal\TraversConfig;
 use Structura\Traversal\ITraversElement;
@@ -301,7 +302,7 @@ class TraverserHelper implements ITraverser
 }
 
 
-class TraversalTestElementHelper implements ITraversElement
+class TraversalTestElementHelper extends AbstractTraversElement
 {
 	public $id;
 	public $compareWith;

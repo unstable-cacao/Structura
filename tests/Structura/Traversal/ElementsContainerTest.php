@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 
 
-class UnitTestElementHelper implements ITraversElement
+class UnitTestElementHelper extends AbstractTraversElement
 {
 	public $id;
 	public $compareWith;
