@@ -57,6 +57,11 @@ class ElementsContainer
 	{
 		$result = $this->target;
 		
+		foreach ($result as $item)
+		{
+			$item->preTravers();
+		}
+		
 		$this->queried = array_merge($this->queried, $this->target);
 		$this->target = [];
 		

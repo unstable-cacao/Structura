@@ -11,6 +11,7 @@ class UnitTestElementHelper extends AbstractTraversElement
 	public $id;
 	public $compareWith;
 	public $compareResult = -1;
+	public $preTraversCalled = false;
 	
 	public static $mergeA;
 	public static $mergeB;
@@ -49,6 +50,12 @@ class UnitTestElementHelper extends AbstractTraversElement
 	{
 		self::$parseArgs = $args;
 		return self::$parseResult;
+	}
+	
+	public function preTravers(): void
+	{
+		$this->preTraversCalled = true;
+		parent::preTravers();
 	}
 }
 
@@ -168,5 +175,21 @@ class ElementsContainerTest extends TestCase
 		$c->addElements($e2);
 		
 		self::assertSame([$e2], $c->getTargetElementsForQuery());
+	}
+	
+	public function test_getTargetElementsForQuery_HasElements_preTraversCalled(): void
+	{
+		$e1 = new UnitTestElementHelper('a');
+		$e2 = new UnitTestElementHelper('b');
+		
+		$c = new ElementsContainer();
+		$c->addElements([$e1, $e2]);
+		
+		
+		$c->getTargetElementsForQuery();
+		
+		
+		self::assertTrue($e1->preTraversCalled);
+		self::assertTrue($e2->preTraversCalled);
 	}
 }
