@@ -112,14 +112,22 @@ class Traversal
 		$maxPageSize	= $config->getMaxPageSize();
 		$traversers		= $this->set->getTraversers();
 		
-		while ($traversers && $config->getMaxIterations() > 0 && $config->getMaxElements() > 0)
+		if (!$traversers)
+			return;
+		
+		while ($config->getMaxIterations() > 0 && $config->getMaxElements() > 0)
 		{
+			$found = false;
+			
 			foreach ($traversers as $traverser)
 			{
 				$container = $this->getContainer($traverser->getElementType());
 				
 				$data = $container->getTargetElementsForQuery();
 				$data = array_splice($data, 0, $config->getMaxElements());
+				
+				if ($data) 
+					$found = true;
 				
 				foreach (array_chunk($data, $maxPageSize) as $chunk)
 				{
@@ -139,6 +147,9 @@ class Traversal
 					break;
 				}
 			}
+			
+			if (!$found)
+				break;
 		}
 	}
 }

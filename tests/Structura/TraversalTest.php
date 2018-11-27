@@ -28,6 +28,21 @@ class TraversalTest extends TestCase
 		$s->execute();
 	}
 	
+	public function test_execute_LoopStoppedWhenElementHaveNoItems(): void
+	{
+		$s = new Traversal();
+		$t = new TraverserHelper();
+		
+		
+		$s->config()->setMaxIterations(PHP_INT_MAX);
+		$s->addTraverser($t);
+		
+		$s->execute();
+		
+		
+		self::assertEquals([], $t->calls);
+	}
+	
 	public function test_execute_MaxPageSize(): void
 	{
 		$s = new Traversal();
