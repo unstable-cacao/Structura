@@ -128,6 +128,8 @@ class Traversal
 				
 				if ($data) 
 					$found = true;
+				else 
+					continue;
 				
 				foreach (array_chunk($data, $maxPageSize) as $chunk)
 				{
