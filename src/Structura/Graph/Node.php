@@ -2,12 +2,12 @@
 namespace Structura\Graph;
 
 
-use Structura\IIdentifiable;
+use Structura\IIdentified;
 
 
 class Node
 {
-	public function __construct(IIdentifiable $item)
+	public function __construct(IIdentified $item)
 	{
 	}
 	
@@ -17,7 +17,7 @@ class Node
 	}
 	
 	
-	public function get(): IIdentifiable
+	public function get(): IIdentified
 	{
 		
 	}
@@ -32,7 +32,7 @@ class Node
 	}
 	
 	/**
-	 * @param Node|IIdentifiable|string $to
+	 * @param Node|IIdentified|string $to
 	 * @return bool
 	 */
 	public function isConnectedTo($to): bool
@@ -41,7 +41,7 @@ class Node
 	}
 	
 	/**
-	 * @param Node|IIdentifiable|string $with
+	 * @param Node|IIdentified|string $with
 	 * @return bool
 	 */
 	public function getVertexData($with): bool
@@ -58,7 +58,7 @@ class Node
 	}
 	
 	/**
-	 * @param Node|IIdentifiable|string $with
+	 * @param Node|IIdentified|string $with
 	 * @return null|Vertex
 	 */
 	public function getVertex($with): ?Vertex
@@ -67,7 +67,7 @@ class Node
 	}
 	
 	/**
-	 * @param Node[]|IIdentifiable[]|string[] $with
+	 * @param Node[]|IIdentified[]|string[] $with
 	 * @return array
 	 */
 	public function getVertexes(array $with): array
@@ -76,7 +76,7 @@ class Node
 	}
 	
 	/**
-	 * @param Node|IIdentifiable|string|[]|IIdentifiable[]|string[] $from
+	 * @param Node|IIdentified|string|[]|IIdentifiable[]|string[] $from
 	 */
 	public function disconnect($from): void
 	{

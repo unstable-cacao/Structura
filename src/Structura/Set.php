@@ -19,7 +19,7 @@ class Set implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		if (is_scalar($value))
 			return $value;
 		else if ($value instanceof IIdentified)
-			return $value->getHashCode();
+			return $value->id();
 		else
 			throw new InvalidValueException();
 	}

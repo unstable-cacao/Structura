@@ -93,7 +93,7 @@ class Map implements \IteratorAggregate, \ArrayAccess, \Countable, ICollection
 		if ($key instanceof IIdentified) 
 		{
 			$value = $key;
-			$key = $value->getHashCode();
+			$key = $value->id();
 		} 
 		else if (!$this->isValid($key))
 			throw new StructuraException("Key of map must be string or int");

@@ -63,7 +63,7 @@ class MapTest extends TestCase
 		$object = new class implements IIdentified
 		{
 			public $a = 1;
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		$subject->add($object);
 		

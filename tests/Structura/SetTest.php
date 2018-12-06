@@ -68,7 +68,7 @@ class SetTest extends TestCase
 		$object = new class implements IIdentified
 		{
 			public $a = 1;
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -102,7 +102,7 @@ class SetTest extends TestCase
 		$object = new class implements IIdentified
 		{
 			public $a = 1;
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -143,7 +143,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -168,7 +168,7 @@ class SetTest extends TestCase
 	{
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set = new Set();
@@ -228,7 +228,7 @@ class SetTest extends TestCase
 	{
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set = new Set();
@@ -378,7 +378,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -392,7 +392,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -406,11 +406,11 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		$object2 = new class implements IIdentified
 		{
-			public function getHashCode() { return 'b'; }
+			public function id() { return 'b'; }
 		};
 		
 		$set->add($object);
@@ -425,7 +425,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -439,7 +439,7 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		
 		$set->add($object);
@@ -453,11 +453,11 @@ class SetTest extends TestCase
 		$set = new Set();
 		$object = new class implements IIdentified
 		{
-			public function getHashCode() { return 'a'; }
+			public function id() { return 'a'; }
 		};
 		$object2 = new class implements IIdentified
 		{
-			public function getHashCode() { return 'b'; }
+			public function id() { return 'b'; }
 		};
 		
 		$set->add($object);
@@ -502,7 +502,7 @@ class SetTest extends TestCase
 			/**
 			 * @return string|int
 			 */
-			public function getHashCode()
+			public function id()
 			{
 				return 1;
 			}
@@ -589,7 +589,7 @@ class SetTest extends TestCase
 			/**
 			 * @return string|int
 			 */
-			public function getHashCode()
+			public function id()
 			{
 				return 1;
 			}

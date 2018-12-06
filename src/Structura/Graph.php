@@ -8,7 +8,7 @@ use Structura\Graph\Node;
 class Graph
 {
 	/**
-	 * @param IIdentifiable|IIdentifiable[] $items
+	 * @param IIdentified|IIdentified[] $items
 	 */
 	public function __construct($items)
 	{
@@ -21,7 +21,7 @@ class Graph
 	
 	
 	/**
-	 * @param IIdentifiable|IIdentifiable[] $item
+	 * @param IIdentified|IIdentified[] $item
 	 * @return Graph
 	 */
 	public function addNode($item): self 
@@ -30,8 +30,8 @@ class Graph
 	}
 	
 	/**
-	 * @param string|IIdentifiable $a
-	 * @param string|IIdentifiable|string[]|IIdentifiable[] $b
+	 * @param string|IIdentified $a
+	 * @param string|IIdentified|string[]|IIdentified[] $b
 	 * @return Graph
 	 */
 	public function connect($a, $b): self
@@ -40,7 +40,7 @@ class Graph
 	}
 	
 	/**
-	 * @param string[]|IIdentifiable[] $data
+	 * @param string[]|IIdentified[] $data
 	 * @return Graph
 	 */
 	public function connectByKey(array $data): self
@@ -58,7 +58,7 @@ class Graph
 	}
 	
 	/**
-	 * @param IIdentifiable|string $key
+	 * @param IIdentified|string $key
 	 * @return ?Node
 	 */
 	public function getNode($key): ?Node
@@ -67,7 +67,7 @@ class Graph
 	}
 	
 	/**
-	 * @param IIdentifiable[]|string[] $key
+	 * @param IIdentified[]|string[] $key
 	 * @return Node[]
 	 */
 	public function getAllNodes($key): array
@@ -79,14 +79,14 @@ class Graph
 	 * @param string $key
 	 * @return ?IIdentifiable
 	 */
-	public function get(string $key): ?IIdentifiable
+	public function get(string $key): ?IIdentified
 	{
 		
 	}
 	
 	/**
 	 * @param string[] $key
-	 * @return IIdentifiable[]
+	 * @return IIdentified[]
 	 */
 	public function getAll(array $key): array
 	{
@@ -94,7 +94,7 @@ class Graph
 	}
 	
 	/**
-	 * @param IIdentifiable|string $key
+	 * @param IIdentified|string $key
 	 * @return bool
 	 */
 	public function exists($key): bool

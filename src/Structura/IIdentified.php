@@ -7,5 +7,5 @@ interface IIdentified
 	/**
 	 * @return string|int
 	 */
-	public function getHashCode();
+	public function id();
 }
