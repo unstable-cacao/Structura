@@ -171,6 +171,53 @@ class ArraysTest extends TestCase
 			"Test"
 		], Arrays::toArrayRecursive(new ArraysTestHelper_IterableForRecursion2()));
 	}
+	
+	
+	
+	
+	public function test_merge_SingleArray_ReturnArray(): void
+	{
+		self::assertEquals(['a'], Arrays::merge(['a']));
+	}
+	
+	public function test_merge_EmptyArrays_ReturnEmptyArray(): void
+	{
+		self::assertEquals([], Arrays::merge([], [], []));
+	}
+	
+	public function test_merge_NonArrayElement_ReturnElementAsArray(): void
+	{
+		self::assertEquals(['a'], Arrays::merge('a'));
+	}
+	
+	public function test_merge_NonArrayElements_ReturnArrayWithElements(): void
+	{
+		self::assertEquals(['a', 'b'], Arrays::merge('a', 'b'));
+	}
+	
+	public function test_merge_Arrays_MergeAllArrays(): void
+	{
+		self::assertEquals(['a', 'b', 1, 2], Arrays::merge(['a'], ['b'], [1, 2]));
+	}
+	
+	public function test_merge_ArraysAndElements_MergeEverything(): void
+	{
+		self::assertEquals(['a', 'b', 1, 2, 3], Arrays::merge(['a'], 'b', [1, 2], 3));
+	}
+	
+	public function test_merge_NoParams_ReturnEmptyArray(): void
+	{
+		self::assertEquals([], Arrays::merge());
+	}
+	
+	public function test_merge_Iterable_TreatIterableAsSingleItem(): void
+	{
+		$a = new Set([]);
+		
+		self::assertSame(['a', $a], Arrays::merge('a', $a));
+	}
+	
+	// TODO: merge -> Add tests for keys. Should be same behaviour as merge in php.
 }
 
 

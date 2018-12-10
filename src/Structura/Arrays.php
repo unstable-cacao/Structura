@@ -138,4 +138,9 @@ class Arrays
 		
 		return $result;
 	}
+	
+	public static function merge(...$with): array
+	{
+		return [];
+	}
 }
