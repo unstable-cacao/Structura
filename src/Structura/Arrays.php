@@ -141,6 +141,16 @@ class Arrays
 	
 	public static function merge(...$with): array
 	{
-		return [];
+		$res = [];
+		
+		foreach ($with as $item)
+		{
+			if (is_array($item))
+				$res = array_merge($res, $item);
+			else 
+				$res[] = $item;
+		}
+		
+		return $res;
 	}
 }

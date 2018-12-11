@@ -217,7 +217,22 @@ class ArraysTest extends TestCase
 		self::assertSame(['a', $a], Arrays::merge('a', $a));
 	}
 	
-	// TODO: merge -> Add tests for keys. Should be same behaviour as merge in php.
+	public function test_merge_SingleArrayWithKey_ReturnArray(): void
+	{
+		self::assertEquals(['a' => 1], Arrays::merge(['a' => 1]));
+	}
+	
+	public function test_merge_ArraysAssoc_MergeAllArrays(): void
+	{
+		self::assertEquals(['color' => 'green', 2, 4, 'a', 'b', 'shape' => 'trapezoid', 4], 
+			Arrays::merge(["color" => "red", 2, 4], ["a", "b", "color" => "green", "shape" => "trapezoid", 4]));
+	}
+	
+	public function test_merge_ArraysAndElementsAssoc_MergeEverything(): void
+	{
+		self::assertEquals(['key' => 1, 'b', 2, 3], 
+			Arrays::merge(['key' => 'a'], 'b', ['key' => 1, 2], 3));
+	}
 }
 
 
