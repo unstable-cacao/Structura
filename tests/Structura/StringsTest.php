@@ -126,4 +126,54 @@ class StringsTest extends TestCase
 	{
 		self::assertEquals('tttesting', Strings::startWith('testing', 'tt'));
 	}
+	
+	public function test_shouldNotStartWith_SourceEmpty_ReturnEmtpy()
+	{
+		self::assertEquals('', Strings::shouldNotStartWith('', 'test'));
+	}
+	
+	public function test_shouldNotStartWith_StartIsEmpty_ReturnSource()
+	{
+		self::assertEquals('ing', Strings::shouldNotStartWith('ing', ''));
+	}
+	
+	public function test_shouldNotStartWith_StartAndSourceEmpty_ReturnEmpty()
+	{
+		self::assertEquals('', Strings::shouldNotStartWith('', ''));
+	}
+	
+	public function test_shouldNotStartWith_StartsWith_RemoveStart()
+	{
+		self::assertEquals('ing', Strings::shouldNotStartWith('testing', 'test'));
+	}
+	
+	public function test_shouldNotStartWith_NotStartsWith_ReturnSource()
+	{
+		self::assertEquals('testing', Strings::shouldNotStartWith('testing', 'tt'));
+	}
+	
+	public function test_shouldNotEndWith_SourceEmpty_ReturnEmpty()
+	{
+		self::assertEquals('', Strings::shouldNotEndWith('', 'ing'));
+	}
+	
+	public function test_shouldNotEndWith_EndIsEmpty_ReturnSource()
+	{
+		self::assertEquals('testing', Strings::shouldNotEndWith('testing', ''));
+	}
+	
+	public function test_shouldNotEndWith_EndAndSourceEmpty_ReturnEmpty()
+	{
+		self::assertEquals('', Strings::shouldNotEndWith('', ''));
+	}
+	
+	public function test_shouldNotEndWith_EndsWith_RemoveEnd()
+	{
+		self::assertEquals('test', Strings::shouldNotEndWith('testing', 'ing'));
+	}
+	
+	public function test_shouldNotEndWith_NotEndsWith_ReturnSource()
+	{
+		self::assertEquals('testing', Strings::shouldNotEndWith('testing', 'gg'));
+	}
 }

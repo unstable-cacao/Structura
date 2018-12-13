@@ -48,4 +48,20 @@ class Strings
 		else
 			return $start . $source;
 	}
+	
+	public static function shouldNotStartWith(string $source, string $start): string
+	{
+		if (!self::isStartsWith($source, $start))
+			return $source;
+		else
+			return substr($source, strlen($start));
+	}
+	
+	public static function shouldNotEndWith(string $source, string $end): string
+	{
+		if (!self::isEndsWith($source, $end))
+			return $source;
+		else
+			return substr($source, 0, strlen($source) - strlen($end));
+	}
 }
