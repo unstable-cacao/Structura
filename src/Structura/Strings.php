@@ -49,7 +49,23 @@ class Strings
 			return $start . $source;
 	}
 	
+	/**
+	 * @deprecated Use trimStart instead
+	 */
 	public static function shouldNotStartWith(string $source, string $start): string
+	{
+		return self::trimStart($source, $start);
+	}
+	
+	/**
+	 * @deprecated Use trimEnd instead
+	 */
+	public static function shouldNotEndWith(string $source, string $end): string
+	{
+		return self::trimEnd($source, $end);
+	}
+	
+	public static function trimStart(string $source, string $start): string
 	{
 		if (!self::isStartsWith($source, $start))
 			return $source;
@@ -57,7 +73,7 @@ class Strings
 			return substr($source, strlen($start));
 	}
 	
-	public static function shouldNotEndWith(string $source, string $end): string
+	public static function trimEnd(string $source, string $end): string
 	{
 		if (!self::isEndsWith($source, $end))
 			return $source;

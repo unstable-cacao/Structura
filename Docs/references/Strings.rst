@@ -80,31 +80,31 @@ startWith
 ``Strings::startWith('String', 'test')`` will return ``testString``
 
 
-shouldNotStartWith
+trimStart
 --------------------
 
-.. function:: public static shouldNotStartWith(string $source, string $start): string
+.. function:: public static trimStart(string $source, string $start): string
 
     Ensure the string is not starting with the given string
 
 
 *Examples:*
 
-``Strings::shouldNotStartWith('testString', 'test')`` will return ``String``
+``Strings::trimStart('testString', 'test')`` will return ``String``
 
-``Strings::shouldNotStartWith('String', 'test')`` will return ``String``
+``Strings::trimStart('String', 'test')`` will return ``String``
 
 
-shouldNotEndWith
+trimEnd
 ------------------
 
-.. function:: public static shouldNotEndWith(string $source, string $end): string
+.. function:: public static trimEnd(string $source, string $end): string
 
     Ensure the string is not ending with the given string
 
 
 *Examples:*
 
-``Strings::shouldNotEndWith('ending', 'ing')`` will return ``end``
+``Strings::trimEnd('ending', 'ing')`` will return ``end``
 
-``Strings::shouldNotEndWith('end', 'ing')`` will return ``end``
+``Strings::trimEnd('end', 'ing')`` will return ``end``
