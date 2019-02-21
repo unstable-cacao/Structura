@@ -2,7 +2,7 @@
 Arrays
 *************
 
-Arrays is a static class
+Arrays is a static class that has multiple helper functions for arrays.
 
 
 
@@ -11,22 +11,38 @@ toArray
 
 .. function:: public static toArray($data): array
 
-
-*Examples:*
-
-``Arrays::toArray(['a' => 5, 'b' => 8])`` will return
-
-.. code-block:: php
-
-    ['a' => 5, 'b' => 8]
+    Used to convert any data to an array. If the data is of type that cannot be converted to an array, for example int, it will be pushed to an array and returned.
 
 
-``Arrays::toArray(5)`` will return
+**Example #1:**
 
 .. code-block:: php
 
-    [5]
+    print_r(Arrays::toArray(['a' => 5, 'b' => 8]));
 
+will return:
+::
+
+    Array
+    (
+        [a] => 5
+        [b] => 8
+    )
+
+
+**Example #2:**
+
+.. code-block:: php
+
+    print_r(Arrays::toArray(5));
+
+will return:
+::
+
+    Array
+    (
+        [0] => 5
+    )
 
 
 asArray
@@ -34,8 +50,7 @@ asArray
 
 .. function:: public static asArray(&$data): array
 
-    Same as toArray but data is a reference
-
+    Working the same as toArray, but using data as reference.
 
 
 first
@@ -43,29 +58,41 @@ first
 
 .. function:: public static first(array $data)
 
+    Will return the first value of the array or null if empty.
 
-*Examples:*
 
-``Arrays::first(['a' => 5, 'b' => 8])`` will return
+**Example #1:**
 
 .. code-block:: php
+
+    print_r(Arrays::first(['a' => 5, 'b' => 8]));
+
+will return:
+::
 
     5
 
-
-``Arrays::first([9, 6, 9])`` will return
+**Example #2:**
 
 .. code-block:: php
+
+    print_r(Arrays::first([9, 6, 9]));
+
+will return:
+::
 
     9
 
-
-``Arrays::first([])`` will return
+**Example #3:**
 
 .. code-block:: php
 
-    null
+    var_dump(Arrays::first([]));
 
+will return:
+::
+
+    NULL
 
 
 last
@@ -73,29 +100,41 @@ last
 
 .. function:: public static last(array $data)
 
+    Will return the last value of the array or null if empty.
 
-*Examples:*
 
-``Arrays::last(['a' => 5, 'b' => 8])`` will return
+**Example #1:**
 
 .. code-block:: php
+
+    print_r(Arrays::last(['a' => 5, 'b' => 8]));
+
+will return:
+::
 
     8
 
-
-``Arrays::last([9, 6, 9])`` will return
+**Example #2:**
 
 .. code-block:: php
+
+    print_r(Arrays::last([9, 6, 9]));
+
+will return:
+::
 
     9
 
-
-``Arrays::last([])`` will return
+**Example #3:**
 
 .. code-block:: php
 
-    null
+    var_dump(Arrays::last([]));
 
+will return:
+::
+
+    NULL
 
 
 isNumeric
