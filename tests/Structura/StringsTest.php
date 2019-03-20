@@ -218,4 +218,30 @@ class StringsTest extends TestCase
 		self::assertEquals('testing', Strings::shouldNotEndWith('testing😒', '😒'));
 		self::assertEquals('testing', Strings::shouldNotEndWith('testing', '😒'));
 	}
+	
+	public function test_contains_HaystackEmpty_ReturnFalse()
+	{
+		self::assertFalse(Strings::contains('', 'test'));
+	}
+	
+	public function test_contains_NeedleEmpty_ReturnTrue()
+	{
+		self::assertTrue(Strings::contains('test', ''));
+	}
+	
+	public function test_contains_Contains_ReturnTrue()
+	{
+		self::assertTrue(Strings::contains('test', 'te'));
+	}
+	
+	public function test_contains_NotContains_ReturnFalse()
+	{
+		self::assertFalse(Strings::contains('test', 'tet'));
+	}
+	
+	public function test_contains_WorksWithNonUtf8()
+	{
+		self::assertTrue(Strings::contains('testing😒', '😒'));
+		self::assertFalse(Strings::contains('test😒', '😱'));
+	}
 }

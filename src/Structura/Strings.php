@@ -80,4 +80,12 @@ class Strings
 		else
 			return substr($source, 0, strlen($source) - strlen($end));
 	}
+	
+	public static function contains(string $haystack, string $needle): bool 
+	{
+		if (!$needle)
+			return true;
+		
+		return strpos($haystack, $needle) !== false;
+	}
 }

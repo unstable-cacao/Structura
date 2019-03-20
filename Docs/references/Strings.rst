@@ -108,3 +108,18 @@ trimEnd
 ``Strings::trimEnd('ending', 'ing')`` will return ``end``
 
 ``Strings::trimEnd('end', 'ing')`` will return ``end``
+
+
+contains
+-----------------
+
+.. function:: public static contains(string $haystack, string $needle): bool
+
+    Check if string contains another string
+
+
+*Examples:*
+
+``Strings::contains('testString', 'test')`` will return ``true``
+
+``Strings::contains('String', 'test')`` will return ``false``
