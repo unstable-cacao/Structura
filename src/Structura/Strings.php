@@ -88,4 +88,47 @@ class Strings
 		
 		return strpos($haystack, $needle) !== false;
 	}
+	
+	/**
+	 * @param string $source
+	 * @param int|array $index In case of array, used as array of index and length
+	 * @param int $length
+	 * @return string
+	 */
+	public static function cut(string $source, $index, int $length = 1): string 
+	{
+		if (!$source)
+			return $source;
+		
+		if (is_array($index))
+		{
+			$length = $index[1] ?? 1;
+			$index = $index[0] ?? 0;
+		}
+		
+		if (!is_int($index))
+		{
+			return $source;
+		}
+		
+		if (!$length)
+		{
+			$length = 1;
+		}
+		
+		if (!is_int($length))
+		{
+			return $source;
+		}
+		
+		$sourceLength = strlen($source);
+		
+		if ($index > $sourceLength)
+			return $source;
+		
+		if ($index + $length > $sourceLength)
+			return substr($source, 0, $index);
+		else
+			return substr($source, 0, $index) . substr($source, $index + $length);
+	}
 }

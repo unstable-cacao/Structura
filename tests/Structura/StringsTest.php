@@ -244,4 +244,39 @@ class StringsTest extends TestCase
 		self::assertTrue(Strings::contains('testing😒', '😒'));
 		self::assertFalse(Strings::contains('test😒', '😱'));
 	}
+	
+	public function test_cut_SourceEmpty_DoNothing()
+	{
+		self::assertEquals('', Strings::cut('', 0));
+	}
+	
+	public function test_cut_IndexParameterNotValid_DoNothing()
+	{
+		self::assertEquals('test', Strings::cut('test', null));
+		self::assertEquals('test', Strings::cut('test', 'notInt'));
+		self::assertEquals('test', Strings::cut('test', ['notInt']));
+	}
+	
+	public function test_cut_LengthNotValid_DoNothing()
+	{
+		self::assertEquals('test', Strings::cut('test', [1, 'notInt']));
+	}
+	
+	public function test_cut_IndexOutOfRange_DoNothing()
+	{
+		self::assertEquals('test', Strings::cut('test', 13));
+	}
+	
+	public function test_cut_LengthMoreThanLength_ReturnWithoutEnd()
+	{
+		self::assertEquals('t', Strings::cut('test', 1, 15));
+	}
+	
+	public function test_cut_CutCorrectly()
+	{
+		self::assertEquals('helloworld', Strings::cut('hello world', 5));
+		self::assertEquals('helloorld', Strings::cut('hello world', 5, 2));
+		self::assertEquals('helloorld', Strings::cut('hello world', [5, 2]));
+		self::assertEquals('ello world', Strings::cut('hello world', 0));
+	}
 }

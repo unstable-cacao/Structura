@@ -123,3 +123,20 @@ contains
 ``Strings::contains('testString', 'test')`` will return ``true``
 
 ``Strings::contains('String', 'test')`` will return ``false``
+
+
+cut
+-----------------
+
+.. function:: public static cut(string $source, $index, int $length = null): string
+
+    Cuts a string from given index for a given length or 1 by default
+
+
+*Examples:*
+
+``Strings::cut('hello world', 5)`` will return ``helloworld``
+
+``Strings::cut('hello world', 5, 2)`` will return ``helloorld``
+
+``Strings::cut('hello world', [5, 2])`` will return ``helloorld``
