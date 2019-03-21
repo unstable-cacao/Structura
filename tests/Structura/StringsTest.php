@@ -286,7 +286,7 @@ class StringsTest extends TestCase
 		self::assertEquals('helloworld', Strings::cut('hello world', 5));
 		self::assertEquals('helloorld', Strings::cut('hello world', 5, 2));
 		self::assertEquals('helloorld', Strings::cut('hello world', [5, 2]));
-		self::assertEquals('ello world', Strings::cut('hello world', 0));
+		self::assertEquals('ello world', Strings::cut('hello world', 0, 0));
 	}
 	
 	public function test_cut_WorksWithNonUtf8()
