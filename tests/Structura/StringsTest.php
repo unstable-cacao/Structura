@@ -250,11 +250,20 @@ class StringsTest extends TestCase
 		self::assertEquals('', Strings::cut('', 0));
 	}
 	
-	public function test_cut_IndexParameterNotValid_DoNothing()
+	/**
+	 * @expectedException \Structura\Exceptions\StructuraException
+	 */
+	public function test_cut_IndexParameterNotValid_ExceptionThrown()
 	{
-		self::assertEquals('test', Strings::cut('test', null));
-		self::assertEquals('test', Strings::cut('test', 'notInt'));
-		self::assertEquals('test', Strings::cut('test', ['notInt']));
+		Strings::cut('test', 'notInt');
+	}
+	
+	/**
+	 * @expectedException \Structura\Exceptions\StructuraException
+	 */
+	public function test_cut_IndexParameterArrayNotValid_ExceptionThrown()
+	{
+		Strings::cut('test', [5]);
 	}
 	
 	public function test_cut_LengthNotValid_DoNothing()
@@ -278,5 +287,11 @@ class StringsTest extends TestCase
 		self::assertEquals('helloorld', Strings::cut('hello world', 5, 2));
 		self::assertEquals('helloorld', Strings::cut('hello world', [5, 2]));
 		self::assertEquals('ello world', Strings::cut('hello world', 0));
+	}
+	
+	public function test_cut_WorksWithNonUtf8()
+	{
+		self::assertEquals('helloworld', Strings::cut('hello😒world', 5));
+		self::assertEquals('😒helloworld', Strings::cut('😒hello world', 6));
 	}
 }

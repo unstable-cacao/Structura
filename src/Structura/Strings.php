@@ -2,6 +2,9 @@
 namespace Structura;
 
 
+use Structura\Exceptions\StructuraException;
+
+
 class Strings
 {
 	public static function isStartsWith(string $source, string $start): bool 
@@ -102,14 +105,15 @@ class Strings
 		
 		if (is_array($index))
 		{
+			if (count($index) != 2)
+				throw new StructuraException("Array of parameters must contain 2 values");
+			
 			$length = $index[1] ?? 1;
 			$index = $index[0] ?? 0;
 		}
 		
 		if (!is_int($index))
-		{
-			return $source;
-		}
+			throw new StructuraException("Value of index must be integer");
 		
 		if (!$length)
 		{
@@ -127,8 +131,8 @@ class Strings
 			return $source;
 		
 		if ($index + $length > $sourceLength)
-			return substr($source, 0, $index);
+			return mb_substr($source, 0, $index);
 		else
-			return substr($source, 0, $index) . substr($source, $index + $length);
+			return mb_substr($source, 0, $index) . mb_substr($source, $index + $length);
 	}
 }
