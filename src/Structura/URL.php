@@ -8,13 +8,13 @@ use Structura\Exceptions\URLException;
 
 
 /**
- * @property string			$Scheme
- * @property string			$Host
- * @property int			$Port
- * @property string			$User
- * @property string			$Pass
- * @property string			$Path
- * @property array			$Query
+ * @property string|null	$Scheme
+ * @property string|null	$Host
+ * @property int|null		$Port
+ * @property string|null	$User
+ * @property string|null	$Pass
+ * @property string|null	$Path
+ * @property array|null		$Query
  * @property string|null	$Fragment
  */
 class URL extends LiteObject
