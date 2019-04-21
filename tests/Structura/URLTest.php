@@ -200,6 +200,42 @@ class URLTest extends TestCase
 		self::assertEquals('menu', $subject->Fragment);
 	}
 	
+	public function test_setUrl_NoHostAndPath_SetPath()
+	{
+		$subject = new URL();
+		$subject->setUrl('/oktopost.com/home');
+		
+		self::assertEquals('oktopost.com/home', $subject->Path);
+		self::assertNull($subject->Host);
+	}
+	
+	public function test_setUrl_NoHostAndHostInPath_SetHost()
+	{
+		$subject = new URL();
+		$subject->setUrl('oktopost.com/home');
+		
+		self::assertEquals('home', $subject->Path);
+		self::assertEquals('oktopost.com', $subject->Host);
+	}
+	
+	public function test_setUrl_NoHostNoSlashes_SetAsHost()
+	{
+		$subject = new URL();
+		$subject->setUrl('oktopost.com');
+		
+		self::assertNull($subject->Path);
+		self::assertEquals('oktopost.com', $subject->Host);
+	}
+	
+	public function test_setUrl_NoHostMultipleSlashes_PathCorrect()
+	{
+		$subject = new URL();
+		$subject->setUrl('oktopost.com/test/home');
+		
+		self::assertEquals('test/home', $subject->Path);
+		self::assertEquals('oktopost.com', $subject->Host);
+	}
+	
 	public function test_url_SchemaNotSet()
 	{
 		$subject = new URL();

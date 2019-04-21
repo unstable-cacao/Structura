@@ -163,12 +163,23 @@ class URL extends LiteObject
 	{
 		$parsedUrl = parse_url($url);
 		
+		$host = $parsedUrl['host'] ?? null;
+		$path = $parsedUrl['path'] ?? null;
+		
+		if (!$host && !Strings::isStartsWith('/', $path))
+		{
+			$pathParts = explode('/', $path);
+			$host = $pathParts[0] ?: null;
+			unset($pathParts[0]);
+			$path = $pathParts ? implode('/', $pathParts) : null;
+		}
+		
 		$this->Scheme 	= $parsedUrl['scheme'] ?? null;
-		$this->Host 	= $parsedUrl['host'] ?? null;
+		$this->Host 	= $host;
 		$this->Port 	= $parsedUrl['port'] ?? null;
 		$this->User 	= isset($parsedUrl['user']) && $parsedUrl['user'] ? $parsedUrl['user'] : null;
 		$this->Pass 	= $parsedUrl['pass'] ?? null;
-		$this->Path 	= $parsedUrl['path'] ?? null;
+		$this->Path 	= $path;
 		
 		$query = $parsedUrl['query'] ?? null;
 		
