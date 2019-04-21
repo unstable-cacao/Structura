@@ -261,7 +261,7 @@ class URLTest extends TestCase
 		$subject->Query		= ['a' => 3];
 		$subject->Fragment	= 'menu';
 		
-		self::assertEquals('http://hello.world.com:89/hi.html?a=3#menu', $subject->url());
+		self::assertEquals('http://:pass@hello.world.com:89/hi.html?a=3#menu', $subject->url());
 	}
 	
 	public function test_url_PassNotSet()
@@ -275,7 +275,7 @@ class URLTest extends TestCase
 		$subject->Query		= ['a' => 3];
 		$subject->Fragment	= 'menu';
 		
-		self::assertEquals('http://test@hello.world.com:89/hi.html?a=3#menu', $subject->url());
+		self::assertEquals('http://test:@hello.world.com:89/hi.html?a=3#menu', $subject->url());
 	}
 	
 	public function test_url_HostNotSet()

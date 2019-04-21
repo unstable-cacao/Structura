@@ -119,16 +119,11 @@ class URL extends LiteObject
 			$result[] = '://';
 		}
 		
-		if ($this->User && $this->Pass)
+		if ($this->User || $this->Pass)
 		{
-			$result[] = $this->User;
+			$result[] = $this->User ?: '';
 			$result[] = ':';
-			$result[] = $this->Pass;
-			$result[] = '@';
-		}
-		else if ($this->User)
-		{
-			$result[] = $this->User;
+			$result[] = $this->Pass ?: '';
 			$result[] = '@';
 		}
 		
