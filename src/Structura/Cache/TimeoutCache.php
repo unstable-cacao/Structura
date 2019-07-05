@@ -27,7 +27,7 @@ class TimeoutCache implements IMonoCache
     
     private function isTimedOut(): bool 
     {
-        return ($this->now() > $this->timeoutAt);
+        return ($this->now() >= $this->timeoutAt);
     }
     
     

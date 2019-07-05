@@ -1,0 +1,106 @@
+* [31m5dd33b1[m[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;33mtag: 2.0.3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m[m Fixed user pass in URL [32m(3 months ago) [1;34m<Marina Sherstuk>[m
+* [31m34ff65a[m[m[m Fixed setUrl when no schema [32m(3 months ago) [1;34m<Marina Sherstuk>[m
+* [31m09d28b7[m[m[m Fixed URL class annotations [32m(3 months ago) [1;34m<Marina Sherstuk>[m
+* [31m92755e7[m[m[m Fixed coverage [32m(4 months ago) [1;34m<Marina Sherstuk>[m
+* [31m5e33cb9[m[m[m Fixed some issues with Strings::cut [32m(4 months ago) [1;34m<Marina Sherstuk>[m
+* [31m40929cb[m[m[m Implemented Strings::cut [32m(4 months ago) [1;34m<Marina Sherstuk>[m
+* [31m9e758d1[m[m[m Implemented String::contains [32m(4 months ago) [1;34m<Marina Sherstuk>[m
+* [31m8431378[m[m[m Started refactoring docs [32m(4 months ago) [1;34m<Marina Sherstuk>[m
+* [31m018066e[m[m[m Updated Strings function names [32m(5 months ago) [1;34m<Marina Sherstuk>[m
+* [31m7f46f64[m[m[m Added basic text for url doc [32m(5 months ago) [1;34m<Marina Sherstuk>[m
+* [31m90c3bd1[m[m[m Added basic text to Strings doc [32m(5 months ago) [1;34m<Marina Sherstuk>[m
+* [31ma2c4157[m[m[m Added basic text to Set doc [32m(5 months ago) [1;34m<Marina Sherstuk>[m
+* [31m00afb46[m[m[m Added basic text to Map doc [32m(5 months ago) [1;34m<Marina Sherstuk>[m
+* [31me735101[m[m[m Started docs [32m(6 months ago) [1;34m<Marina Sherstuk>[m
+[31m|[m * [31m88a825b[m[m[33m ([m[1;31morigin/graph[m[33m)[m[m Created the graph classes and DateTime class [32m(6 months ago) [1;34m<Marina Sherstuk>[m
+[31m|[m[31m/[m  
+* [31m143ec16[m[m[m Removed non implemented classes to different branch [32m(6 months ago) [1;34m<Marina Sherstuk>[m
+* [31m09c38cc[m[m[m Added tests for non utf string [32m(6 months ago) [1;34m<Marina Sherstuk>[m
+* [31mee94145[m[m[33m ([m[1;33mtag: 2.0.2[m[33m)[m[m Added shouldNotStartWith and shouldNotEndWith to Strings [32m(7 months ago) [1;34m<Marina Sherstuk>[m
+* [31ma3c4baf[m[m[33m ([m[1;33mtag: 2.0.1[m[33m)[m[m Implemented array merge [32m(7 months ago) [1;34m<Marina Sherstuk>[m
+* [31ma62335f[m[m[m Add prototype for merge in Structura [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31m9c36e01[m[m[m Updated IIdentified [32m(7 months ago) [1;34m<Marina Sherstuk>[m
+* [31m9dd279b[m[m[33m ([m[1;33mtag: 2.0[m[33m)[m[m Add some properties and Vertex [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31mc3d5de7[m[m[m Start adding basic stracture for graph [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31mf94ba7a[m[m[33m ([m[1;33mtag: 1.1.5[m[33m)[m[m Don't count iterations without data [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31m325b2e4[m[m[33m ([m[1;33mtag: 1.1.4[m[33m)[m[m Make sure traversal is breaking when no elements quiried [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31md1ccc46[m[m[33m ([m[1;33mtag: 1.1.3[m[33m)[m[m Invoke preTravers [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31m1cfa439[m[m[m Add AbstractTraversElement helper and preTravers method [32m(7 months ago) [1;34m<Alexey Puchkov>[m
+* [31m8dca9d6[m[m[33m ([m[1;33mtag: 1.1.2[m[33m)[m[m Rename comapre to shouldOverrideBy [32m(8 months ago) [1;34m<Alexey Puchkov>[m
+* [31m87acd1d[m[m[33m ([m[1;33mtag: 1.1.1[m[33m)[m[m Implement Traversal data and skip Coverage for DateTime object [32m(8 months ago) [1;34m<Alexey Puchkov>[m
+* [31m918a02a[m[m[m Add prototype for DateTime [32m(8 months ago) [1;34m<Alexey Puchkov>[m
+* [31mb338090[m[m[m Small fixes [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mabd0b45[m[m[m Fixes after review [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m19c936c[m[m[m Fixed cover [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m3ff6c40[m[m[m Basic URL implementation and tests [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m9ab74f0[m[m[33m ([m[1;33mtag: 1.1.0[m[33m)[m[m Small fixes [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31md6af5ca[m[m[33m ([m[1;33mtag: 1.0.11[m[33m)[m[m Added Strings and covered [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mb0d1102[m[m[m 100% coverage [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m00ec0cf[m[m[m Added cover check [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m380174c[m[m[m Updated dependencies [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m97f2295[m[m[m Added getIfExist to Map [32m(8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m7cb3e4b[m[m[m Updated Map::add to support IIdentified objects [32m(1 year, 3 months ago) [1;34m<Marina Sherstuk>[m
+* [31m8758529[m[m[m Added toArrayRecursive [32m(1 year, 3 months ago) [1;34m<Marina Sherstuk>[m
+* [31medd4307[m[m[m Removed handling of numerical arrays [32m(1 year, 5 months ago) [1;34m<Marina Sherstuk>[m
+* [31ma8e423c[m[m[m Fixed the weird 0 thing and added unit tests [32m(1 year, 5 months ago) [1;34m<Marina Sherstuk>[m
+* [31m3a6dde1[m[m[m Added mergeRecursiveAssoc to Arrays [32m(1 year, 5 months ago) [1;34m<Marina Sherstuk>[m
+* [31m5908c40[m[m[33m ([m[1;33mtag: 1.0.10[m[33m)[m[m Added addIfMissing to Set [32m(1 year, 7 months ago) [1;34m<Marina Sherstuk>[m
+* [31m3f81e68[m[m[33m ([m[1;33mtag: 1.0.9[m[33m)[m[m Repalce toArray with asArray [32m(1 year, 7 months ago) [1;34m<Alexey Puchkov>[m
+* [31m5a6e970[m[m[33m ([m[1;33mtag: 1.0.8[m[33m)[m[m Deleted table [32m(1 year, 7 months ago) [1;34m<Marina Sherstuk>[m
+* [31mf59779c[m[m[33m ([m[1;33mtag: 1.0.7[m[33m, [m[1;31morigin/table[m[33m)[m[m Implemented Arrays and tested [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m64b21b2[m[m[m Fixed SetTest [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mac16eaa[m[m[33m ([m[1;33mtag: 1.0.6[m[33m)[m[m Improved Set coverage [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mc9f00a8[m[m[m Improved Map coverage [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m61a948f[m[m[m Revisited Set [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mc0b8806[m[m[m Create initial abstrction for the Arrays module [32m(1 year, 8 months ago) [1;34m<Alexey Puchkov>[m
+* [31m795fd45[m[m[33m ([m[1;33mtag: 1.0.5[m[33m)[m[m Added toArray to ICollection, added symmetricDiffMap and symmetricDiff to Map and tested [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mc5572e6[m[m[m Implemented \Countable in Set and ICollection in Set and Map [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m01f1a58[m[m[m Added static mergeMap, intersectMap and diffMap and tested [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mcea303a[m[m[m Updated some of the functions to return this [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m4f23a57[m[m[33m ([m[1;33mtag: 1.0.4[m[33m)[m[m Add IColelction interface [32m(1 year, 8 months ago) [1;34m<Alexey Puchkov>[m
+* [31m964cfc8[m[m[m Add isEmpty and hasElements methods [32m(1 year, 8 months ago) [1;34m<Alexey Puchkov>[m
+* [31m44a2e00[m[m[33m ([m[1;33mtag: 1.0.3[m[33m)[m[m Allow setting tgransform to null value [32m(1 year, 8 months ago) [1;34m<Alexey Puchkov>[m
+* [31mcc4b6ba[m[m[33m ([m[1;33mtag: 1.0.2[m[33m)[m[m Implemented merge, intersect, diff, toArray in Map and added option to init on construct [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m276c0c7[m[m[m Fixed traversable and added tests [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31mff8b424[m[m[33m ([m[1;33mtag: 1.0.1[m[33m)[m[m Add transform to all methods [32m(1 year, 8 months ago) [1;34m<Alexey Puchkov>[m
+* [31m9a1e306[m[m[m Added transform to map [32m(1 year, 8 months ago) [1;34m<Marina Sherstuk>[m
+* [31m02e8aa5[m[m[33m ([m[1;33mtag: 1.0[m[33m)[m[m Completed implementing unit tests for Map [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m58823c3[m[m[m Started implementing unit tests [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31mdd7625e[m[m[m Implemented map [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m01bf386[m[m[m Little fix to unit tests [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m54e649e[m[m[m Implemented unit tests for DynamicTypeIndex [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31mad905db[m[m[m First implementation of DynamicTypeIndex [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m526f853[m[m[m Removed unnecessary array initialization in add [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m2b3b7cb[m[m[m Implemented improvements [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m6faa7b7[m[m[m Implemented SimpleIndex [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m9cdd682[m[m[m Implemented improvements [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31md6ea6bb[m[m[m Added function definitions to DynamicTypeIndex and SimpleIndex [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m03611f6[m[m[m Implemented BooleanIndex [32m(1 year, 9 months ago) [1;34m<Marina Sherstuk>[m
+* [31m39d723c[m[m[m Add more methods to IIndex [32m(1 year, 9 months ago) [1;34m<Alexey Puchkov>[m
+* [31mb825a34[m[m[m Fix remIndexes method [32m(1 year, 9 months ago) [1;34m<Alexey Puchkov>[m
+* [31me7ad6ea[m[m[m Add Indexes [32m(1 year, 9 months ago) [1;34m<Alexey Puchkov>[m
+* [31m6004a43[m[m[m Added exception to be thrown when name collusion occures on adding new key [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m09924e8[m[m[m Implemented PrefixMap [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31ma6a2afc[m[m[m Added basic unit tests for PrefixMap [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m4f3d29a[m[m[m Add Specialized PrefixMap [32m(1 year, 10 months ago) [1;34m<Alexey Puchkov>[m
+* [31m8a4da3f[m[m[m Added StructuraCallbackNotProvidedException. Implemented unit tests. Fixed has to check if cache is null [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m514f736[m[m[m Fixed timeOfCache to be timeoutAt [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m5059ba0[m[m[m Renamed isTimeout() to isTimedOut(). Enforce getter and use it when cache timed out [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m41f28c8[m[m[m Renamed timeout() to isTimeout(). Fixed callback functionality [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m465fd0d[m[m[m Implemented TimeoutCache [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m7121557[m[m[m Add TimeoutCache object [32m(1 year, 10 months ago) [1;34m<Alexey Puchkov>[m
+* [31m32c8d8e[m[m[m Simplified hasAny and hasAll functions and completed writing tests [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31mca880b9[m[m[m Fixed symmetricDiff function, added clear function and fixed getIterator and offsetSet functions [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m368abc0[m[m[m Implemeted ArrayAccess interface and fixed tests and source according to tests [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31mf1466d0[m[m[m Implementation of intersect, diff and symmetricDiff and improvements in existing code [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m33934e3[m[m[m Fixed instaceof check [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m0a3248c[m[m[m Small fixes [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m6baadb8[m[m[m Fixed some tests [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31md801085[m[m[m Fixed checking if class implements interface [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31mcef2346[m[m[m Fixed exceptions namespace and isEmpty on not empty test [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m0a367eb[m[m[m Fixed is empty function [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m01d4d46[m[m[m Added symmetric difference function definition [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m655dc52[m[m[m Implemented most bool functions and add and rem functions [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m7540606[m[m[m Added InvalidValueException [32m(1 year, 10 months ago) [1;34m<Marina Sherstuk>[m
+* [31m5f155dc[m[m[m Add functions to Set [32m(1 year, 10 months ago) [1;34m<Alexey Puchkov>[m
+* [31mb6ff552[m[m[m Initial commit. Add Set, and partial unit tests for it [32m(1 year, 10 months ago) [1;34m<Alexey Puchkov>[m
