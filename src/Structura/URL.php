@@ -158,6 +158,9 @@ class URL extends LiteObject
 	{
 		$parsedUrl = parse_url($url);
 		
+		if (!$parsedUrl)
+			return;
+		
 		$host = $parsedUrl['host'] ?? null;
 		$path = $parsedUrl['path'] ?? null;
 		
