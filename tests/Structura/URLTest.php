@@ -54,6 +54,36 @@ class URLTest extends TestCase
 		self::assertEquals('abcdef', $subject->Fragment);
 	}
 	
+	
+	/**
+	 * @expectedException \Structura\Exceptions\InvalidURLException
+	 */
+	public function test_setUrl_ThrowExceptionForInvalidURL_ExceptionThrown()
+	{
+		$subject = new URL();
+		$subject->setUrl('http://', true);
+	}
+	
+	public function test_setUrl_ReturnFalseOnInvalidURL_FalseReturned()
+	{
+		$subject = new URL();
+		self::assertFalse($subject->setUrl('http://', false));
+	}
+	
+	public function test_setUrl_ValidURLReturnsTrue()
+	{
+		$subject = new URL();
+		self::assertTrue($subject->setUrl('http://unstable-cacao.com'));
+	}
+	
+	public function test_setUrl_InvalidURLPassed_NoParamsSet()
+	{
+		$subject = new URL();
+		$subject->setUrl('http://');
+		
+		self::assertEmpty(array_filter($subject->toArray()));
+	}
+	
 	public function test_setUrl_SchemaSet_SchemaPropertySet()
 	{
 		$subject = new URL();
@@ -451,5 +481,27 @@ class URLTest extends TestCase
 		$subject->addQueryParam('b', 4);
 		
 		self::assertEquals(['a' => 3, 'b' => 4], $subject->Query);
+	}
+	
+	
+	public function test_get_NewURLInstanceReturned()
+	{
+		self::assertInstanceOf(URL::class, URL::get('http://www.unstable-cacao.com'));
+	}
+	
+	public function test_get_ParamsSet()
+	{
+		$url = URL::get('http://www.unstable-cacao.com');
+		
+		self::assertEquals('http', $url->Scheme);
+		self::assertEquals('www.unstable-cacao.com', $url->Host);
+	}
+	
+	/**
+	 * @expectedException \Structura\Exceptions\InvalidURLException
+	 */
+	public function test_get_ThrowExceptionOnInvalidURL_ExceptionThrown()
+	{
+		URL::get('http://', true);
 	}
 }

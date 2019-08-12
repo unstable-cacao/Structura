@@ -2,9 +2,10 @@
 namespace Structura;
 
 
-use Objection\LiteObject;
 use Objection\LiteSetup;
+use Objection\LiteObject;
 use Structura\Exceptions\URLException;
+use Structura\Exceptions\InvalidURLException;
 
 
 /**
@@ -69,12 +70,12 @@ class URL extends LiteObject
 	}
 	
 	
-	public function __construct(?string $url = null)
+	public function __construct(?string $url = null, bool $throwOnInvalid = false)
 	{
 		parent::__construct();
 		
 		if ($url)
-			$this->setUrl($url);
+			$this->setUrl($url, $throwOnInvalid);
 	}
 	
 	public function __toString()
@@ -154,12 +155,17 @@ class URL extends LiteObject
 		return implode('', $result);
 	}
 	
-	public function setUrl(string $url): void
+	public function setUrl(string $url, bool $throwOnInvalid = false): bool
 	{
 		$parsedUrl = parse_url($url);
 		
 		if (!$parsedUrl)
-			return;
+		{
+			if ($throwOnInvalid)
+				throw new InvalidURLException("Invalid URL: $url");
+			
+			return false;
+		}
 		
 		$host = $parsedUrl['host'] ?? null;
 		$path = $parsedUrl['path'] ?? null;
@@ -188,5 +194,13 @@ class URL extends LiteObject
 		}
 		
 		$this->Fragment = $parsedUrl['fragment'] ?? null;
+		
+		return true;
+	}
+	
+	
+	public static function get(string $url, bool $throwOnInvalid = false): URL
+	{
+		return new URL($url, $throwOnInvalid);
 	}
 }

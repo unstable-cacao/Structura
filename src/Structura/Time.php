@@ -30,7 +30,7 @@ class Time
 		return date('Y-m-d H:i:s');
 	}
 	
-	public static function get($time): string
+	public static function get($time = null): string
 	{
 		$time = self::formatTime($time);
 		return date('Y-m-d H:i:s', $time);
