@@ -102,11 +102,14 @@ class URL extends LiteObject
 	
 	public function addQueryParams(array $params): void
 	{
-		$this->Query = array_merge($this->Query, $params);
+		$this->Query = array_merge($this->Query ?? [], $params);
 	}
 	
 	public function addQueryParam(string $key, string $value): void
 	{
+		if (!$this->Query)
+			$this->Query = [];
+			
 		$this->Query[$key] = $value;
 	}
 	
