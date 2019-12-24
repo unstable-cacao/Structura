@@ -153,4 +153,9 @@ class Arrays
 		
 		return $res;
 	}
+	
+	public static function unique(array $array): array
+	{
+		return array_values(array_unique($array));
+	}
 }

@@ -233,6 +233,11 @@ class ArraysTest extends TestCase
 		self::assertEquals(['key' => 1, 'b', 2, 3], 
 			Arrays::merge(['key' => 'a'], 'b', ['key' => 1, 2], 3));
 	}
+	
+	public function test_unique_ReturnUnique(): void
+	{
+		self::assertEquals([1, 2, 5, 4], Arrays::unique([1, 1, 2, 5, 4, 5, 1]));
+	}
 }
 
 
