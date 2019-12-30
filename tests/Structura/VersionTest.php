@@ -98,12 +98,6 @@ class VersionTest extends TestCase
 		
 		self::assertTrue($v1->isSame($v2));
 		self::assertTrue($v2->isSame($v1));
-		
-		$v1->setFlag(VersionType::RC_2);
-		$v2->setFlag(VersionType::RC_2);
-		
-		self::assertTrue($v1->isSame($v2));
-		self::assertTrue($v2->isSame($v1));
 	}
 	
 	public function test_isSame_DifferentVersionsPassed_ReturnFalse()
@@ -112,20 +106,29 @@ class VersionTest extends TestCase
 		self::assertFalse((new Version('1.2.3.4'))->isSame(new Version('1.2.10.4')));
 		self::assertFalse((new Version('1.2.3.4'))->isSame(new Version('1.10.3.4')));
 		self::assertFalse((new Version('1.2.3.4'))->isSame(new Version('10.2.3.4')));
-		
+	}
+	
+	public function test_isSame_FlagIgnored()
+	{
 		$v1 = new Version('1.2.3.4');
 		$v2 = new Version('1.2.3.4');
 		
 		$v1->setFlag('hello');
+		
+		self::assertTrue($v1->isSame($v2));
+		self::assertTrue($v2->isSame($v1));
+		
 		$v2->setFlag('world');
 		
-		self::assertFalse($v1->isSame($v2));
-		self::assertFalse($v2->isSame($v1));
+		self::assertTrue($v1->isSame($v2));
+		self::assertTrue($v2->isSame($v1));
 	}
 	
 	
 	public function test_isLower()
 	{
+		self::assertFalse((new Version('1.2.3.4'))->isLower(new Version('1.2.3.4')));
+		
 		self::assertTrue((new Version('1.2.3.4'))->isLower(new Version('1.2.3.10')));
 		self::assertTrue((new Version('1.2.3.4'))->isLower(new Version('1.2.10.4')));
 		self::assertTrue((new Version('1.2.3.4'))->isLower(new Version('1.10.3.4')));
@@ -135,6 +138,12 @@ class VersionTest extends TestCase
 		self::assertFalse((new Version('1.2.10.4'))->isLower(new Version('1.2.3.4')));
 		self::assertFalse((new Version('1.10.3.4'))->isLower(new Version('1.2.3.4')));
 		self::assertFalse((new Version('10.2.3.4'))->isLower(new Version('1.2.3.4')));
+	}
+	
+	public function test_isLower_MoreImportantNumberConsideredBeforeOthers()
+	{
+		self::assertFalse((new Version('1.20.3.4'))->isLower(new Version('1.2.30.4')));
+		self::assertTrue((new Version('1.2.30.4'))->isLower(new Version('1.20.3.4')));
 	}
 	
 	public function test_isLower_FlagIgnored()
@@ -160,6 +169,8 @@ class VersionTest extends TestCase
 	
 	public function test_isHigher()
 	{
+		self::assertFalse((new Version('1.2.3.4'))->isHigher(new Version('1.2.3.4')));
+		
 		self::assertFalse((new Version('1.2.3.4'))->isHigher(new Version('1.2.3.10')));
 		self::assertFalse((new Version('1.2.3.4'))->isHigher(new Version('1.2.10.4')));
 		self::assertFalse((new Version('1.2.3.4'))->isHigher(new Version('1.10.3.4')));
@@ -169,6 +180,12 @@ class VersionTest extends TestCase
 		self::assertTrue((new Version('1.2.10.4'))->isHigher(new Version('1.2.3.4')));
 		self::assertTrue((new Version('1.10.3.4'))->isHigher(new Version('1.2.3.4')));
 		self::assertTrue((new Version('10.2.3.4'))->isHigher(new Version('1.2.3.4')));
+	}
+	
+	public function test_isHigher_MoreImportantNumberConsideredBeforeOthers()
+	{
+		self::assertTrue((new Version('1.20.3.4'))->isHigher(new Version('1.2.30.4')));
+		self::assertFalse((new Version('1.2.30.4'))->isHigher(new Version('1.20.3.4')));
 	}
 	
 	public function test_isHigher_FlagIgnored()
@@ -246,5 +263,29 @@ class VersionTest extends TestCase
 		
 		$v->fromString('1.2');
 		self::assertEquals([1, 2, 0, 0], $v->toArray());
+	}
+	
+	public function test_compare()
+	{
+		$v1 = new Version('1.2.3.4');
+		$v2 = new Version('1.2.3.4');
+		$v3 = new Version('1.2.3.2');
+		$v4 = new Version('1.2.2.5');
+		
+		$v5 = new Version('1.2.3.4');
+		$v5->setFlag('abc');
+		
+		
+		self::assertEquals(0, $v1->compare($v2));
+		self::assertEquals(0, $v2->compare($v1));
+		self::assertEquals(0, $v5->compare($v1));
+		self::assertEquals(0, $v1->compare($v5));
+		
+		
+		self::assertEquals(-1,	$v2->compare($v3));
+		self::assertEquals(1,	$v3->compare($v2));
+		
+		self::assertEquals(1,	$v4->compare($v3));
+		self::assertEquals(-1,	$v3->compare($v4));
 	}
 }

@@ -27,6 +27,11 @@ class Version
 		}
 	}
 	
+	public function __toString()
+	{
+		return $this->format();
+	}
+	
 	
 	public function setMajor(int $major): void
 	{
@@ -84,28 +89,41 @@ class Version
 	{
 		return 
 			$this->major == $to->major && 
-			$this->minor === $to->minor && 
-			$this->build === $to->build && 
-			$this->patch === $to->patch && 
-			$this->flag === $to->flag; 
+			$this->minor == $to->minor && 
+			$this->build == $to->build && 
+			$this->patch == $to->patch; 
 	}
 	
 	public function isLower(Version $to): bool
 	{
-		return 
-			$this->major < $to->major || 
-			$this->minor < $to->minor || 
-			$this->build < $to->build || 
-			$this->patch < $to->patch;
+		if ($this->major < $to->major)
+			return true;
+		else if ($this->major > $to->major)
+			return false;
+		
+		if ($this->minor < $to->minor)
+			return true;
+		else if ($this->minor > $to->minor)
+			return false;
+		
+		if ($this->build < $to->build)
+			return true;
+		else if ($this->build > $to->build)
+			return false;
+		
+		if ($this->patch < $to->patch)
+			return true;
+		else if ($this->patch > $to->patch)
+			return false;
+		
+		return false;
 	}
 	
 	public function isHigher(Version $to): bool
 	{
 		return 
-			$this->major > $to->major || 
-			$this->minor > $to->minor || 
-			$this->build > $to->build || 
-			$this->patch > $to->patch;
+			!$this->isSame($to) &&
+			!$this->isLower($to);
 	}
 	
 	
@@ -119,11 +137,6 @@ class Version
 		$result = Strings::replace($result, 'p', $this->patch ?? 0);
 		
 		return $result;
-	}
-	
-	public function __toString()
-	{
-		return $this->format();
 	}
 	
 	public function fromString(string $value): void
@@ -149,5 +162,26 @@ class Version
 			$this->build ?? 0,
 			$this->patch ?? 0,
 		];
+	}
+	
+	/**
+	 * Equivalent to $this <=> $to 
+	 * @param Version $to
+	 * @return int
+	 */
+	public function compare(Version $to): int
+	{
+		if ($this->isSame($to))
+		{
+			return 0;
+		}
+		else if ($this->isLower($to))
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
 	}
 }
