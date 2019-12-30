@@ -11,7 +11,7 @@ class Version
 	private $flag	= null;
 	
 	
-	public function __construct(string $version)
+	public function __construct(string $version = '')
 	{
 		$this->fromString($version);
 	}
@@ -37,7 +37,7 @@ class Version
 		$this->patch = $patch;
 	}
 	
-	public function setFlag(int $flag): void
+	public function setFlag(string $flag): void
 	{
 		$this->flag = $flag;
 	}
@@ -119,10 +119,10 @@ class Version
 	{
 		$result = explode('.', $value);
 		
-		$this->major = $result[0] ?? 0;
-		$this->minor = $result[1] ?? 0;
-		$this->build = $result[2] ?? 0;
-		$this->patch = $result[3] ?? 0;
+		$this->major = (int)($result[0] ?? 0);
+		$this->minor = (int)($result[1] ?? 0);
+		$this->build = (int)($result[2] ?? 0);
+		$this->patch = (int)($result[3] ?? 0);
 	}
 	
 	public function toString(): string
