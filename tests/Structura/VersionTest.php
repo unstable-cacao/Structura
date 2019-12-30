@@ -282,10 +282,10 @@ class VersionTest extends TestCase
 		self::assertEquals(0, $v1->compare($v5));
 		
 		
-		self::assertEquals(-1,	$v2->compare($v3));
-		self::assertEquals(1,	$v3->compare($v2));
+		self::assertEquals(1,	$v2->compare($v3));
+		self::assertEquals(-1,	$v3->compare($v2));
 		
-		self::assertEquals(1,	$v4->compare($v3));
-		self::assertEquals(-1,	$v3->compare($v4));
+		self::assertEquals(-1,	$v4->compare($v3));
+		self::assertEquals(1,	$v3->compare($v4));
 	}
 }
