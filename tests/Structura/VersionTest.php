@@ -40,6 +40,34 @@ class VersionTest extends TestCase
 		self::assertEquals('', $v->getFlag());
 	}
 	
+	public function test_constructor_PassAnotherVersion_DataCopied()
+	{
+		$original = new Version('1.2.3.4');
+		$original->setFlag('abc');
+		
+		
+		$v = new Version($original);
+		
+		
+		self::assertEquals($v->toArray(), $original->toArray());
+	}
+	
+	public function test_constructor_PassAnotherVersion_OriginalVersionNotReferenced()
+	{
+		$original = new Version('1.2.3.4');
+		$original->setFlag('abc');
+		$data = $original->toArray();
+		
+		
+		$v = new Version($original);
+		$v->setMajor(2);
+		$v->setFlag('def');
+		
+		
+		self::assertEquals($data, $original->toArray());
+		self::assertNotEquals($data, $v->toArray());
+	}
+	
 	public function test_constructor_PassPartialValues()
 	{
 		$v = new Version('1.2');

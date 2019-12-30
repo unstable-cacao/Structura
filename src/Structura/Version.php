@@ -11,9 +11,20 @@ class Version
 	private $flag	= null;
 	
 	
-	public function __construct(string $version = '')
+	public function __construct($version = '')
 	{
-		$this->fromString($version);
+		if ($version instanceof Version)
+		{
+			$this->major = $version->major;
+			$this->minor = $version->minor;
+			$this->build = $version->build;
+			$this->patch = $version->patch;
+			$this->flag = $version->flag;
+		}
+		else
+		{
+			$this->fromString($version);
+		}
 	}
 	
 	
