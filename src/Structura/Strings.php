@@ -36,7 +36,15 @@ class Strings
 		return implode($with, $subject);
 	}
 	
+	/**
+	 * @deprecated Use append instead
+	 */
 	public static function endWith(string $source, string $end): string 
+	{
+		return self::append($source, $end);
+	}
+	
+	public static function append(string $source, string $end): string
 	{
 		if (self::isEndsWith($source, $end))
 			return $source;
@@ -44,7 +52,15 @@ class Strings
 			return $source . $end;
 	}
 	
+	/**
+	 * @deprecated Use prepend instead
+	 */
 	public static function startWith(string $source, string $start): string 
+	{
+		return self::prepend($source, $start);
+	}
+	
+	public static function prepend(string $source, string $start): string
 	{
 		if (self::isStartsWith($source, $start))
 			return $source;

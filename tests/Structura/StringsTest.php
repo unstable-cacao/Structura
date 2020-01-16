@@ -95,128 +95,128 @@ class StringsTest extends TestCase
 		self::assertEquals('as-big-a💀 ever', Strings::replace('as big a💀 ever', ' ', '-', 2));
 	}
 	
-	public function test_endWith_SourceEmpty_ReturnEndString()
+	public function test_append_SourceEmpty_ReturnEndString()
 	{
-		self::assertEquals('ing', Strings::endWith('', 'ing'));
+		self::assertEquals('ing', Strings::append('', 'ing'));
 	}
 	
-	public function test_endWith_EndIsEmpty_ReturnSource()
+	public function test_append_EndIsEmpty_ReturnSource()
 	{
-		self::assertEquals('testing', Strings::endWith('testing', ''));
+		self::assertEquals('testing', Strings::append('testing', ''));
 	}
 	
-	public function test_endWith_EndAndSourceEmpty_ReturnEmpty()
+	public function test_append_EndAndSourceEmpty_ReturnEmpty()
 	{
-		self::assertEquals('', Strings::endWith('', ''));
+		self::assertEquals('', Strings::append('', ''));
 	}
 	
-	public function test_endWith_EndsWith_ReturnSource()
+	public function test_append_EndsWith_ReturnSource()
 	{
-		self::assertEquals('testing', Strings::endWith('testing', 'ing'));
+		self::assertEquals('testing', Strings::append('testing', 'ing'));
 	}
 	
-	public function test_endWith_NotEndsWith_ReturnSourceAndEnd()
+	public function test_append_NotEndsWith_ReturnSourceAndEnd()
 	{
-		self::assertEquals('testinggg', Strings::endWith('testing', 'gg'));
+		self::assertEquals('testinggg', Strings::append('testing', 'gg'));
 	}
 	
-	public function test_endWith_WorksWithNonUtf8()
+	public function test_append_WorksWithNonUtf8()
 	{
-		self::assertEquals('testin👻', Strings::endWith('testin👻', '👻'));
-		self::assertEquals('testing👻', Strings::endWith('testing', '👻'));
+		self::assertEquals('testin👻', Strings::append('testin👻', '👻'));
+		self::assertEquals('testing👻', Strings::append('testing', '👻'));
 	}
 	
-	public function test_startWith_SourceEmpty_ReturnStartString()
+	public function test_prepend_SourceEmpty_ReturnStartString()
 	{
-		self::assertEquals('test', Strings::startWith('', 'test'));
+		self::assertEquals('test', Strings::prepend('', 'test'));
 	}
 	
-	public function test_startWith_StartIsEmpty_ReturnSource()
+	public function test_prepend_StartIsEmpty_ReturnSource()
 	{
-		self::assertEquals('ing', Strings::startWith('ing', ''));
+		self::assertEquals('ing', Strings::prepend('ing', ''));
 	}
 	
-	public function test_startWith_StartAndSourceEmpty_ReturnEmpty()
+	public function test_prepend_StartAndSourceEmpty_ReturnEmpty()
 	{
-		self::assertEquals('', Strings::startWith('', ''));
+		self::assertEquals('', Strings::prepend('', ''));
 	}
 	
-	public function test_startWith_StartsWith_ReturnSource()
+	public function test_prepend_StartsWith_ReturnSource()
 	{
-		self::assertEquals('testing', Strings::startWith('testing', 'test'));
+		self::assertEquals('testing', Strings::prepend('testing', 'test'));
 	}
 	
-	public function test_startWith_NotStartsWith_ReturnStartAndSource()
+	public function test_prepend_NotStartsWith_ReturnStartAndSource()
 	{
-		self::assertEquals('tttesting', Strings::startWith('testing', 'tt'));
+		self::assertEquals('tttesting', Strings::prepend('testing', 'tt'));
 	}
 	
-	public function test_startWith_WorksWithNonUtf8()
+	public function test_prepend_WorksWithNonUtf8()
 	{
-		self::assertEquals('😳testing', Strings::startWith('😳testing', '😳'));
-		self::assertEquals('😳testing', Strings::startWith('testing', '😳'));
+		self::assertEquals('😳testing', Strings::prepend('😳testing', '😳'));
+		self::assertEquals('😳testing', Strings::prepend('testing', '😳'));
 	}
 	
-	public function test_shouldNotStartWith_SourceEmpty_ReturnEmtpy()
+	public function test_trimStart_SourceEmpty_ReturnEmtpy()
 	{
-		self::assertEquals('', Strings::shouldNotStartWith('', 'test'));
+		self::assertEquals('', Strings::trimStart('', 'test'));
 	}
 	
-	public function test_shouldNotStartWith_StartIsEmpty_ReturnSource()
+	public function test_trimStart_StartIsEmpty_ReturnSource()
 	{
-		self::assertEquals('ing', Strings::shouldNotStartWith('ing', ''));
+		self::assertEquals('ing', Strings::trimStart('ing', ''));
 	}
 	
-	public function test_shouldNotStartWith_StartAndSourceEmpty_ReturnEmpty()
+	public function test_trimStart_StartAndSourceEmpty_ReturnEmpty()
 	{
-		self::assertEquals('', Strings::shouldNotStartWith('', ''));
+		self::assertEquals('', Strings::trimStart('', ''));
 	}
 	
-	public function test_shouldNotStartWith_StartsWith_RemoveStart()
+	public function test_trimStart_StartsWith_RemoveStart()
 	{
-		self::assertEquals('ing', Strings::shouldNotStartWith('testing', 'test'));
+		self::assertEquals('ing', Strings::trimStart('testing', 'test'));
 	}
 	
-	public function test_shouldNotStartWith_NotStartsWith_ReturnSource()
+	public function test_trimStart_NotStartsWith_ReturnSource()
 	{
-		self::assertEquals('testing', Strings::shouldNotStartWith('testing', 'tt'));
+		self::assertEquals('testing', Strings::trimStart('testing', 'tt'));
 	}
 	
-	public function test_shouldNotStartWith_WorksWithNonUtf8()
+	public function test_trimStart_WorksWithNonUtf8()
 	{
-		self::assertEquals('testing', Strings::shouldNotStartWith('😱testing', '😱'));
-		self::assertEquals('testing', Strings::shouldNotStartWith('testing', '😱'));
+		self::assertEquals('testing', Strings::trimStart('😱testing', '😱'));
+		self::assertEquals('testing', Strings::trimStart('testing', '😱'));
 	}
 	
-	public function test_shouldNotEndWith_SourceEmpty_ReturnEmpty()
+	public function test_trimEnd_SourceEmpty_ReturnEmpty()
 	{
-		self::assertEquals('', Strings::shouldNotEndWith('', 'ing'));
+		self::assertEquals('', Strings::trimEnd('', 'ing'));
 	}
 	
-	public function test_shouldNotEndWith_EndIsEmpty_ReturnSource()
+	public function test_trimEnd_EndIsEmpty_ReturnSource()
 	{
-		self::assertEquals('testing', Strings::shouldNotEndWith('testing', ''));
+		self::assertEquals('testing', Strings::trimEnd('testing', ''));
 	}
 	
-	public function test_shouldNotEndWith_EndAndSourceEmpty_ReturnEmpty()
+	public function test_trimEnd_EndAndSourceEmpty_ReturnEmpty()
 	{
-		self::assertEquals('', Strings::shouldNotEndWith('', ''));
+		self::assertEquals('', Strings::trimEnd('', ''));
 	}
 	
-	public function test_shouldNotEndWith_EndsWith_RemoveEnd()
+	public function test_trimEnd_EndsWith_RemoveEnd()
 	{
-		self::assertEquals('test', Strings::shouldNotEndWith('testing', 'ing'));
+		self::assertEquals('test', Strings::trimEnd('testing', 'ing'));
 	}
 	
-	public function test_shouldNotEndWith_NotEndsWith_ReturnSource()
+	public function test_trimEnd_NotEndsWith_ReturnSource()
 	{
-		self::assertEquals('testing', Strings::shouldNotEndWith('testing', 'gg'));
+		self::assertEquals('testing', Strings::trimEnd('testing', 'gg'));
 	}
 	
-	public function test_shouldNotEndWith_WorksWithNonUtf8()
+	public function test_trimEnd_WorksWithNonUtf8()
 	{
-		self::assertEquals('testing', Strings::shouldNotEndWith('testing😒', '😒'));
-		self::assertEquals('testing', Strings::shouldNotEndWith('testing', '😒'));
+		self::assertEquals('testing', Strings::trimEnd('testing😒', '😒'));
+		self::assertEquals('testing', Strings::trimEnd('testing', '😒'));
 	}
 	
 	public function test_contains_HaystackEmpty_ReturnFalse()
