@@ -25,7 +25,10 @@
 	"autoload": {
 		"psr-0": {
 			"Structura": "src"
-		}
+		},
+		"files": [
+			"src/time.php"
+		]
 	},
     "scripts": {
         "test": "./vendor/phpunit/phpunit/phpunit --dont-report-useless-tests",
