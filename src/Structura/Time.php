@@ -4,6 +4,9 @@ namespace Structura;
 
 class Time
 {
+	public const DEFAULT_FORMAT = 'Y-m-d H:i:s';
+	
+	
 	private static function formatTime($time): int
 	{
 		if (is_numeric($time))
@@ -16,7 +19,7 @@ class Time
 		}
 		else if ($time instanceof \DateTime)
 		{
-			return strtotime($time->format('Y-m-d H:i:s'));
+			return strtotime($time->format(self::DEFAULT_FORMAT));
 		}
 		else
 		{
@@ -27,12 +30,17 @@ class Time
 	
 	public static function now(): string
 	{
-		return date('Y-m-d H:i:s');
+		return date(self::DEFAULT_FORMAT);
 	}
 	
-	public static function get($time = null): string
+	/**
+	 * @param string|int|null $time
+	 * @param string $format
+	 * @return string
+	 */
+	public static function get($time = null, string $format = self::DEFAULT_FORMAT): string
 	{
 		$time = self::formatTime($time);
-		return date('Y-m-d H:i:s', $time);
+		return date($format, $time);
 	}
 }

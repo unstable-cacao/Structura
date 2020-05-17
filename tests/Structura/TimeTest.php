@@ -77,4 +77,9 @@ class TimeTest extends TestCase
 		
 		self::assertEquals(strtotime("$actualTime +3 minutes"), strtotime($result));
 	}
+	
+	public function test_get_FormatNotDefault()
+	{
+		self::assertEquals('2010-01-01', Time::get('2010-01-01 05:55:01', 'Y-m-d'));
+	}
 }
