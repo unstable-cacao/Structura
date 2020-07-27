@@ -173,7 +173,7 @@ class URL extends LiteObject
 		$host = $parsedUrl['host'] ?? null;
 		$path = $parsedUrl['path'] ?? null;
 		
-		if (!$host && !Strings::isStartsWith('/', $path))
+		if (!$host && $path && !Strings::isStartsWith('/', $path))
 		{
 			$pathParts = explode('/', $path);
 			$host = $pathParts[0] ?: null;

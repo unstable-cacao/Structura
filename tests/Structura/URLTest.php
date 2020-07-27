@@ -239,6 +239,26 @@ class URLTest extends TestCase
 		self::assertNull($subject->Host);
 	}
 	
+	public function test_setUrl_PathOrHostNotSet()
+	{
+		$subject = new URL();
+		$subject->setUrl('http:');
+		
+		self::assertNull($subject->Path);
+		self::assertNull($subject->Host);
+		self::assertEquals('http', $subject->Scheme);
+	}
+	
+	public function test_setUrl_Only2DotsPresent_NothingSet()
+	{
+		$subject = new URL();
+		$subject->setUrl(':');
+		
+		self::assertNull($subject->Path);
+		self::assertNull($subject->Host);
+		self::assertNull($subject->Scheme);
+	}
+	
 	public function test_setUrl_NoHostAndHostInPath_SetHost()
 	{
 		$subject = new URL();
