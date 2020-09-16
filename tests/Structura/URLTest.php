@@ -576,5 +576,4 @@ class URLTest extends TestCase
 		self::assertFalse(URL::hasFragment('http://www.unstable-cacao.com#'));
 		self::assertFalse(URL::hasFragment('http://www.unstable-cacao.com'));
 	}
-	
 }
