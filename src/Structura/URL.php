@@ -206,4 +206,14 @@ class URL extends LiteObject
 	{
 		return new URL($url, $throwOnInvalid);
 	}
+	
+	
+	public static function hasScheme(string $url): bool { return (bool)(new URL($url))->Scheme; }
+	public static function hasHost(string $url): bool { return (bool)(new URL($url))->Host; }
+	public static function hasPort(string $url): bool { return (bool)(new URL($url))->Port; }
+	public static function hasUser(string $url): bool { return (bool)(new URL($url))->User; }
+	public static function hasPass(string $url): bool { return (bool)(new URL($url))->Pass; }
+	public static function hasPath(string $url): bool { return (bool)(new URL($url))->Path; }
+	public static function hasQuery(string $url): bool { return (bool)((new URL($url))->Query); }
+	public static function hasFragment(string $url): bool { return (bool)(new URL($url))->Fragment; }
 }

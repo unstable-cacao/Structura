@@ -524,4 +524,57 @@ class URLTest extends TestCase
 	{
 		URL::get('http://', true);
 	}
+	
+	public function test_hasScheme()
+	{
+		self::assertTrue(URL::hasScheme('http://www.unstable-cacao.com'));
+		self::assertFalse(URL::hasScheme('www.unstable-cacao.com'));
+	}
+	
+	public function test_hasHost()
+	{
+		self::assertTrue(URL::hasHost('http://www.unstable-cacao.com'));
+		self::assertFalse(URL::hasHost('/hello/world'));
+	}
+	
+	public function test_hasPort()
+	{
+		self::assertTrue(URL::hasPort('localhost:80'));
+		self::assertFalse(URL::hasPort('localhost'));
+	}
+	
+	public function test_hasUser()
+	{
+		self::assertTrue(URL::hasUser('http://user:@localhost'));
+		self::assertFalse(URL::hasUser('http://localhost'));
+	}
+	
+	public function test_hasPass()
+	{
+		self::assertTrue(URL::hasPass('http://:pass@localhost'));
+		self::assertFalse(URL::hasPass('http://@localhost'));
+	}
+	
+	public function test_hasPath()
+	{
+		self::assertTrue(URL::hasPath('http://www.unstable-cacao.com/hello/world'));
+		self::assertFalse(URL::hasPath('http://www.unstable-cacao.com'));
+	}
+	
+	public function test_hasQuery()
+	{
+		self::assertTrue(URL::hasQuery('http://www.unstable-cacao.com?a=1'));
+		
+		self::assertFalse(URL::hasQuery('http://www.unstable-cacao.com'));
+		self::assertFalse(URL::hasQuery('http://www.unstable-cacao.com?'));
+	}
+	
+	public function test_hasFragment()
+	{
+		self::assertTrue(URL::hasFragment('http://www.unstable-cacao.com#yes'));
+		
+		self::assertFalse(URL::hasFragment('http://www.unstable-cacao.com#'));
+		self::assertFalse(URL::hasFragment('http://www.unstable-cacao.com'));
+	}
+	
 }
