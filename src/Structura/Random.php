@@ -21,7 +21,7 @@ class Random
 		
 		for ($i = 0; $i < $length; $i++)
 		{
-			$result .= $from[mt_rand(0, $setSize - 1)];
+			$result .= $from[random_int(0, $setSize - 1)];
 		}
 		
 		return $result;
