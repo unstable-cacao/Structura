@@ -2,6 +2,9 @@
 namespace Structura;
 
 
+use Structura\Exceptions\StructuraException;
+
+
 class Arrays
 {
 	public static function toArray($data): array
@@ -157,5 +160,38 @@ class Arrays
 	public static function unique(array $array): array
 	{
 		return array_values(array_unique($array));
+	}
+	
+	public static function map(array $array, $column): array
+	{
+		$map = [];
+		
+		foreach ($array as $item)
+		{
+			if (is_array($item))
+			{
+				if (!isset($item[$column]))
+				{
+					throw new StructuraException('Column not set');
+				}
+				
+				$map[$item[$column]] = $item;
+			}
+			else if (is_object($item))
+			{
+				if (!isset($item->$column))
+				{
+					throw new StructuraException('Column not set');
+				}
+				
+				$map[$item->$column] = $item;
+			}
+			else
+			{
+				throw new StructuraException('Item not array and not object');
+			}
+		}
+		
+		return $map;
 	}
 }

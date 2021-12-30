@@ -3,6 +3,7 @@ namespace Structura;
 
 
 use PHPUnit\Framework\TestCase;
+use Structura\Exceptions\StructuraException;
 
 
 class ArraysTest extends TestCase
@@ -25,6 +26,124 @@ class ArraysTest extends TestCase
 	public function test_toArray_String_ReturnArrayWithString()
 	{
 		self::assertEquals(['test'], Arrays::toArray('test'));
+	}
+	
+	public function test_map_EmptyArray_ReturnEmptyArray()
+	{
+		self::assertEquals([], Arrays::map([], 'test'));
+	}
+	
+	public function test_map_ArraysArray_ReturnMappedArray()
+	{
+		$testValue = [
+			[
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			[
+				'id'	=> 'test2',
+				'value'	=> 'Test 2'
+			]
+		];
+		
+		$expected = [
+			'test1'	=> [
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			'test2'	=> [
+				'id'	=> 'test2',
+				'value'	=> 'Test 2'
+			]
+		];
+		
+		self::assertEquals($expected, Arrays::map($testValue, 'id'));
+	}
+	
+	public function test_map_ObjectsArray_ReturnMappedArray()
+	{
+		$testValue = [
+			(object) [
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			(object) [
+				'id'	=> 'test2',
+				'value'	=> 'Test 2'
+			]
+		];
+		
+		$expected = [
+			'test1'	=> (object) [
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			'test2'	=> (object) [
+				'id'	=> 'test2',
+				'value'	=> 'Test 2'
+			]
+		];
+		
+		self::assertEquals($expected, Arrays::map($testValue, 'id'));
+	}
+	
+	public function test_map_ScalarArray_ExpectException()
+	{
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Item not array and not object');
+		
+		Arrays::map(['test1', 'test2'], 'id');
+	}
+	
+	public function test_map_MixedArray_ExpectException()
+	{
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Item not array and not object');
+		
+		
+		$testValue = [
+			[
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			'Test 2'
+		];
+		Arrays::map($testValue, 'id');
+	}
+	
+	public function test_map_ArraysArray_MissingColumn_ExpectException()
+	{
+		$testValue = [
+			[
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			[
+				'value'	=> 'Test 2'
+			]
+		];
+		
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Column not set');		
+		Arrays::map($testValue, 'id');
+	}
+	
+	public function test_map_ObjectsArray_MissingColumn_ExpectException()
+	{
+		$testValue = [
+			(object) [
+				'id'	=> 'test1',
+				'value'	=> 'Test 1'
+			],
+			(object) [
+				'value'	=> 'Test 2'
+			]
+		];
+		
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Column not set');
+		
+		Arrays::map($testValue, 'id');
 	}
 	
 	public function test_asArray_SetsTheDataToItsArray()
