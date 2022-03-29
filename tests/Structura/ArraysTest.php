@@ -146,6 +146,185 @@ class ArraysTest extends TestCase
 		Arrays::map($testValue, 'id');
 	}
 	
+	public function test_groupBy_EmptyArray_ReturnEmptyArray()
+	{
+		self::assertEquals([], Arrays::groupBy([], 'test'));
+	}
+	
+	public function test_groupBy_ArraysArray_ReturnGroupedArray()
+	{
+		$testValue = [
+			[
+				'id'	=> '1',
+				'value'	=> 'value10'
+			],
+			[
+				'id'	=> '1',
+				'value'	=> 'value11'
+			],
+			[
+				'id'	=> '2',
+				'value'	=> 'value20'
+			],
+			[
+				'id'	=> '2',
+				'value'	=> 'value21'
+			],
+			[
+				'id'	=> '3',
+				'value'	=> 'value30'
+			],
+		];
+		
+		$expected = [
+			'1' => [
+				[
+					'id'	=> '1',
+					'value'	=> 'value10'
+				],
+				[
+					'id'	=> '1',
+					'value'	=> 'value11'
+				],
+			],
+			'2' => [
+				[
+					'id'	=> '2',
+					'value'	=> 'value20'
+				],
+				[
+					'id'	=> '2',
+					'value'	=> 'value21'
+				],
+			],
+			'3' => [
+				[
+					'id'	=> '3',
+					'value'	=> 'value30'
+				],
+			]
+		];
+		
+		self::assertEquals($expected, Arrays::groupBy($testValue, 'id'));
+	}
+	
+	public function test_groupBy_ObjectArray_ReturnGroupedArray()
+	{
+		$testValue = [
+			(object) [
+				'id'	=> '1',
+				'value'	=> 'value10'
+			],
+			(object) [
+				'id'	=> '1',
+				'value'	=> 'value11'
+			],
+			(object) [
+				'id'	=> '2',
+				'value'	=> 'value20'
+			],
+			(object) 	[
+				'id'	=> '2',
+				'value'	=> 'value21'
+			],
+			(object) [
+				'id'	=> '3',
+				'value'	=> 'value30'
+			],
+		];
+		
+		$expected = [
+			'1' => [
+				(object) [
+					'id'	=> '1',
+					'value'	=> 'value10'
+				],
+				(object) [
+					'id'	=> '1',
+					'value'	=> 'value11'
+				],
+			],
+			'2' => [
+				(object) [
+					'id'	=> '2',
+					'value'	=> 'value20'
+				],
+				(object) [
+					'id'	=> '2',
+					'value'	=> 'value21'
+				],
+			],
+			'3' => [
+				(object) [
+					'id'	=> '3',
+					'value'	=> 'value30'
+				],
+			]
+		];
+		
+		self::assertEquals($expected, Arrays::groupBy($testValue, 'id'));
+	}
+	
+	public function test_groupBy_ScalarArray_ThrowException()
+	{
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Item not array and not object');
+		
+		Arrays::groupBy(['test1', 'test2'], 'id');
+	}
+	
+	public function test_groupBy_MixedArray_ExpectException()
+	{
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Item not array and not object');
+		
+		$testValue = [
+			[
+				'id'	=> '1',
+				'value'	=> 'value10'
+			],
+			'test'
+		];
+		
+		Arrays::groupBy($testValue, 'id');
+	}
+	
+	public function test_groupBy_ArrayArray_MissingColumn_ExpectException()
+	{
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Column not set');
+		
+		$testValue = [
+			[
+				'id'	=> '1',
+				'value'	=> 'value10'
+			],
+			[
+				'value'	=> 'value10'
+			]
+		];
+		
+		Arrays::groupBy($testValue, 'id');
+	}
+	
+	public function test_groupBy_ObjectArray_MissingColumn_ExpectException()
+	{
+		self::expectException(StructuraException::class);
+		self::expectExceptionMessage('Column not set');
+		
+		$testValue = [
+			(object) [
+				'id'	=> '1',
+				'value'	=> 'value10'
+			],
+			(object) [
+				'value'	=> 'value10'
+			]
+		];
+		
+		Arrays::groupBy($testValue, 'id');
+	}
+	
 	public function test_asArray_SetsTheDataToItsArray()
 	{
 		$data = 'test';

@@ -194,4 +194,37 @@ class Arrays
 		
 		return $map;
 	}
+	
+	public static function groupBy(array $array, $column): array
+	{
+		$grouped = [];
+		
+		foreach ($array as $item)
+		{
+			if (is_array($item))
+			{
+				if (!isset($item[$column]))
+				{
+					throw new StructuraException('Column not set');
+				}
+				
+				$grouped[$item[$column]][] = $item;
+			}
+			else if (is_object($item))
+			{
+				if (!isset($item->$column))
+				{
+					throw new StructuraException('Column not set');
+				}
+				
+				$grouped[$item->$column][] = $item;
+			}
+			else
+			{
+				throw new StructuraException('Item not array and not object');
+			}
+		}
+		
+		return $grouped;
+	}
 }
