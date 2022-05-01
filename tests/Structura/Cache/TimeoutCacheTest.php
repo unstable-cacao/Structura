@@ -14,13 +14,12 @@ class TimeoutCacheTest extends TestCase
         
         self::assertEquals(100, $cache->get());
     }
-    
-    /**
-     * @expectedException \Structura\Exceptions\StructuraCallbackNotProvidedException
-     */
-    public function test_get_NoCacheAndNoGetter_ExceptionThrown()
+	
+	public function test_get_NoCacheAndNoGetter_ExceptionThrown()
     {
-        $cache = new TimeoutCache(0);
+		$this->expectException(\Structura\Exceptions\StructuraCallbackNotProvidedException::class);
+		
+		$cache = new TimeoutCache(0);
         $cache->put(100);
     
         $cache->get();

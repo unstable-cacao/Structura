@@ -273,11 +273,10 @@ class TraversalTest extends TestCase
 		self::assertSame([[$e1, $e2]], $t->calls);
 	}
 	
-	/**
-	 * @expectedException \Exception
-	 */
 	public function test_addElements_AddArrayWithExtraValues_ExceptionThrown(): void
 	{
+		$this->expectException(\Exception::class);
+		
 		$s = new Traversal();
 		$s->addElements([], 'a', 'b');
 	}

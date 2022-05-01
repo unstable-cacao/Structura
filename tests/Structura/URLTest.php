@@ -54,12 +54,10 @@ class URLTest extends TestCase
 		self::assertEquals('abcdef', $subject->Fragment);
 	}
 	
-	
-	/**
-	 * @expectedException \Structura\Exceptions\InvalidURLException
-	 */
 	public function test_setUrl_ThrowExceptionForInvalidURL_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\InvalidURLException::class);
+		
 		$subject = new URL();
 		$subject->setUrl('http://', true);
 	}
@@ -124,11 +122,10 @@ class URLTest extends TestCase
 		self::assertNull($subject->Port);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\URLException
-	 */
 	public function test_setUrl_PortNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\URLException::class);
+		
 		$subject = new URL();
 		$subject->Port = 65536;
 	}
@@ -517,11 +514,10 @@ class URLTest extends TestCase
 		self::assertEquals('www.unstable-cacao.com', $url->Host);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\InvalidURLException
-	 */
 	public function test_get_ThrowExceptionOnInvalidURL_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\InvalidURLException::class);
+		
 		URL::get('http://', true);
 	}
 	

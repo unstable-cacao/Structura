@@ -548,7 +548,7 @@ class ArraysTestHelper_Iterable implements \IteratorAggregate
 	 * <b>Traversable</b>
 	 * @since 5.0.0
 	 */
-	public function getIterator()
+	public function getIterator(): \Traversable
 	{
 		return new \ArrayIterator([1 => 1, 3 => 3]);
 	}
@@ -563,7 +563,7 @@ class ArraysTestHelper_IterableForRecursion implements \IteratorAggregate
 	 * <b>Traversable</b>
 	 * @since 5.0.0
 	 */
-	public function getIterator()
+	public function getIterator(): \Traversable
 	{
 		return new \ArrayIterator([
 			'a' => 1,
@@ -581,7 +581,7 @@ class ArraysTestHelper_IterableForRecursion2 implements \IteratorAggregate
 	 * <b>Traversable</b>
 	 * @since 5.0.0
 	 */
-	public function getIterator()
+	public function getIterator(): \Traversable
 	{
 		return new \ArrayIterator([
 			[

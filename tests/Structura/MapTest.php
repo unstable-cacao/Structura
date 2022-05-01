@@ -32,11 +32,10 @@ class MapTest extends TestCase
 		self::assertTrue($subject->has(1));
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_add_KeyNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->add([], 1);
 	}
@@ -95,11 +94,10 @@ class MapTest extends TestCase
 		self::assertTrue($called);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_remove_KeyNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->remove([]);
 	}
@@ -140,20 +138,18 @@ class MapTest extends TestCase
 		self::assertTrue($called);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_get_KeyNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->get([]);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_get_KeyNotExists_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->get(1);
 	}
@@ -166,11 +162,10 @@ class MapTest extends TestCase
 		self::assertEquals(1, $subject->get(1));
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_getIfExists_KeyNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->getIfExists([]);
 	}
@@ -201,11 +196,10 @@ class MapTest extends TestCase
 		self::assertEquals(1, $subject->getIfExists(1));
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_tryGet_KeyNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->tryGet([], $value);
 	}
@@ -259,11 +253,10 @@ class MapTest extends TestCase
 		self::assertNull($value);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_has_KeyNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject->has([]);
 	}
@@ -414,11 +407,10 @@ class MapTest extends TestCase
 		self::assertEquals(1, $subject[1]);
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_offsetGet_NotExists_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		$subject = new Map();
 		$subject[[]];
 	}
@@ -692,7 +684,7 @@ class MapTestHelper_Iterable implements \IteratorAggregate
 	 * <b>Traversable</b>
 	 * @since 5.0.0
 	 */
-	public function getIterator()
+	public function getIterator(): \Traversable
 	{
 		return new \ArrayIterator([3 => 15, 16 => 16]);
 	}

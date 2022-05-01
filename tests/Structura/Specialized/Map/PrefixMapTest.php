@@ -7,11 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class PrefixMapTest extends TestCase
 {
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_construct_PrefixNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		new PrefixMap(0);
 	}
 	
@@ -92,13 +91,12 @@ class PrefixMapTest extends TestCase
     
         self::assertTrue($subject->has(''));
     }
-    
-    /**
-     * @expectedException \Structura\Exceptions\StructuraPrefixMapException
-     */
-    public function test_add_SubStringsExists_ExceptionThrown()
+	
+	public function test_add_SubStringsExists_ExceptionThrown()
     {
-        $subject = new PrefixMap();
+		$this->expectException(\Structura\Exceptions\StructuraPrefixMapException::class);
+		
+		$subject = new PrefixMap();
         $subject->add('ClassName', 1);
         $subject->add('ClassName\Na', 2);
     }

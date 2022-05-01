@@ -250,19 +250,17 @@ class StringsTest extends TestCase
 		self::assertEquals('', Strings::cut('', 0));
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_cut_IndexParameterNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		Strings::cut('test', 'notInt');
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_cut_IndexParameterArrayNotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		Strings::cut('test', [5]);
 	}
 	

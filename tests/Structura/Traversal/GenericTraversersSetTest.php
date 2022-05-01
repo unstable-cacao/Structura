@@ -68,11 +68,10 @@ class GenericTraversersSetTest extends TestCase
 		self::assertSame([$n], $set->getTraversers());
 	}
 	
-	/**
-	 * @expectedException \Exception
-	 */
 	public function test_add_InvalidType_ExceptionThrown(): void
 	{
+		$this->expectException(\Exception::class);
+		
 		$set = new GenericTraversersSet();
 		$set->add($this);
 	}

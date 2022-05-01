@@ -14,12 +14,11 @@
 	],
 	"minimum-stability": "stable",
 	"require": {
-		"php": ">=7.1",
+		"php": ">=8.1",
 		"oktopost/objection": "^1.0"
 	},
     "require-dev": {
-        "phpunit/phpunit": "^6.2",
-        "satooshi/php-coveralls": "^1.0",
+        "phpunit/phpunit": "^8.1",
 		"oktopost/unit-cover": "^1.0"
     },
 	"autoload": {

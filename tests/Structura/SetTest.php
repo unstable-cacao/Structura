@@ -466,12 +466,10 @@ class SetTest extends TestCase
 		self::assertFalse($set->hasAll([$object2, 2]));
 	}
 	
-	
-	/**
-	 * @expectedException \Structura\Exceptions\InvalidValueException
-	 */
 	public function test_add_NotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\InvalidValueException::class);
+		
 		$set = new Set();
 		$object = new class {};
 		
@@ -552,12 +550,10 @@ class SetTest extends TestCase
 		self::assertTrue($set->has(1));
 	}
 	
-	
-	/**
-	 * @expectedException \Structura\Exceptions\InvalidValueException
-	 */
 	public function test_rem_NotValid_ExceptionThrown()
 	{
+		$this->expectException(\Structura\Exceptions\InvalidValueException::class);
+		
 		$set = new Set();
 		$object = new class {};
 		
@@ -674,7 +670,7 @@ class SetTestHelper_Iterable implements \IteratorAggregate
 	 * <b>Traversable</b>
 	 * @since 5.0.0
 	 */
-	public function getIterator()
+	public function getIterator(): \Traversable
 	{
 		return new \ArrayIterator([1, 6]);
 	}

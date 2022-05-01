@@ -7,27 +7,24 @@ use PHPUnit\Framework\TestCase;
 
 class RandomTest extends TestCase
 {
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_string_EmptySetPassed_ExceptionThrown(): void
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		Random::string(123, '');
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_string_InvalidLengthPassed_ExceptionThrown(): void
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		Random::string(0, 'abc');
 	}
 	
-	/**
-	 * @expectedException \Structura\Exceptions\StructuraException
-	 */
 	public function test_string_NegativeLengthPassed_ExceptionThrown(): void
 	{
+		$this->expectException(\Structura\Exceptions\StructuraException::class);
+		
 		Random::string(-23, 'abc');
 	}
 	
