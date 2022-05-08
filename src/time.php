@@ -23,3 +23,19 @@ if (!function_exists('now'))
 		return \Structura\Time::now();
 	}
 }
+
+if (!function_exists('get_day_time'))
+{
+	function get_day_time(): string
+	{
+		return \Structura\Time::get(null, \Structura\Time::FORMAT_TIME);
+	}
+}
+
+if (!function_exists('get_date'))
+{
+	function get_date(): string
+	{
+		return \Structura\Time::get(null, \Structura\Time::FORMAT_DATE);
+	}
+}

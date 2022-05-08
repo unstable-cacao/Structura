@@ -4,25 +4,79 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85d9b1ff2a81fa717b2088dadf2b96a7",
+    "content-hash": "b8bf1fdd5ea9491bec802185c297b8df",
     "packages": [
         {
-            "name": "oktopost/objection",
-            "version": "1.0.13",
+            "name": "oktopost/jsonencode",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Oktopost/Objection.git",
-                "reference": "ed779b56a96e395ae1c16273f73cf5e16a0f79f3"
+                "url": "https://github.com/Oktopost/jsonencode.git",
+                "reference": "2ff092f0554f5b6c02762e3987e165d3912e423f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Oktopost/Objection/zipball/ed779b56a96e395ae1c16273f73cf5e16a0f79f3",
-                "reference": "ed779b56a96e395ae1c16273f73cf5e16a0f79f3",
+                "url": "https://api.github.com/repos/Oktopost/jsonencode/zipball/2ff092f0554f5b6c02762e3987e165d3912e423f",
+                "reference": "2ff092f0554f5b6c02762e3987e165d3912e423f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5-stable",
-                "unstable-cacao/traitor": "^1.0"
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.2",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/jsonencode.php",
+                    "src/jsondecode.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Puchkov",
+                    "email": "alexey.pkv@gmail.com"
+                },
+                {
+                    "name": "Ivan Demchenkov",
+                    "email": "demchenkov.ivan@gmail.com"
+                }
+            ],
+            "description": "Fix the behavior of json_encode and json_decode",
+            "support": {
+                "issues": "https://github.com/Oktopost/jsonencode/issues",
+                "source": "https://github.com/Oktopost/jsonencode/tree/master"
+            },
+            "time": "2018-06-17T12:16:38+00:00"
+        },
+        {
+            "name": "oktopost/objection",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Oktopost/Objection.git",
+                "reference": "090b6488339a0bbcf7811226eebaf5c7afc69f15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Oktopost/Objection/zipball/090b6488339a0bbcf7811226eebaf5c7afc69f15",
+                "reference": "090b6488339a0bbcf7811226eebaf5c7afc69f15",
+                "shasum": ""
+            },
+            "require": {
+                "oktopost/jsonencode": "^1.0",
+                "php": ">=8.1-stable",
+                "unstable-cacao/traitor": "^2.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.6.3",
+                "phpunit/phpunit": "^8.1"
             },
             "type": "library",
             "autoload": {
@@ -53,33 +107,69 @@
             ],
             "description": "Objects in PHP",
             "homepage": "https://github.com/Oktopost/Objection",
-            "time": "2017-10-19T05:25:35+00:00"
+            "support": {
+                "issues": "https://github.com/Oktopost/Objection/issues",
+                "source": "https://github.com/Oktopost/Objection/tree/2.0.0"
+            },
+            "time": "2022-05-01T14:20:43+00:00"
         },
         {
-            "name": "unstable-cacao/traitor",
-            "version": "1.0.1",
+            "name": "oktopost/unit-cover",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/unstable-cacao/Traitor.git",
-                "reference": "9568cf58c5b53111f304b1e4c3c401925802f542"
+                "url": "https://github.com/Oktopost/UnitCover.git",
+                "reference": "e564a75fab982dc198675beebb9f9ac37580dd32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unstable-cacao/Traitor/zipball/9568cf58c5b53111f304b1e4c3c401925802f542",
-                "reference": "9568cf58c5b53111f304b1e4c3c401925802f542",
+                "url": "https://api.github.com/repos/Oktopost/UnitCover/zipball/e564a75fab982dc198675beebb9f9ac37580dd32",
+                "reference": "e564a75fab982dc198675beebb9f9ac37580dd32",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1-stable"
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Alexey Puchkov",
+                    "email": "alexey@oktopost.com",
+                    "role": "Developer"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/Oktopost/UnitCover/issues",
+                "source": "https://github.com/Oktopost/UnitCover/tree/master"
+            },
+            "time": "2018-04-12T08:48:53+00:00"
+        },
+        {
+            "name": "unstable-cacao/traitor",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unstable-cacao/Traitor.git",
+                "reference": "1901418f1b3ec070677b859d67d9a766e1b2d8f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unstable-cacao/Traitor/zipball/1901418f1b3ec070677b859d67d9a766e1b2d8f5",
+                "reference": "1901418f1b3ec070677b859d67d9a766e1b2d8f5",
+                "shasum": ""
+            },
+            "require": {
+                "oktopost/unit-cover": "^1.0",
+                "php": ">=8.1-stable"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.1",
-                "satooshi/php-coveralls": "^1.0"
+                "phpunit/phpunit": "^8.1"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Traitor": "src"
+                "psr-4": {
+                    "Traitor\\": "Source/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -96,7 +186,11 @@
                     "email": "marinashers@gmail.com"
                 }
             ],
-            "time": "2017-11-13T07:22:17+00:00"
+            "support": {
+                "issues": "https://github.com/unstable-cacao/Traitor/issues",
+                "source": "https://github.com/unstable-cacao/Traitor/tree/2.0"
+            },
+            "time": "2022-05-01T12:57:55+00:00"
         }
     ],
     "packages-dev": [
@@ -228,34 +322,6 @@
                 }
             ],
             "time": "2022-03-03T13:19:32+00:00"
-        },
-        {
-            "name": "oktopost/unit-cover",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Oktopost/UnitCover.git",
-                "reference": "e564a75fab982dc198675beebb9f9ac37580dd32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Oktopost/UnitCover/zipball/e564a75fab982dc198675beebb9f9ac37580dd32",
-                "reference": "e564a75fab982dc198675beebb9f9ac37580dd32",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Alexey Puchkov",
-                    "email": "alexey@oktopost.com",
-                    "role": "Developer"
-                }
-            ],
-            "time": "2018-04-12T08:48:53+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -1915,7 +1981,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1"
+        "php": ">=8.1"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
